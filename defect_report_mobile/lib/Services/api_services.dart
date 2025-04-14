@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:defect_report_mobile/Models/chart_data_model.dart';
 import 'package:defect_report_mobile/Models/defect_report_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:defect_report_mobile/Services/api_config.dart';
@@ -56,19 +57,25 @@ class ApiServices {
     }
   }
 
-  static Future<Map<String, dynamic>> getChartData({
-    int? lineProductionId,
+   static Future<Map<String, dynamic>> fetchChartData({
+    String? lineProductionId,
     String timePeriod = 'daily',
   }) async {
-    String query = '?timePeriod=$timePeriod';
-    if (lineProductionId != null) {
-      query += '&lineProductionId=$lineProductionId';
-    }
+    final response = await http.get(Uri.parse(
+        '$baseUrl/defect/chart?lineProductionId=$lineProductionId&timePeriod=$timePeriod'));
 
-    final response = await http.get(Uri.parse('$baseUrl/chart$query'));
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      final data = json.decode(response.body);
+      return {
+        "chartData": (data['chartData'] as List)
+            .map((e) => DefectChartData.fromJson(e))
+            .toList(),
+        "daily": data["daily"],
+        "weekly": data["weekly"],
+        "monthly": data["monthly"],
+      };
+    } else {
+      throw Exception('Failed to load chart data');
     }
-    throw Exception('Failed to load chart data');
   }
 }

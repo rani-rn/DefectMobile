@@ -1,4 +1,4 @@
-import 'package:defect_report_mobile/Views/Record/tableRecord.dart';
+import 'package:defect_report_mobile/Screens/Record/tableRecord.dart';
 import 'package:flutter/material.dart';
 import '../Models/defect_report_model.dart';
 import '../Services/api_services.dart';
@@ -54,7 +54,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
                                 .contains(_searchTerm))
                         .toList();
 
-                    return DefectReportTable(reports: filtered);
+                    return DefectReportTable(reports: filtered, onRefresh: () {  },);
                   } else if (snapshot.hasError) {
                     return Center(child: Text("Error: ${snapshot.error}"));
                   }

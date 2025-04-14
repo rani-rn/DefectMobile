@@ -1,4 +1,4 @@
-import 'package:defect_report_mobile/Views/nav.dart';
+import 'package:defect_report_mobile/Screens/nav.dart';
 import 'package:flutter/material.dart';
 
 void main() {

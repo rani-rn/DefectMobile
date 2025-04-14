@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:defect_report_mobile/Views/addScreen.dart';
-import 'package:defect_report_mobile/Views/dashboard.dart';
-import 'package:defect_report_mobile/Views/listScreen.dart';
+import 'package:defect_report_mobile/Screens/addScreen.dart';
+import 'package:defect_report_mobile/Screens/dashboard.dart';
+import 'package:defect_report_mobile/Screens/listScreen.dart';
 import 'package:flutter/material.dart';
 
 class Nav extends StatefulWidget {
@@ -15,7 +15,7 @@ class _NavState extends State<Nav> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    Dashboard(),
+    DashboardPage(),
     AddScreen(),
     RecordListScreen(),
   ];

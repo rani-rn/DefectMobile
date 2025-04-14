@@ -115,11 +115,38 @@ namespace DefectRecord.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var defectName = defectReport.Defect?.DefectName?.Trim();
+            if (!string.IsNullOrWhiteSpace(defectName))
+            {
+                var existingDefect = await _context.Defect
+                    .FirstOrDefaultAsync(d => d.DefectName.ToLower() == defectName.ToLower());
+
+                if (existingDefect != null)
+                {
+                    defectReport.DefectId = existingDefect.DefectId;
+                }
+                else
+                {
+                    var newDefect = new Defect { DefectName = defectName };
+                    _context.Defect.Add(newDefect);
+                    await _context.SaveChangesAsync();
+
+                    defectReport.DefectId = newDefect.DefectId;
+                }
+            }
+            else
+            {
+                return BadRequest("DefectName is required.");
+            }
+
+            defectReport.Defect = null;
+
             _context.DefectReports.Add(defectReport);
             await _context.SaveChangesAsync();
 
             return Ok(new { success = true, message = "Data added successfully" });
         }
+
 
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateReport(int id, [FromBody] DefectReport defectReport)

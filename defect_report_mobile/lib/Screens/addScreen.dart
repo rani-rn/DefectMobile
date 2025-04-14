@@ -1,4 +1,4 @@
-import 'package:defect_report_mobile/Views/Add/addForm.dart';
+import 'package:defect_report_mobile/Screens/Add/addForm.dart';
 import 'package:flutter/material.dart';
 
 class AddScreen extends StatefulWidget {

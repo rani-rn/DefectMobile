@@ -61,4 +61,36 @@ class DefectReport {
       "defectQty": defectQty,
     };
   }
+
+  DefectReport copyWith({
+    int? reportId,
+    String? reporter,
+    String? reportDate,
+    int? prodQty,
+    int? sectionId,
+    int? lineProductionId,
+    int? defectId,
+    String? description,
+    String? status,
+    int? defectQty,
+    String? sectionName,
+    String? lineProductionName,
+    String? defectName,
+  }) {
+    return DefectReport(
+      reportId: reportId ?? this.reportId,
+      reporter: reporter ?? this.reporter,
+      reportDate: reportDate ?? this.reportDate,
+      prodQty: prodQty ?? this.prodQty,
+      sectionId: sectionId ?? this.sectionId,
+      lineProductionId: lineProductionId ?? this.lineProductionId,
+      defectId: defectId ?? this.defectId,
+      description: description ?? this.description,
+      status: status ?? this.status,
+      defectQty: defectQty ?? this.defectQty,
+      sectionName: sectionName ?? this.sectionName,
+      lineProductionName: lineProductionName ?? this.lineProductionName,
+      defectName: defectName ?? this.defectName,
+    );
+  }
 }
