@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "defect_report_mobile", "defect_report_mobile", "{C28C4BF2-5ABB-81A4-D83A-84199C297880}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefectAPI", "defect_report_mobile\DefectAPI\DefectAPI.csproj", "{74100BB1-BFCB-BA3C-A478-BE52CFE7460D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74100BB1-BFCB-BA3C-A478-BE52CFE7460D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74100BB1-BFCB-BA3C-A478-BE52CFE7460D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74100BB1-BFCB-BA3C-A478-BE52CFE7460D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74100BB1-BFCB-BA3C-A478-BE52CFE7460D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{74100BB1-BFCB-BA3C-A478-BE52CFE7460D} = {C28C4BF2-5ABB-81A4-D83A-84199C297880}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1268439B-B754-4E1B-A694-D9EF611DEB1B}
+	EndGlobalSection
+EndGlobal
