@@ -147,7 +147,6 @@ namespace DefectRecord.Controllers
             return Ok(new { success = true, message = "Data added successfully" });
         }
 
-
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateReport(int id, [FromBody] DefectReport defectReport)
         {

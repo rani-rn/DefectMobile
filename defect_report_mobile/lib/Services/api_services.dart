@@ -62,7 +62,7 @@ class ApiServices {
     String timePeriod = 'daily',
   }) async {
     final response = await http.get(Uri.parse(
-        '$baseUrl/defect/chart?lineProductionId=$lineProductionId&timePeriod=$timePeriod'));
+        '$baseUrl/chart?lineProductionId=$lineProductionId&timePeriod=$timePeriod'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -73,6 +73,7 @@ class ApiServices {
         "daily": data["daily"],
         "weekly": data["weekly"],
         "monthly": data["monthly"],
+        "annual": data["annual"],
       };
     } else {
       throw Exception('Failed to load chart data');

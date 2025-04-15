@@ -8,10 +8,11 @@ class SummaryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 120,
+      width: 150,
       height: 80,
+      margin: const EdgeInsets.only(right: 20),
       decoration: BoxDecoration(
-        color: Color(0xFF5fc7cf2),
+        color: const Color(0xFF0F58A8),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
       ),

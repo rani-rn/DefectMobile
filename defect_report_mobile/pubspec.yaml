@@ -18,13 +18,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
-  
+  flutter_launcher_icons: ^0.14.3
   flutter_lints: ^4.0.0
 
 
-
 flutter:
+  assets:
+  - assets/logo.png
 
   uses-material-design: true
   
@@ -39,6 +39,10 @@ flutter:
   #         weight: 500
   #       - asset: assets/fonts/Roboto-Bold.ttf
   #         weight: 700
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
 
   # example:
   # fonts:
