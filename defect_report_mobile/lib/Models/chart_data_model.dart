@@ -2,12 +2,12 @@ class DefectChartData {
   final String label;
   final int value;
 
-  DefectChartData({required this.label, required this.value, required List<DefectChartData> data});
+  DefectChartData({required this.label, required this.value});
 
   factory DefectChartData.fromJson(Map<String, dynamic> json) {
     return DefectChartData(
-      label: json['label'],
-      value: json['value'], data: [],
+      label: json['label'] as String,
+      value: json['value'] as int,
     );
   }
 }

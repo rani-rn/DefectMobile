@@ -22,9 +22,6 @@ namespace DefectRecord.Controllers
         [HttpGet("chart")]
         public IActionResult GetChartData(int? lineProductionId, string timePeriod = "daily")
         {
-            var query = _context.DefectReports
-                .Where(d => !lineProductionId.HasValue || d.LineProductionId == lineProductionId);
-
             var today = DateTime.Today;
             DateTime startDate = today;
 
@@ -36,25 +33,49 @@ namespace DefectRecord.Controllers
                 case "monthly":
                     startDate = today.AddMonths(-1);
                     break;
+                case "annual": 
+                    startDate = today.AddYears(-1);
+                    break;
+                default:
+                    startDate = today; 
+                    break;
             }
 
-            query = query.Where(d => d.ReportDate >= startDate);
+            var query = _context.DefectReports
+                .Include(d => d.Defect)
+                .Where(d =>
+                    (!lineProductionId.HasValue || d.LineProductionId == lineProductionId) &&
+                    d.ReportDate >= startDate
+                );
 
             var chartData = query
                 .GroupBy(d => new { d.DefectId, d.Defect.DefectName })
                 .Select(g => new
                 {
-                    Label = g.Key.DefectName,
-                    Value = g.Count()
+                    label = g.Key.DefectName,
+                    value = g.Count()
                 })
                 .ToList();
+
+            if (!chartData.Any())
+            {
+                chartData = _context.Defect
+                    .Select(d => new
+                    {
+                        label = d.DefectName,
+                        value = 0
+                    })
+                    .ToList();
+            }
 
             var daily = _context.DefectReports.Count(d => d.ReportDate.Date == today);
             var weekly = _context.DefectReports.Count(d => d.ReportDate >= today.AddDays(-7));
             var monthly = _context.DefectReports.Count(d => d.ReportDate >= today.AddMonths(-1));
+            var annual = _context.DefectReports.Count(d => d.ReportDate >= today.AddYears(-1)); // Annual count
 
-            return Ok(new { chartData, daily, weekly, monthly });
+            return Ok(new { chartData, daily, weekly, monthly, annual });
         }
+
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllReports()

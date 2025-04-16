@@ -8,7 +8,7 @@ class ApiServices {
   static final String baseUrl = ApiConfig.baseUrl;
 
   static Future<List<DefectReport>> getDefectReports() async {
-    final response = await http.get(Uri.parse(baseUrl + '/all'));
+    final response = await http.get(Uri.parse('$baseUrl/all'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = jsonDecode(response.body);
       return jsonData.map((e) => DefectReport.fromJson(e)).toList();
@@ -18,7 +18,7 @@ class ApiServices {
   }
 
   static Future<Map<String, dynamic>> getReportById(int id) async {
-    final response = await http.get(Uri.parse(baseUrl + '$id'));
+    final response = await http.get(Uri.parse('$baseUrl$id'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
@@ -27,7 +27,7 @@ class ApiServices {
 
   static Future<bool> addDefectReport(DefectReport report) async {
     final response = await http.post(
-      Uri.parse(baseUrl + '/add'),
+      Uri.parse('$baseUrl/add'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(report.toJson()),
     );
@@ -36,7 +36,7 @@ class ApiServices {
 
   static Future<bool> updateDefectReport(DefectReport report) async {
     final response = await http.post(
-      Uri.parse(baseUrl + '/update'),
+      Uri.parse('$baseUrl/update'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(report.toJson()),
     );
@@ -44,12 +44,12 @@ class ApiServices {
   }
 
   static Future<bool> deleteReport(int id) async {
-    final response = await http.delete(Uri.parse(baseUrl + '/delete/$id'));
+    final response = await http.delete(Uri.parse('$baseUrl/delete/$id'));
     return response.statusCode == 200;
   }
 
   static Future<Map<String, dynamic>> getDropdownData() async {
-    final response = await http.get(Uri.parse(baseUrl + '/dropdown'));
+    final response = await http.get(Uri.parse('$baseUrl/dropdown'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -58,7 +58,7 @@ class ApiServices {
   }
 
    static Future<Map<String, dynamic>> fetchChartData({
-    String? lineProductionId,
+    int? lineProductionId,
     String timePeriod = 'daily',
   }) async {
     final response = await http.get(Uri.parse(

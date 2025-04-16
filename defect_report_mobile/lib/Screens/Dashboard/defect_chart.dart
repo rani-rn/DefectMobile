@@ -1,6 +1,42 @@
-import 'package:defect_report_mobile/Models/chart_data_model.dart';
 import 'package:flutter/material.dart';
+import 'package:defect_report_mobile/Services/api_services.dart';
+import 'package:defect_report_mobile/Models/chart_data_model.dart';
 import 'package:fl_chart/fl_chart.dart';
+
+class DefectChartScreen extends StatelessWidget {
+  final int? lineProductionId;
+  final String timePeriod;
+
+  const DefectChartScreen({super.key, this.lineProductionId, this.timePeriod = 'daily'});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Defect Chart'),
+      ),
+      body: FutureBuilder<Map<String, dynamic>>(
+        future: ApiServices.fetchChartData(
+          lineProductionId: lineProductionId,
+          timePeriod: timePeriod,
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            final data = snapshot.data!['chartData'] as List;
+            final chartData = data.map((e) => DefectChartData.fromJson(e)).toList();
+            return DefectChart(data: chartData);
+          } else {
+            return const Center(child: Text('No data available'));
+          }
+        },
+      ),
+    );
+  }
+}
 
 class DefectChart extends StatelessWidget {
   final List<DefectChartData> data;

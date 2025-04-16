@@ -136,7 +136,7 @@ class _UpdateTableScreenState extends State<UpdateTableScreen> {
                   return DropdownMenuItem(value: value, child: Text(value));
                 }).toList(),
                 onChanged: (newValue) =>
-                    setState(() => _selectedSection = newValue as String?),
+                    setState(() => _selectedSection = newValue),
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField(
@@ -146,7 +146,7 @@ class _UpdateTableScreenState extends State<UpdateTableScreen> {
                   return DropdownMenuItem(value: value, child: Text(value));
                 }).toList(),
                 onChanged: (newValue) =>
-                    setState(() => _selectedLineProduction = newValue as String?),
+                    setState(() => _selectedLineProduction = newValue),
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField(
