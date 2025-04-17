@@ -1,203 +1,253 @@
-import 'package:defect_report_mobile/Models/defect_report_model.dart';
 import 'package:defect_report_mobile/Services/api_services.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class UpdateTableScreen extends StatefulWidget {
-  final DefectReport report;
-  const UpdateTableScreen({Key? key, required this.report}) : super(key: key);
+class DefectEditForm extends StatefulWidget {
+  final int reportId;
+
+  const DefectEditForm({super.key, required this.reportId});
 
   @override
-  State<UpdateTableScreen> createState() => _UpdateTableScreenState();
+  State<DefectEditForm> createState() => _DefectEditFormState();
 }
 
-class _UpdateTableScreenState extends State<UpdateTableScreen> {
+class _DefectEditFormState extends State<DefectEditForm> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _reporterController;
-  late TextEditingController _dateController;
-  late TextEditingController _productionQtyController;
-  late TextEditingController _descriptionController;
-  late TextEditingController _defectQtyController;
+  final TextEditingController _reporterController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _productionQtyController =
+      TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _defectQtyController = TextEditingController();
 
   String? _selectedSection;
   String? _selectedLineProduction;
   String? _selectedDefect;
-  String? _selectedStatus;
+  late int reportId;
+
+  late Future<Map<String, dynamic>> _dropdownDataFuture;
+  late Future<Map<String, dynamic>> _formDataFuture;
+
+  List<Map<String, dynamic>> sections = [];
+  List<Map<String, dynamic>> lineProductions = [];
+  List<Map<String, dynamic>> defects = [];
 
   @override
   void initState() {
     super.initState();
-    final r = widget.report;
-    _reporterController = TextEditingController(text: r.reporter);
-    _dateController = TextEditingController(text: r.reportDate);
-    _productionQtyController = TextEditingController(text: r.prodQty.toString());
-    _descriptionController = TextEditingController(text: r.description ?? '');
-    _defectQtyController = TextEditingController(text: r.defectQty.toString());
-
-    _selectedSection = r.sectionName;
-    _selectedLineProduction = r.lineProductionName;
-    _selectedDefect = r.defectName;
-    _selectedStatus = r.status;
+    _dropdownDataFuture = ApiServices.getDropdownData();
+    _formDataFuture = ApiServices.getReportById(reportId);
   }
 
-  InputDecoration customInputDecoration({required String label, String? hint}) {
+  InputDecoration formInput({required String label}) {
     return InputDecoration(
       labelText: label,
-      hintText: hint,
-      labelStyle: const TextStyle(color: Color(0xFF0072BC)),
-      hintStyle: const TextStyle(color: Colors.grey),
-      enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Color(0xFF0072BC)),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Color(0xFF0072BC), width: 2),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      labelStyle: const TextStyle(fontSize: 14),
+      fillColor: Colors.white,
+      filled: true,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
     );
   }
 
-  Future<void> _updateData() async {
-    if (_formKey.currentState!.validate()) {
-      final updatedReport = widget.report.copyWith(
-        reporter: _reporterController.text,
-        reportDate: _dateController.text,
-        prodQty: int.tryParse(_productionQtyController.text) ?? 0,
-        sectionName: _selectedSection,
-        lineProductionName: _selectedLineProduction,
-        defectName: _selectedDefect,
-        status: _selectedStatus,
-        description: _descriptionController.text,
-        defectQty: int.tryParse(_defectQtyController.text) ?? 0,
-      );
-
-      bool success = await ApiServices.updateDefectReport(updatedReport);
-      if (success && mounted) {
-        Navigator.pop(context, true);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Failed to update report")),
-        );
-      }
-    }
+  void _setInitialData(Map<String, dynamic> data) {
+    _reporterController.text = data['reporter'] ?? '';
+    _dateController.text = data['date'] ?? '';
+    _descriptionController.text = data['description'] ?? '';
+    _productionQtyController.text = data['productionQty'].toString();
+    _defectQtyController.text = data['defectQty'].toString();
+    _selectedSection = data['sectionId'].toString();
+    _selectedLineProduction = data['lineProductionId'].toString();
+    _selectedDefect = data['defectId'].toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Update Defect Report")),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                controller: _reporterController,
-                decoration: customInputDecoration(label: 'Reporter'),
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _dateController,
-                readOnly: true,
-                decoration:
-                    customInputDecoration(label: 'Date', hint: 'YYYY-MM-DD'),
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.tryParse(_dateController.text) ?? DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101),
-                  );
+      body: SafeArea(
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: _dropdownDataFuture,
+          builder: (context, dropdownSnapshot) {
+            if (dropdownSnapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (dropdownSnapshot.hasError) {
+              return Center(child: Text('Error: ${dropdownSnapshot.error}'));
+            } else if (dropdownSnapshot.hasData) {
+              final dropdownData = dropdownSnapshot.data!;
+              lineProductions =
+                  List<Map<String, dynamic>>.from(dropdownData['lineProductions']);
+              sections = List<Map<String, dynamic>>.from(dropdownData['sections']);
+              defects = List<Map<String, dynamic>>.from(dropdownData['defects']);
 
-                  if (pickedDate != null) {
-                    String formattedDate =
-                        "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-                    setState(() {
-                      _dateController.text = formattedDate;
-                    });
+              return FutureBuilder<Map<String, dynamic>>(
+                future: _formDataFuture,
+                builder: (context, formSnapshot) {
+                  if (formSnapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (formSnapshot.hasError) {
+                    return Center(child: Text('Error: ${formSnapshot.error}'));
+                  } else if (formSnapshot.hasData) {
+                    final formData = formSnapshot.data!;
+                    _setInitialData(formData);
+
+                    return SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: _reporterController,
+                              decoration: formInput(label: 'Reporter'),
+                              validator: (value) =>
+                                  value == null || value.isEmpty ? 'Required' : null,
+                            ),
+                            const SizedBox(height: 12),
+                            TextFormField(
+                              controller: _dateController,
+                              readOnly: true,
+                              decoration: formInput(label: 'Date'),
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2100),
+                                );
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+                                  setState(() {
+                                    _dateController.text = formattedDate;
+                                  });
+                                }
+                              },
+                              validator: (value) =>
+                                  value == null || value.isEmpty ? 'Required' : null,
+                            ),
+                            const SizedBox(height: 12),
+                            DropdownButtonFormField<String>(
+                              value: _selectedLineProduction,
+                              decoration: formInput(label: 'Line Production'),
+                              items: lineProductions.map((item) {
+                                return DropdownMenuItem<String>(
+                                  value: item['id'].toString(),
+                                  child: Text(item['lineProductionName']),
+                                );
+                              }).toList(),
+                              onChanged: (val) =>
+                                  setState(() => _selectedLineProduction = val),
+                              validator: (value) =>
+                                  value == null ? 'Required' : null,
+                            ),
+                            const SizedBox(height: 12),
+                            DropdownButtonFormField<String>(
+                              value: _selectedSection,
+                              decoration: formInput(label: 'Section'),
+                              items: sections.map((item) {
+                                return DropdownMenuItem<String>(
+                                  value: item['sectionId'].toString(),
+                                  child: Text(item['sectionName']),
+                                );
+                              }).toList(),
+                              onChanged: (val) =>
+                                  setState(() => _selectedSection = val),
+                              validator: (value) =>
+                                  value == null ? 'Required' : null,
+                            ),
+                            const SizedBox(height: 12),
+                            DropdownSearch<String>(
+                              selectedItem: defects.firstWhere(
+                                  (d) => d['defectId'].toString() == _selectedDefect,
+                                  orElse: () => {'defectName': ''})['defectName'],
+                              dropdownDecoratorProps: DropDownDecoratorProps(
+                                dropdownSearchDecoration:
+                                    formInput(label: 'Defect Record'),
+                              ),
+                              asyncItems: (String filter) async {
+                                return defects
+                                    .map((defect) =>
+                                        defect['defectName'].toString())
+                                    .where((name) => name
+                                        .toLowerCase()
+                                        .contains(filter.toLowerCase()))
+                                    .toList();
+                              },
+                              popupProps: PopupProps.menu(
+                                showSearchBox: true,
+                              ),
+                              onChanged: (val) {
+                                final defect = defects.firstWhere(
+                                    (d) => d['defectName'] == val,
+                                    orElse: () => {});
+                                setState(() {
+                                  if (defect.isNotEmpty) {
+                                    _selectedDefect =
+                                        defect['defectId'].toString();
+                                  } else {
+                                    _selectedDefect = 'new:$val';
+                                  }
+                                });
+                              },
+                              validator: (value) =>
+                                  value == null || value.isEmpty ? 'Required' : null,
+                            ),
+                            const SizedBox(height: 12),
+                            TextFormField(
+                              controller: _descriptionController,
+                              maxLines: 3,
+                              decoration: formInput(label: 'Description'),
+                            ),
+                            const SizedBox(height: 12),
+                            TextFormField(
+                              controller: _productionQtyController,
+                              keyboardType: TextInputType.number,
+                              decoration: formInput(label: 'Production Qty'),
+                              validator: (value) =>
+                                  value == null || value.isEmpty ? 'Required' : null,
+                            ),
+                            const SizedBox(height: 12),
+                            TextFormField(
+                              controller: _defectQtyController,
+                              keyboardType: TextInputType.number,
+                              decoration: formInput(label: 'Defect Qty'),
+                              validator: (value) =>
+                                  value == null || value.isEmpty ? 'Required' : null,
+                            ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    // Submit updated data
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 14),
+                                  child: Text('Update',
+                                      style: TextStyle(fontSize: 16)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Center(child: Text("No form data available"));
                   }
                 },
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _productionQtyController,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: customInputDecoration(
-                    label: 'Production Quantity', hint: 'Input Total Production'),
-              ),
-              const SizedBox(height: 12),
-              DropdownButtonFormField(
-                value: _selectedSection,
-                decoration: customInputDecoration(label: 'Section'),
-                items: ['Section A', 'Section B'].map((String value) {
-                  return DropdownMenuItem(value: value, child: Text(value));
-                }).toList(),
-                onChanged: (newValue) =>
-                    setState(() => _selectedSection = newValue),
-              ),
-              const SizedBox(height: 12),
-              DropdownButtonFormField(
-                value: _selectedLineProduction,
-                decoration: customInputDecoration(label: 'Line Production'),
-                items: ['Line 1', 'Line 2'].map((String value) {
-                  return DropdownMenuItem(value: value, child: Text(value));
-                }).toList(),
-                onChanged: (newValue) =>
-                    setState(() => _selectedLineProduction = newValue),
-              ),
-              const SizedBox(height: 12),
-              DropdownButtonFormField(
-                value: _selectedDefect,
-                decoration: customInputDecoration(label: 'Defect Item'),
-                items: ['Defect A', 'Defect B'].map((String value) {
-                  return DropdownMenuItem(value: value, child: Text(value));
-                }).toList(),
-                onChanged: (newValue) =>
-                    setState(() => _selectedDefect = newValue as String?),
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _descriptionController,
-                maxLines: 3,
-                decoration: customInputDecoration(label: 'Description'),
-              ),
-              const SizedBox(height: 12),
-              DropdownButtonFormField(
-                value: _selectedStatus,
-                decoration: customInputDecoration(label: 'Status'),
-                items: ['Repairable', 'Dispose'].map((String value) {
-                  return DropdownMenuItem(value: value, child: Text(value));
-                }).toList(),
-                onChanged: (newValue) =>
-                    setState(() => _selectedStatus = newValue as String?),
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _defectQtyController,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: customInputDecoration(
-                    label: 'Defect Quantity', hint: 'Jumlah defect ditemukan'),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: _updateData,
-                    child: const Text('Update'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
-                  ),
-                ],
-              ),
-            ],
-          ),
+              );
+            } else {
+              return const Center(child: Text("No dropdown data"));
+            }
+          },
         ),
       ),
     );

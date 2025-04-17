@@ -1,6 +1,6 @@
+import 'package:defect_report_mobile/Services/api_services.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class DefectInputForm extends StatefulWidget {
   @override
@@ -11,20 +11,22 @@ class _DefectInputFormState extends State<DefectInputForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _reporterController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _productionQtyController = TextEditingController();
+  final TextEditingController _productionQtyController =
+      TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _defectQtyController = TextEditingController();
 
   String? _selectedSection;
   String? _selectedLineProduction;
   String? _selectedDefect;
-  String? _selectedStatus;
-  String? _selectedRole;
+  late Future<Map<String, dynamic>> _dropdownDataFuture;
 
-  List<Map<String, dynamic>> _defectItems = [
-    {'id': 1, 'name': 'Crack'},
-    {'id': 2, 'name': 'Scratch'},
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _dropdownDataFuture = ApiServices
+        .getDropdownData();
+  }
 
   InputDecoration formInput({required String label}) {
     return InputDecoration(
@@ -37,162 +39,220 @@ class _DefectInputFormState extends State<DefectInputForm> {
     );
   }
 
-  Future<void> _saveData() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      final response = await http.post(
-        Uri.parse('https://your-api-url.com/api/DefectReports'),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({
-          'reporter': _reporterController.text,
-          'reportDate': _dateController.text,
-          'prodQty': int.tryParse(_productionQtyController.text) ?? 0,
-          'section': _selectedSection,
-          'lineProduction': _selectedLineProduction,
-          'defect': _selectedDefect,
-          'description': _descriptionController.text,
-          'status': _selectedStatus,
-          'defectQty': int.tryParse(_defectQtyController.text) ?? 0,
-          'role': _selectedRole,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Defect Report saved successfully!')));
-        Navigator.pop(context);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to save defect report.')));
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextFormField(
-                    controller: _reporterController,
-                    decoration: formInput(label: 'Reporter'),
-                    validator: (value) => value == null || value.isEmpty ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: _dropdownDataFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              final dropdownData = snapshot.data!;
+              final lineProductions = List<Map<String, dynamic>>.from(
+                  dropdownData['lineProductions']);
+              final sections =
+                  List<Map<String, dynamic>>.from(dropdownData['sections']);
+              final defects =
+                  List<Map<String, dynamic>>.from(dropdownData['defects']);
+
+              return SingleChildScrollView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: _dateController,
-                          decoration: formInput(label: 'Date'),
-                          validator: (value) => value == null || value.isEmpty ? 'Required' : null,
+                      TextFormField(
+                        controller: _reporterController,
+                        decoration: formInput(label: 'Reporter'),
+                        validator: (value) =>
+                            value == null || value.isEmpty ? 'Required' : null,
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: _dateController,
+                              readOnly: true,
+                              decoration: formInput(label: 'Date'),
+                              validator: (value) =>
+                                  value == null || value.isEmpty
+                                      ? 'Required'
+                                      : null,
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2100),
+                                );
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+                                  setState(() {
+                                    _dateController.text = formattedDate;
+                                  });
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      DropdownButtonFormField<String>(
+                        value: _selectedLineProduction,
+                        decoration: formInput(label: 'Line Production'),
+                        items: lineProductions.map((item) {
+                          return DropdownMenuItem<String>(
+                            value: item['id'].toString(),
+                            child: Text(item['lineProductionName']),
+                          );
+                        }).toList(),
+                        onChanged: (val) =>
+                            setState(() => _selectedLineProduction = val),
+                        validator: (value) => value == null ? 'Required' : null,
+                      ),
+                      const SizedBox(height: 12),
+                      DropdownButtonFormField<String>(
+                        value: _selectedSection,
+                        decoration: formInput(label: 'Section'),
+                        items: sections.map((item) {
+                          return DropdownMenuItem<String>(
+                            value: item['sectionId'].toString(),
+                            child: Text(item['sectionName']),
+                          );
+                        }).toList(),
+                        onChanged: (val) =>
+                            setState(() => _selectedSection = val),
+                        validator: (value) => value == null ? 'Required' : null,
+                      ),
+                      const SizedBox(height: 12),
+                      DropdownButtonFormField<String>(
+                        value: _selectedDefect,
+                        decoration: formInput(label: 'Defect Record'),
+                        items: defects.map<DropdownMenuItem<String>>((defect) {
+                          return DropdownMenuItem<String>(
+                            value: defect['defectId'].toString(),
+                            child: Text(defect['defectName']),
+                          );
+                        }).toList(),
+                        onChanged: (val) =>
+                            setState(() => _selectedDefect = val),
+                        validator: (value) => value == null ? 'Required' : null,
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: _descriptionController,
+                        maxLines: 3,
+                        decoration: formInput(label: 'Description'),
+                      ),
+                      const SizedBox(height: 12),
+                      DropdownSearch<String>(
+                        selectedItem: _selectedDefect,
+                        dropdownDecoratorProps: DropDownDecoratorProps(
+                          dropdownSearchDecoration:
+                              formInput(label: 'Defect Record'),
+                        ),
+                        asyncItems: (String filter) async {
+                          return defects
+                              .map((defect) => defect['defectName'].toString())
+                              .where((name) => name
+                                  .toLowerCase()
+                                  .contains(filter.toLowerCase()))
+                              .toList();
+                        },
+                        popupProps: PopupProps.menu(
+                          showSearchBox: true,
+                          showSelectedItems: true,
+                          searchFieldProps: TextFieldProps(
+                            decoration: InputDecoration(
+                              hintText: 'Search or type to add...',
+                            ),
+                          ),
+                        ),
+                        onChanged: (val) {
+                          final defect = defects.firstWhere(
+                            (d) => d['defectName'] == val,
+                            orElse: () => {},
+                          );
+                          setState(() {
+                            if (defect != null) {
+                              _selectedDefect = defect['defectId'].toString();
+                            } else {
+                              _selectedDefect = 'new:$val';
+                            }
+                          });
+                        },
+                        validator: (value) =>
+                            value == null || value.isEmpty ? 'Required' : null,
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: _productionQtyController,
+                        decoration: formInput(label: 'Production Qty'),
+                        keyboardType: TextInputType.number,
+                        validator: (value) =>
+                            value == null || value.isEmpty ? 'Required' : null,
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                        controller: _defectQtyController,
+                        decoration: formInput(label: 'Defect Qty'),
+                        keyboardType: TextInputType.number,
+                        validator: (value) =>
+                            value == null || value.isEmpty ? 'Required' : null,
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              // Simpan data
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 14),
+                            child: Text('Save', style: TextStyle(fontSize: 16)),
+                          ),
                         ),
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          value: _selectedRole,
-                          decoration: formInput(label: 'Role'),
-                          items: ['Operator', 'QA'].map((role) {
-                            return DropdownMenuItem(value: role, child: Text(role));
-                          }).toList(),
-                          onChanged: (val) => setState(() => _selectedRole = val),
-                          validator: (value) => value == null ? 'Required' : null,
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.pop(context),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 14),
+                            child:
+                                Text('Cancel', style: TextStyle(fontSize: 16)),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  DropdownButtonFormField<String>(
-                    value: _selectedLineProduction,
-                    decoration: formInput(label: 'Line Production'),
-                    items: ['Line 1', 'Line 2'].map((value) {
-                      return DropdownMenuItem(value: value, child: Text(value));
-                    }).toList(),
-                    onChanged: (val) => setState(() => _selectedLineProduction = val),
-                    validator: (value) => value == null ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 12),
-                  DropdownButtonFormField<String>(
-                    value: _selectedDefect,
-                    decoration: formInput(label: 'Defect Record'),
-                    items: _defectItems.map((defect) {
-                      return DropdownMenuItem(
-                        value: defect['id'].toString(),
-                        child: Text(defect['name']),
-                      );
-                    }).toList(),
-                    onChanged: (val) => setState(() => _selectedDefect = val),
-                    validator: (value) => value == null ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 12),
-                  TextFormField(
-                    controller: _descriptionController,
-                    maxLines: 3,
-                    decoration: formInput(label: 'Description'),
-                  ),
-                  const SizedBox(height: 12),
-                  DropdownButtonFormField<String>(
-                    value: _selectedStatus,
-                    decoration: formInput(label: 'Status'),
-                    items: ['Repairable', 'Dispose'].map((value) {
-                      return DropdownMenuItem(value: value, child: Text(value));
-                    }).toList(),
-                    onChanged: (val) => setState(() => _selectedStatus = val),
-                    validator: (value) => value == null ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 12),
-                  TextFormField(
-                    controller: _productionQtyController,
-                    decoration: formInput(label: 'Production Qty'),
-                    keyboardType: TextInputType.number,
-                    validator: (value) => value == null || value.isEmpty ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 12),
-                  TextFormField(
-                    controller: _defectQtyController,
-                    decoration: formInput(label: 'Defect Qty'),
-                    keyboardType: TextInputType.number,
-                    validator: (value) => value == null || value.isEmpty ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _saveData,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 14),
-                        child: Text('Save', style: TextStyle(fontSize: 16)),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 14),
-                        child: Text('Cancel', style: TextStyle(fontSize: 16)),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
+              );
+            } else {
+              return Center(child: Text('No data available'));
+            }
+          },
         ),
       ),
     );

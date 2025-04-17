@@ -57,12 +57,17 @@ class ApiServices {
     }
   }
 
-   static Future<Map<String, dynamic>> fetchChartData({
+  static Future<Map<String, dynamic>> fetchChartData({
     int? lineProductionId,
     String timePeriod = 'daily',
   }) async {
-    final response = await http.get(Uri.parse(
-        '$baseUrl/chart?lineProductionId=$lineProductionId&timePeriod=$timePeriod'));
+    final uri = Uri.parse('$baseUrl/chart').replace(queryParameters: {
+      if (lineProductionId != null)
+        'lineProductionId': lineProductionId.toString(),
+      'timePeriod': timePeriod,
+    });
+
+    final response = await http.get(uri);
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

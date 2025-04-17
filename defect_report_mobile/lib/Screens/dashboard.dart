@@ -1,4 +1,5 @@
 import 'package:defect_report_mobile/Models/chart_data_model.dart';
+import 'package:defect_report_mobile/Models/line_production_model.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/box_widgets.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/defect_chart.dart';
 import 'package:defect_report_mobile/Services/api_services.dart';
@@ -17,7 +18,29 @@ class _DashboardPageState extends State<DashboardPage> {
   List<DefectChartData> chartData = [];
   int daily = 0, weekly = 0, monthly = 0, annual = 0;
 
-  final List<String> lineOptions = ['All Line Production', 'Line A', 'Line B'];
+  List<LineProduction> lineOptions = [];
+  bool isLoadingLine = true;
+
+  Future<void> loadLineProductions() async {
+    try {
+      final data = await ApiServices.getDropdownData();
+      final lines = (data["lineProductions"] as List)
+          .map((e) => LineProduction.fromJson(e))
+          .toList();
+
+      setState(() {
+        lineOptions = lines;
+        isLoadingLine = false;
+      });
+    } catch (e) {
+      print("Error loading line production: $e");
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to load line production")),
+        );
+      }
+    }
+  }
 
   Future<void> loadData() async {
     try {
@@ -26,14 +49,15 @@ class _DashboardPageState extends State<DashboardPage> {
         timePeriod: selectedPeriod,
       );
       setState(() {
-        chartData = data["chartData"] ?? [];
+        chartData = List<DefectChartData>.from(data["chartData"]);
+
         daily = data["daily"] ?? 0;
         weekly = data["weekly"] ?? 0;
         monthly = data["monthly"] ?? 0;
         annual = data["annual"] ?? 0;
       });
     } catch (e) {
-      print("Error: $e"); 
+      print("Error: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Error loading data: $e")),
@@ -45,7 +69,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    loadData();
+    loadLineProductions().then((_) => loadData());
   }
 
   @override
@@ -60,40 +84,46 @@ class _DashboardPageState extends State<DashboardPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownButton<String>(
-                  value: selectedLineId != null
-                      ? lineOptions[selectedLineId! + 1]
-                      : null,  // If selectedLineId is null, default to the first option
-                  hint: const Text("Select Line"),
-                  items: lineOptions.map((line) {
-                    return DropdownMenuItem(
-                      value: line == 'All Line Production' ? null : line,
-                      child: Text(line),
-                    );
-                  }).toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      selectedLineId = val == null ? null : lineOptions.indexOf(val) - 1;
-                    });
-                    loadData();
-                  },
-                ),
-                const SizedBox(width: 16),
-                DropdownButton<String>(
-                  value: selectedPeriod,
-                  items: ['daily', 'weekly', 'monthly', 'annual'].map((period) {
-                    return DropdownMenuItem(value: period, child: Text(period));
-                  }).toList(),
-                  onChanged: (val) {
-                    setState(() => selectedPeriod = val!);
-                    loadData();
-                  },
-                ),
-              ],
-            ),
+            if (isLoadingLine)
+              const Center(child: CircularProgressIndicator())
+            else
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DropdownButton<int?>(
+                    value: selectedLineId,
+                    hint: const Text("Select Line"),
+                    items: [
+                      const DropdownMenuItem<int?>(
+                        value: null,
+                        child: Text("All Line Production"),
+                      ),
+                      ...lineOptions.map((line) => DropdownMenuItem<int?>(
+                            value: line.id,
+                            child: Text(line.lineProductionName),
+                          )),
+                    ],
+                    onChanged: (val) {
+                      setState(() => selectedLineId = val);
+                      loadData();
+                    },
+                  ),
+                  const SizedBox(width: 16),
+                  DropdownButton<String>(
+                    value: selectedPeriod,
+                    items: ['daily', 'weekly', 'monthly', 'annual']
+                        .map((period) => DropdownMenuItem(
+                              value: period,
+                              child: Text(period),
+                            ))
+                        .toList(),
+                    onChanged: (val) {
+                      setState(() => selectedPeriod = val!);
+                      loadData();
+                    },
+                  ),
+                ],
+              ),
             const SizedBox(height: 20),
             Wrap(
               spacing: 16,
@@ -126,7 +156,7 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               child: chartData.isEmpty
                   ? const Center(child: Text("No data available"))
-                  : DefectChart(data: chartData), 
+                  : DefectChart(data: chartData),
             ),
           ],
         ),

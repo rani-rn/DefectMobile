@@ -1,42 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:defect_report_mobile/Services/api_services.dart';
 import 'package:defect_report_mobile/Models/chart_data_model.dart';
 import 'package:fl_chart/fl_chart.dart';
-
-class DefectChartScreen extends StatelessWidget {
-  final int? lineProductionId;
-  final String timePeriod;
-
-  const DefectChartScreen({super.key, this.lineProductionId, this.timePeriod = 'daily'});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Defect Chart'),
-      ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: ApiServices.fetchChartData(
-          lineProductionId: lineProductionId,
-          timePeriod: timePeriod,
-        ),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (snapshot.hasData) {
-            final data = snapshot.data!['chartData'] as List;
-            final chartData = data.map((e) => DefectChartData.fromJson(e)).toList();
-            return DefectChart(data: chartData);
-          } else {
-            return const Center(child: Text('No data available'));
-          }
-        },
-      ),
-    );
-  }
-}
+import 'package:flutter/material.dart';
 
 class DefectChart extends StatelessWidget {
   final List<DefectChartData> data;
@@ -44,24 +8,43 @@ class DefectChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BarChart(
-      BarChartData(
-        barGroups: _generateBarGroups(),
-        titlesData: const FlTitlesData(
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: true),
-          ),
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 30,
+    return AspectRatio(
+      aspectRatio: 1.5,
+      child: BarChart(
+        BarChartData(
+          barGroups: _generateBarGroups(),
+          titlesData: FlTitlesData(
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 40,
+              ),
+            ),
+            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 40,
+                getTitlesWidget: (value, meta) {
+                  final int index = value.toInt();
+                  if (index < 0 || index >= data.length)
+                    return const SizedBox();
+                  return SideTitleWidget(
+                    space: 4,
+                    meta: meta,
+                    child: Text(
+                      data[index].label,
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          borderData: FlBorderData(show: false),
+          gridData: FlGridData(show: true),
         ),
-        borderData: FlBorderData(show: false),
-        gridData: FlGridData(show: false),
       ),
     );
   }
@@ -76,9 +59,10 @@ class DefectChart extends StatelessWidget {
         barRods: [
           BarChartRodData(
             toY: item.value.toDouble(),
-            color: Colors.lightBlueAccent,
+            color: Colors.cyanAccent
+                .withAlpha((0.8 * 255).toInt()), // Gantikan .withOpacity
             borderRadius: BorderRadius.circular(6),
-            width: 18,
+            width: 22,
           ),
         ],
       );

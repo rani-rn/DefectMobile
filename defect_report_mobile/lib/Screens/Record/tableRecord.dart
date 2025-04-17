@@ -33,7 +33,8 @@ class _DefectReportTableState extends State<DefectReportTable> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => UpdateTableScreen(report: report),
+                      builder: (_) => DefectEditForm(reportId: report.reportId!),
+
                     ),
                   ).then((_) {
                     widget.onRefresh();
