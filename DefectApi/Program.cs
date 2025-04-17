@@ -11,6 +11,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Listen(System.Net.IPAddress.Any, 5145); 
+});
+
 
 var app = builder.Build();
 
