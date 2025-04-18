@@ -33,11 +33,11 @@ namespace DefectRecord.Controllers
                 case "monthly":
                     startDate = today.AddMonths(-1);
                     break;
-                case "annual": 
+                case "annual":
                     startDate = today.AddYears(-1);
                     break;
                 default:
-                    startDate = today; 
+                    startDate = today;
                     break;
             }
 
@@ -130,35 +130,33 @@ namespace DefectRecord.Controllers
             return Ok(defectReport);
         }
 
+        [HttpPost("add-defect")]
+        public async Task<IActionResult> AddDefect([FromBody] Defect defect)
+        {
+            if (string.IsNullOrWhiteSpace(defect.DefectName))
+                return BadRequest("Defect name is required.");
+
+            var existingDefect = await _context.Defect
+                .FirstOrDefaultAsync(d => d.DefectName.ToLower() == defect.DefectName.ToLower());
+
+            if (existingDefect != null)
+                return Ok(new { success = true, message = "Defect already exists", defectId = existingDefect.DefectId });
+
+            _context.Defect.Add(defect);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { success = true, message = "Defect added successfully", defectId = defect.DefectId });
+        }
+
         [HttpPost("add")]
         public async Task<IActionResult> AddReport([FromBody] DefectReport defectReport)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var defectName = defectReport.Defect?.DefectName?.Trim();
-            if (!string.IsNullOrWhiteSpace(defectName))
-            {
-                var existingDefect = await _context.Defect
-                    .FirstOrDefaultAsync(d => d.DefectName.ToLower() == defectName.ToLower());
-
-                if (existingDefect != null)
-                {
-                    defectReport.DefectId = existingDefect.DefectId;
-                }
-                else
-                {
-                    var newDefect = new Defect { DefectName = defectName };
-                    _context.Defect.Add(newDefect);
-                    await _context.SaveChangesAsync();
-
-                    defectReport.DefectId = newDefect.DefectId;
-                }
-            }
-            else
-            {
-                return BadRequest("DefectName is required.");
-            }
+            var defectExists = await _context.Defect.AnyAsync(d => d.DefectId == defectReport.DefectId);
+            if (!defectExists)
+                return BadRequest("Invalid DefectId.");
 
             defectReport.Defect = null;
 

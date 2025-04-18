@@ -1,5 +1,7 @@
 import 'package:defect_report_mobile/Models/defect_report_model.dart';
-import 'package:defect_report_mobile/Screens/Record/updateTable.dart';
+import 'package:defect_report_mobile/Screens/Record/update_report.dart';
+import 'package:defect_report_mobile/Screens/Widget/defect_form.dart';
+import 'package:defect_report_mobile/Screens/Widget/delete_confirm.dart';
 import 'package:defect_report_mobile/Services/api_services.dart';
 import 'package:flutter/material.dart';
 
@@ -29,17 +31,14 @@ class _DefectReportTableState extends State<DefectReportTable> {
                 leading: const Icon(Icons.edit),
                 title: const Text('Edit'),
                 onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => DefectEditForm(reportId: report.reportId!),
-
-                    ),
-                  ).then((_) {
-                    widget.onRefresh();
-                  });
-                },
+                Navigator.pop(context); 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpdateScreen(report: report),
+                  ),
+                );
+              },
               ),
               ListTile(
                 leading: const Icon(Icons.delete),
@@ -59,32 +58,19 @@ class _DefectReportTableState extends State<DefectReportTable> {
   void _confirmDelete(DefectReport report) async {
     final confirm = await showDialog<bool>(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Confirm Delete'),
-        content: const Text('Are you sure you want to delete this report?'),
-        actions: [
-          TextButton(
-            child: const Text('Cancel'),
-            onPressed: () => Navigator.pop(context, false),
-          ),
-          ElevatedButton(
-            child: const Text('Delete'),
-            onPressed: () => Navigator.pop(context, true),
-          ),
-        ],
-      ),
+      builder: (_) => const ConfirmDeleteDialog(),
     );
 
     if (confirm == true) {
       final success = await ApiServices.deleteReport(report.reportId!);
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Report deleted')),
+          const SnackBar(content: Text('Report delete seccessfully')),
         );
         widget.onRefresh();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to delete report')),
+          const SnackBar(content: Text('Report delete failed')),
         );
       }
     }

@@ -1,6 +1,6 @@
-import 'package:defect_report_mobile/Screens/Add/addForm.dart';
-import 'package:flutter/material.dart';
 
+import 'package:defect_report_mobile/Screens/Widget/defect_form.dart';
+import 'package:flutter/material.dart';
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
 
@@ -17,7 +17,7 @@ class _AddScreenState extends State<AddScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: DefectInputForm(),
+        child:DefectInputForm(), 
       ),
     );
   }

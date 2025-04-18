@@ -4,7 +4,7 @@ import '../Models/defect_report_model.dart';
 import '../Services/api_services.dart';
 
 class RecordListScreen extends StatefulWidget {
-  const RecordListScreen({Key? key}) : super(key: key);
+  const RecordListScreen({super.key});
 
   @override
   State<RecordListScreen> createState() => _RecordListScreenState();
@@ -46,11 +46,11 @@ class _RecordListScreenState extends State<RecordListScreen> {
                     final filtered = snapshot.data!
                         .where((d) =>
                             d.reporter.toLowerCase().contains(_searchTerm) ||
-                            (d.sectionName?.toLowerCase() ?? '')
+                            (d.sectionName.toLowerCase())
                                 .contains(_searchTerm) ||
-                            (d.lineProductionName?.toLowerCase() ?? '')
+                            (d.lineProductionName.toLowerCase() )
                                 .contains(_searchTerm) ||
-                            (d.defectName?.toLowerCase() ?? '')
+                            (d.defectName.toLowerCase() )
                                 .contains(_searchTerm))
                         .toList();
 
