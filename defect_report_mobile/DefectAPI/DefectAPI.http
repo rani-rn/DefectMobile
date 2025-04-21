@@ -1,0 +1,6 @@
+@DefectAPI_HostAddress = http://localhost:5072
+
+GET {{DefectAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,2 @@
+D:/Panasonic/DefectMobile-main/DefectMobile-main/defect_report_mobile/android/app/.cxx/Debug/6i184u32/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Panasonic/DefectMobile-main/DefectMobile-main/defect_report_mobile/android/app/.cxx/Debug/6i184u32/armeabi-v7a/CMakeFiles/rebuild_cache.dir
