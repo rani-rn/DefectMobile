@@ -18,7 +18,7 @@ class ApiServices {
   }
 
   static Future<Map<String, dynamic>> getReportById(int id) async {
-    final response = await http.get(Uri.parse('$baseUrl$id'));
+    final response = await http.get(Uri.parse('$baseUrl/$id'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
@@ -56,21 +56,6 @@ class ApiServices {
       throw Exception('Failed to load dropdown data');
     }
   }
-
-   static Future<Map<String, dynamic>?> addDefect(Map<String, dynamic> defect) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/add-defect'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(defect),
-    );
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to add defect');
-    }
-  }
-  
 
   static Future<Map<String, dynamic>> fetchChartData({
     int? lineProductionId,

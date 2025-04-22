@@ -461,3 +461,4 @@ D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\refi
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\DefectApi.pdb
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\DefectApi.genruntimeconfig.cache
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\ref\DefectApi.dll
+D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\DefectApi.sourcelink.json

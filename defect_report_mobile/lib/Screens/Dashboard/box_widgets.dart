@@ -14,7 +14,7 @@ class SummaryBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF0F58A8),
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

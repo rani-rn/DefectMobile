@@ -60,7 +60,7 @@ class DefectChart extends StatelessWidget {
           BarChartRodData(
             toY: item.value.toDouble(),
             color: Colors.cyanAccent
-                .withAlpha((0.8 * 255).toInt()), // Gantikan .withOpacity
+                .withAlpha((0.8 * 255).toInt()), 
             borderRadius: BorderRadius.circular(6),
             width: 22,
           ),

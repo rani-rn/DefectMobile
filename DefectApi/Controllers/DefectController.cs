@@ -41,7 +41,6 @@ namespace DefectRecord.Controllers
                     startDate = today;
                     break;
             }
-
             var query = _context.DefectReports
                 .Include(d => d.Defect)
                 .Where(d =>
@@ -127,27 +126,10 @@ namespace DefectRecord.Controllers
 
             if (defectReport == null)
                 return NotFound();
-
+            
             return Ok(defectReport);
         }
 
-        [HttpPost("add-defect")]
-        public async Task<IActionResult> AddDefect([FromBody] Defect defect)
-        {
-            if (string.IsNullOrWhiteSpace(defect.DefectName))
-                return BadRequest("Defect name is required.");
-
-            var existingDefect = await _context.Defect
-                .FirstOrDefaultAsync(d => d.DefectName.ToLower() == defect.DefectName.ToLower());
-
-            if (existingDefect != null)
-                return Ok(new { success = true, message = "Defect already exists", defectId = existingDefect.DefectId });
-
-            _context.Defect.Add(defect);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { success = true, message = "Defect added successfully", defectId = defect.DefectId });
-        }
 
         [HttpPost("add")]
         public async Task<IActionResult> AddReport([FromBody] DefectReport defectReport)

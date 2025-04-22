@@ -7,8 +7,8 @@ class ApiConfig {
 
     if (kDebugMode) {
       if (Platform.isAndroid) {
-        bool isRunningOnEmulator = _isProbablyEmulator();
-        return isRunningOnEmulator
+        bool isRunOnEmulator = _isProbablyEmulator();
+        return isRunOnEmulator
             ? 'http://10.0.2.2:5145/api/defect'
             : 'http://$laptopIp:5145/api/defect';
       } else {
