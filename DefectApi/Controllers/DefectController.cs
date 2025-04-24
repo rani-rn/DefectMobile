@@ -71,11 +71,10 @@ namespace DefectRecord.Controllers
             var daily = _context.DefectReports.Count(d => d.ReportDate.Date == today);
             var weekly = _context.DefectReports.Count(d => d.ReportDate >= today.AddDays(-7));
             var monthly = _context.DefectReports.Count(d => d.ReportDate >= today.AddMonths(-1));
-            var annual = _context.DefectReports.Count(d => d.ReportDate >= today.AddYears(-1)); // Annual count
+            var annual = _context.DefectReports.Count(d => d.ReportDate >= today.AddYears(-1));
 
             return Ok(new { chartData, daily, weekly, monthly, annual });
         }
-
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllReports()
@@ -84,15 +83,20 @@ namespace DefectRecord.Controllers
                 .Include(d => d.Defect)
                 .Include(d => d.LineProduction)
                 .Include(d => d.Section)
+                .Include(d => d.WpModel)
                 .Select(d => new
                 {
                     d.ReportId,
                     d.ReportDate,
-                    d.ProdQty,
+                    d.LineProdQty,
                     d.Reporter,
                     d.Description,
-                    d.Status,
                     d.DefectQty,
+                    WpModel = d.WpModel != null ? new
+                    {
+                        d.WpModel.ModelId,
+                        d.WpModel.ModelName
+                    } : null,
                     Section = d.Section != null ? new
                     {
                         d.Section.SectionId,
@@ -114,22 +118,51 @@ namespace DefectRecord.Controllers
             return Ok(defectReports);
         }
 
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var defectReport = await _context.DefectReports
-                .Include(d => d.Defect)
-                .Include(d => d.LineProduction)
-                .Include(d => d.Section)
-                .FirstOrDefaultAsync(d => d.ReportId == id);
+            var d = await _context.DefectReports
+                .Include(r => r.Defect)
+                .Include(r => r.LineProduction)
+                .Include(r => r.Section)
+                .Include(r => r.WpModel)
+                .Where(r => r.ReportId == id)
+                .Select(r => new
+                {
+                    r.ReportId,
+                    r.ReportDate,
+                    r.LineProdQty,
+                    r.Reporter,
+                    r.Description,
+                    r.DefectQty,
+                    WpModel = r.WpModel != null ? new
+                    {
+                        r.WpModel.ModelId,
+                        r.WpModel.ModelName
+                    } : null,
+                    Section = r.Section != null ? new
+                    {
+                        r.Section.SectionId,
+                        r.Section.SectionName
+                    } : null,
+                    LineProduction = r.LineProduction != null ? new
+                    {
+                        r.LineProduction.Id,
+                        r.LineProduction.LineProductionName
+                    } : null,
+                    Defect = r.Defect != null ? new
+                    {
+                        r.Defect.DefectId,
+                        r.Defect.DefectName
+                    } : null
+                })
+                .FirstOrDefaultAsync();
 
-            if (defectReport == null)
+            if (d == null)
                 return NotFound();
-            
-            return Ok(defectReport);
-        }
 
+            return Ok(d);
+        }
 
         [HttpPost("add")]
         public async Task<IActionResult> AddReport([FromBody] DefectReport defectReport)
@@ -137,9 +170,23 @@ namespace DefectRecord.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var defectExists = await _context.Defect.AnyAsync(d => d.DefectId == defectReport.DefectId);
-            if (!defectExists)
-                return BadRequest("Invalid DefectId.");
+            if (defectReport.DefectId == null && !string.IsNullOrEmpty(defectReport.DefectNew))
+            {
+                var newDefect = new Defect
+                {
+                    DefectName = defectReport.DefectNew
+                };
+
+                _context.Defect.Add(newDefect);
+                await _context.SaveChangesAsync();
+
+                defectReport.DefectId = newDefect.DefectId;
+            }
+
+            if (defectReport.DefectId == null)
+            {
+                return BadRequest("DefectId is required.");
+            }
 
             defectReport.Defect = null;
 
@@ -161,12 +208,12 @@ namespace DefectRecord.Controllers
 
             existingReport.Reporter = defectReport.Reporter;
             existingReport.ReportDate = defectReport.ReportDate;
-            existingReport.ProdQty = defectReport.ProdQty;
+            existingReport.LineProdQty = defectReport.LineProdQty;
             existingReport.SectionId = defectReport.SectionId;
+            existingReport.ModelId = defectReport.ModelId;
             existingReport.LineProductionId = defectReport.LineProductionId;
             existingReport.DefectId = defectReport.DefectId;
             existingReport.Description = defectReport.Description;
-            existingReport.Status = defectReport.Status;
             existingReport.DefectQty = defectReport.DefectQty;
 
             _context.DefectReports.Update(existingReport);
@@ -202,12 +249,17 @@ namespace DefectRecord.Controllers
             var lines = await _context.LineProductions
                 .Select(l => new { l.Id, l.LineProductionName })
                 .ToListAsync();
+            
+            var models = await _context.WpModels
+                .Select(m => new { m.ModelId, m.ModelName })
+                .ToListAsync();
 
             return Ok(new
             {
                 sections,
                 defects,
-                lineProductions = lines
+                lineProductions = lines,
+                models
             });
         }
     }

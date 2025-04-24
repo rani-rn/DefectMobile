@@ -33,7 +33,6 @@ class _DashboardPageState extends State<DashboardPage> {
         isLoadingLine = false;
       });
     } catch (e) {
-      print("Error loading line production: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Failed to load line production")),
@@ -57,7 +56,6 @@ class _DashboardPageState extends State<DashboardPage> {
         annual = data["annual"] ?? 0;
       });
     } catch (e) {
-      print("Error: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Error loading data: $e")),
@@ -151,7 +149,7 @@ class _DashboardPageState extends State<DashboardPage> {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
-                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+                boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
                 borderRadius: BorderRadius.circular(10),
               ),
               child: chartData.isEmpty

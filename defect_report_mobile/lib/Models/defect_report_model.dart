@@ -2,31 +2,37 @@ class DefectReport {
   final int? reportId;
   final String reporter;
   final String reportDate;
-  final int prodQty;
+  final int lineProdQty;
   final int sectionId;
   final int lineProductionId;
   final int defectId;
   final String? description;
-  final String status;
   final int defectQty;
   final String sectionName;
   final String lineProductionName;
   final String defectName;
+  final bool isNewDefect;
+  final String? newDefectName;
+  final int modelId;
+  final String modelName;
 
   DefectReport({
     this.reportId,
     required this.reporter,
     required this.reportDate,
-    required this.prodQty,
+    required this.lineProdQty,
     required this.sectionId,
     required this.lineProductionId,
     required this.defectId,
     this.description,
-    required this.status,
     required this.defectQty,
     required this.sectionName,
     required this.lineProductionName,
     required this.defectName,
+    this.isNewDefect = false,
+    this.newDefectName,
+    required this.modelId,
+    required this.modelName,
   });
 
   factory DefectReport.fromJson(Map<String, dynamic> json) {
@@ -34,31 +40,34 @@ class DefectReport {
       reportId: json['reportId'],
       reporter: json['reporter'],
       reportDate: json['reportDate']?.substring(0, 10) ?? '',
-      prodQty: json['prodQty'] ?? 0,
+      lineProdQty: json['lineProdQty'] ?? 0,
       sectionId: json['section']?['sectionId'] ?? 0,
       lineProductionId: json['lineProduction']?['id'] ?? 0,
       defectId: json['defect']?['defectId'] ?? 0,
       description: json['description'],
-      status: json['status'] ?? '',
       defectQty: json['defectQty'] ?? 0,
       sectionName: json['section']?['sectionName'] ?? '',
       lineProductionName: json['lineProduction']?['lineProductionName'] ?? '',
       defectName: json['defect']?['defectName'] ?? '',
+      modelId: json['wpModel']?['modelId'] ?? 0,
+      modelName: json['wpModel']?['modelName'] ?? '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "reportId": reportId,
+      if (reportId != null) "reportId": reportId,
       "reporter": reporter,
-      "reportDate": reportDate,
-      "prodQty": prodQty,
+      "reportDate": DateTime.parse(reportDate).toIso8601String(),
+      "lineProdQty": lineProdQty,
       "sectionId": sectionId,
       "lineProductionId": lineProductionId,
       "defectId": defectId,
       "description": description,
-      "status": status,
       "defectQty": defectQty,
+      "defectName": isNewDefect ? newDefectName : null,
+      "modelId": modelId,
+      "modelName": modelName,
     };
   }
 
@@ -66,31 +75,37 @@ class DefectReport {
     int? reportId,
     String? reporter,
     String? reportDate,
-    int? prodQty,
+    int? lineProdQty,
     int? sectionId,
     int? lineProductionId,
     int? defectId,
     String? description,
-    String? status,
     int? defectQty,
     String? sectionName,
     String? lineProductionName,
     String? defectName,
+    bool? isNewDefect,
+    String? newDefectName,
+    int? modelId,
+    String? modelName,
   }) {
     return DefectReport(
       reportId: reportId ?? this.reportId,
       reporter: reporter ?? this.reporter,
       reportDate: reportDate ?? this.reportDate,
-      prodQty: prodQty ?? this.prodQty,
+      lineProdQty: lineProdQty ?? this.lineProdQty,
       sectionId: sectionId ?? this.sectionId,
       lineProductionId: lineProductionId ?? this.lineProductionId,
       defectId: defectId ?? this.defectId,
       description: description ?? this.description,
-      status: status ?? this.status,
       defectQty: defectQty ?? this.defectQty,
       sectionName: sectionName ?? this.sectionName,
       lineProductionName: lineProductionName ?? this.lineProductionName,
       defectName: defectName ?? this.defectName,
+      isNewDefect: isNewDefect ?? this.isNewDefect,
+      newDefectName: newDefectName ?? this.newDefectName,
+      modelId: modelId ?? this.modelId,
+      modelName: modelName ?? this.modelName,
     );
   }
 }

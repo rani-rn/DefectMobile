@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class DefectInputForm extends StatefulWidget {
   final int? defectReportId;
 
-  const DefectInputForm({Key? key, this.defectReportId}) : super(key: key);
+  const DefectInputForm({super.key, this.defectReportId});
 
   @override
   State<DefectInputForm> createState() => _DefectInputFormState();
@@ -22,13 +22,12 @@ class _DefectInputFormState extends State<DefectInputForm> {
 
   String? _selectedSection;
   String? _selectedLineProduction;
+  String? _selectedModel;
   String? _selectedDefect;
-  String? _selectedStatus;
 
   late Future<Map<String, dynamic>> _dropdownDataFuture;
   Future<Map<String, dynamic>>? _editDataFuture;
   List<Map<String, dynamic>> _defectList = [];
-  List<String> status = [];
 
   @override
   void initState() {
@@ -38,26 +37,26 @@ class _DefectInputFormState extends State<DefectInputForm> {
     if (widget.defectReportId != null) {
       _editDataFuture = ApiServices.getReportById(widget.defectReportId!);
     }
-    status = ['Repairable', 'Dispose'];
   }
 
   void _populateFields(Map<String, dynamic> data) {
     _reporterController.text = data['reporter'] ?? '';
     _dateController.text =
         data['reportDate']?.toString().substring(0, 10) ?? '';
-    _productionQtyController.text = data['prodQty']?.toString() ?? '';
+
+    _selectedModel = data['wpModel']?['modelName'];
     _descriptionController.text = data['description'] ?? '';
     _defectQtyController.text = data['defectQty']?.toString() ?? '';
     _selectedSection = data['section']?['sectionName'];
     _selectedLineProduction = data['lineProduction']?['lineProductionName'];
+    _productionQtyController.text = data['lineProdQty']?.toString() ?? '';
     _selectedDefect = data['defect']?['defectName'];
-    _selectedStatus = data['status'];
   }
 
   void _addNewDefect(String newDefect) {
     setState(() {
       if (!_defectList.any((d) => d['defectName'] == newDefect)) {
-        _defectList.add({'defectName': newDefect});
+        _defectList.add({'defectName': newDefect, 'id': 0});
       }
       _selectedDefect = newDefect;
     });
@@ -69,12 +68,11 @@ class _DefectInputFormState extends State<DefectInputForm> {
     _productionQtyController.clear();
     _descriptionController.clear();
     _defectQtyController.clear();
-
     setState(() {
       _selectedSection = null;
       _selectedLineProduction = null;
       _selectedDefect = null;
-      _selectedStatus = null;
+      _selectedModel = null;
     });
   }
 
@@ -160,13 +158,18 @@ class _DefectInputFormState extends State<DefectInputForm> {
     );
   }
 
-  Widget _buildForm(List<Map<String, dynamic>> sections,
-      List<Map<String, dynamic>> lines, List<Map<String, dynamic>> defects) {
+  Widget _buildForm(
+      List<Map<String, dynamic>> sections,
+      List<Map<String, dynamic>> lines,
+      List<Map<String, dynamic>> defects,
+      List<Map<String, dynamic>> models) {
     _defectList = defects;
     final sectionNames =
         sections.map((e) => e['sectionName'] as String).toList();
     final lineNames =
         lines.map((e) => e['lineProductionName'] as String).toList();
+    final modelNames = models.map((e) => e['modelName'] as String).toList();
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       child: Form(
@@ -194,8 +197,12 @@ class _DefectInputFormState extends State<DefectInputForm> {
               },
             ),
             const SizedBox(height: 12),
-            _buildTextField(_productionQtyController, 'Production Qty',
-                inputType: TextInputType.number),
+            _buildDropdown(
+              label: 'Model',
+              items: modelNames,
+              selectedItem: _selectedModel,
+              onChanged: (val) => setState(() => _selectedModel = val),
+            ),
             const SizedBox(height: 12),
             _buildDropdown(
               label: 'Section',
@@ -211,72 +218,79 @@ class _DefectInputFormState extends State<DefectInputForm> {
               onChanged: (val) => setState(() => _selectedLineProduction = val),
             ),
             const SizedBox(height: 12),
+            _buildTextField(_productionQtyController, 'Line Production Qty',
+                inputType: TextInputType.number),
+            const SizedBox(height: 12),
             _buildDefectDropdown(),
             const SizedBox(height: 12),
-            _buildTextField(
-              _descriptionController,
-              'Description',
-              maxLines: 3,
-              validator: (value) => null,
-            ),
+            _buildTextField(_descriptionController, 'Description',
+                maxLines: 3, validator: (value) => null),
             const SizedBox(height: 12),
             _buildTextField(_defectQtyController, 'Defect Qty',
                 inputType: TextInputType.number),
-            const SizedBox(height: 20),
-            _buildDropdown(
-              label: 'Status',
-              items: status,
-              selectedItem: _selectedStatus,
-              onChanged: (val) => setState(() => _selectedStatus = val),
-            ),
             const SizedBox(height: 12),
             _buildButton('Save', Colors.green, () async {
               if (_formKey.currentState!.validate()) {
-                final sectionId =
-                    _findIdByName(sections, 'sectionName', _selectedSection);
+                final sectionId = _findIdByName(
+                    sections, 'sectionName', _selectedSection, 'sectionId');
                 final lineId = _findIdByName(
-                    lines, 'lineProductionName', _selectedLineProduction);
-                final defectId =
-                    _findIdByName(defects, 'defectName', _selectedDefect);
-
+                    lines, 'lineProductionName', _selectedLineProduction, 'id');
+                final defectId = _findIdByName(
+                    defects, 'defectName', _selectedDefect, 'defectId');
+                final modelId = _findIdByName(
+                    models, 'modelName', _selectedModel, 'modelId');
                 final report = DefectReport(
                   reportId: widget.defectReportId,
                   reporter: _reporterController.text,
                   reportDate: _dateController.text,
-                  prodQty: int.tryParse(_productionQtyController.text) ?? 0,
+                  lineProdQty: int.tryParse(_productionQtyController.text) ?? 0,
                   sectionId: sectionId ?? 0,
                   lineProductionId: lineId ?? 0,
                   defectId: defectId ?? 0,
                   description: _descriptionController.text,
-                  status: _selectedStatus!,
                   defectQty: int.tryParse(_defectQtyController.text) ?? 0,
                   sectionName: _selectedSection!,
                   lineProductionName: _selectedLineProduction!,
                   defectName: _selectedDefect!,
+                  modelId: modelId ?? 0,
+                  modelName: _selectedModel ?? '',
                 );
+
+                print("Report to save: ${report.toJson()}");
 
                 bool success;
                 if (widget.defectReportId == null) {
                   success = await ApiServices.addDefectReport(report);
-                  if (success) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Report added successfully')),
-                    );
-                  }
                 } else {
                   success = await ApiServices.updateDefectReport(report);
-                  if (success) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Report updated successfully')),
-                    );
-                  }
                 }
 
+                print("Save status: $success");
+
                 if (success) {
-                  Navigator.pop(context);
+                  if (!mounted) return;
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(widget.defectReportId == null
+                          ? 'Report added successfully'
+                          : 'Report updated successfully'),
+                    ),
+                  );
+
+                  if (widget.defectReportId == null) {
+                    setState(() {
+                      _productionQtyController.clear();
+                      _selectedDefect = null;
+                      _descriptionController.clear();
+                      _defectQtyController.clear();
+                    });
+                  } else {
+                    Navigator.pop(context);
+                  }
                 } else {
+                  if (!mounted) return;
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Something went wrong')),
                   );
@@ -328,7 +342,8 @@ class _DefectInputFormState extends State<DefectInputForm> {
                   dropdownData['lineProductions']);
               final defects =
                   List<Map<String, dynamic>>.from(dropdownData['defects']);
-
+              final models =
+                  List<Map<String, dynamic>>.from(dropdownData['models']);
               if (_editDataFuture != null) {
                 return FutureBuilder<Map<String, dynamic>>(
                   future: _editDataFuture,
@@ -341,13 +356,13 @@ class _DefectInputFormState extends State<DefectInputForm> {
                           child: Text('Error: ${editSnapshot.error}'));
                     } else if (editSnapshot.hasData) {
                       _populateFields(editSnapshot.data!);
-                      return _buildForm(sections, lines, defects);
+                      return _buildForm(sections, lines, defects, models);
                     }
                     return const Center(child: Text('Failed to load data'));
                   },
                 );
               } else {
-                return _buildForm(sections, lines, defects);
+                return _buildForm(sections, lines, defects, models);
               }
             } else {
               return const Center(child: Text('No dropdown data available'));
@@ -359,11 +374,18 @@ class _DefectInputFormState extends State<DefectInputForm> {
   }
 }
 
-int? _findIdByName(List<Map<String, dynamic>> list, String key, String? value) {
-  if (value == null) return null;
-  final match = list.firstWhere(
-    (element) => element[key] == value,
-    orElse: () => {},
-  );
-  return match['id'];
+int? _findIdByName(
+  List<Map<String, dynamic>> list,
+  String key,
+  String? name,
+  String idKey,
+) {
+  if (name == null) return null;
+  try {
+    return list.firstWhere((item) =>
+        (item[key] as String).trim().toLowerCase() ==
+        name.trim().toLowerCase())[idKey] as int;
+  } catch (_) {
+    return null;
+  }
 }

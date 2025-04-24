@@ -35,8 +35,8 @@ class ApiServices {
   }
 
   static Future<bool> updateDefectReport(DefectReport report) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/update'),
+    final response = await http.put(
+      Uri.parse('$baseUrl/update/${report.reportId}'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(report.toJson()),
     );

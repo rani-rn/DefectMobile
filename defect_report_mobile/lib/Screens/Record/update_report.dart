@@ -13,7 +13,6 @@ class UpdateScreen extends StatefulWidget {
 class _AddScreenState extends State<UpdateScreen> {
   @override
   Widget build(BuildContext context) {
-    print('Editing report ID: ${widget.report.reportId}');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Defect'),

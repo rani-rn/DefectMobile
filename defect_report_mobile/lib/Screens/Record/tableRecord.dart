@@ -30,14 +30,14 @@ class _DefectReportTableState extends State<DefectReportTable> {
                 leading: const Icon(Icons.edit),
                 title: const Text('Edit'),
                 onTap: () {
-                Navigator.pop(context); 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UpdateScreen(report: report),
-                  ),
-                );
-              },
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UpdateScreen(report: report),
+                    ),
+                  );
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.delete),
@@ -62,9 +62,12 @@ class _DefectReportTableState extends State<DefectReportTable> {
 
     if (confirm == true) {
       final success = await ApiServices.deleteReport(report.reportId!);
+
+      if (!mounted) return;
+
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Report delete seccessfully')),
+          const SnackBar(content: Text('Report deleted successfully')),
         );
         widget.onRefresh();
       } else {
@@ -84,13 +87,13 @@ class _DefectReportTableState extends State<DefectReportTable> {
         columns: const [
           DataColumn(label: Text("No")),
           DataColumn(label: Text("Date")),
-          DataColumn(label: Text("Prod Qty")),
           DataColumn(label: Text("Reporter")),
+          DataColumn(label: Text("Model")),
           DataColumn(label: Text("Section")),
           DataColumn(label: Text("Line")),
+          DataColumn(label: Text("Line Prod Qty")),
           DataColumn(label: Text("Defect")),
           DataColumn(label: Text("Description")),
-          DataColumn(label: Text("Status")),
           DataColumn(label: Text("Defect Qty")),
         ],
         rows: widget.reports.asMap().entries.map((entry) {
@@ -100,13 +103,13 @@ class _DefectReportTableState extends State<DefectReportTable> {
             cells: [
               DataCell(Text('$index')),
               DataCell(Text(d.reportDate)),
-              DataCell(Text('${d.prodQty}')),
               DataCell(Text(d.reporter)),
+              DataCell(Text(d.modelName)),
               DataCell(Text(d.sectionName)),
               DataCell(Text(d.lineProductionName)),
+              DataCell(Text('${d.lineProdQty}')),
               DataCell(Text(d.defectName)),
               DataCell(Text(d.description ?? '-')),
-              DataCell(Text(d.status)),
               DataCell(Text('${d.defectQty}')),
             ],
             onLongPress: () => _showActionSheet(context, d),

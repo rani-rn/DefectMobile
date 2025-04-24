@@ -43,7 +43,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    print('Tombol Export to Excel ditekan');
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white, backgroundColor: Colors.green,
@@ -66,6 +65,8 @@ class _RecordListScreenState extends State<RecordListScreen> {
                     final filtered = snapshot.data!
                         .where((d) =>
                             d.reporter.toLowerCase().contains(_searchTerm) ||
+                            (d.modelName.toLowerCase())
+                                .contains(_searchTerm) ||
                             (d.sectionName.toLowerCase())
                                 .contains(_searchTerm) ||
                             (d.lineProductionName.toLowerCase() )
