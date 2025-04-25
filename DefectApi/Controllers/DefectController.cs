@@ -20,7 +20,7 @@ namespace DefectRecord.Controllers
         }
 
         [HttpGet("chart")]
-        public IActionResult GetChartData(int? lineProductionId, string timePeriod = "daily")
+        public IActionResult GetChartData(int? defectId = null, string timePeriod = "daily")
         {
             var today = DateTime.Today;
             DateTime startDate = today;
@@ -41,40 +41,28 @@ namespace DefectRecord.Controllers
                     startDate = today;
                     break;
             }
+
             var query = _context.DefectReports
-                .Include(d => d.Defect)
+                .Include(d => d.LineProduction)
                 .Where(d =>
-                    (!lineProductionId.HasValue || d.LineProductionId == lineProductionId) &&
+                    (!defectId.HasValue || d.DefectId == defectId) &&
                     d.ReportDate >= startDate
                 );
 
             var chartData = query
-                .GroupBy(d => new { d.DefectId, d.Defect.DefectName })
+                .GroupBy(d => new { d.LineProductionId, d.LineProduction.LineProductionName })
                 .Select(g => new
                 {
-                    label = g.Key.DefectName,
+                    label = g.Key.LineProductionName,
                     value = g.Count()
                 })
                 .ToList();
 
-            if (!chartData.Any())
-            {
-                chartData = _context.Defect
-                    .Select(d => new
-                    {
-                        label = d.DefectName,
-                        value = 0
-                    })
-                    .ToList();
-            }
+            var total = query.Count(); 
 
-            var daily = _context.DefectReports.Count(d => d.ReportDate.Date == today);
-            var weekly = _context.DefectReports.Count(d => d.ReportDate >= today.AddDays(-7));
-            var monthly = _context.DefectReports.Count(d => d.ReportDate >= today.AddMonths(-1));
-            var annual = _context.DefectReports.Count(d => d.ReportDate >= today.AddYears(-1));
-
-            return Ok(new { chartData, daily, weekly, monthly, annual });
+            return Ok(new { chartData, total });
         }
+
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllReports()
@@ -163,37 +151,48 @@ namespace DefectRecord.Controllers
 
             return Ok(d);
         }
+        public class AddDefectRequest
+        {
+            public string DefectName { get; set; }
+        }
 
-        [HttpPost("add")]
+        [HttpPost("add-defect")]
+        public async Task<IActionResult> AddDefect([FromBody] AddDefectRequest request)
+        {
+            if (string.IsNullOrEmpty(request.DefectName))
+                return BadRequest("Defect can not empty");
+
+            var existingDefect = await _context.Defect.FirstOrDefaultAsync(d => d.DefectName.ToLower() == request.DefectName.ToLower());
+
+            if (existingDefect != null)
+            {
+                return Ok(new { success = true, message = "Defect already exist", defectId = existingDefect.DefectId });
+            }
+
+            var newDefect = new Defect { DefectName = request.DefectName };
+            _context.Defect.Add(newDefect);
+            await _context.SaveChangesAsync();
+            return Ok(new { success = true, message = "Defect Added", defectId = newDefect.DefectId });
+        }
+
+        [HttpPost("add-report")]
         public async Task<IActionResult> AddReport([FromBody] DefectReport defectReport)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (defectReport.DefectId == null && !string.IsNullOrEmpty(defectReport.DefectNew))
-            {
-                var newDefect = new Defect
-                {
-                    DefectName = defectReport.DefectNew
-                };
-
-                _context.Defect.Add(newDefect);
-                await _context.SaveChangesAsync();
-
-                defectReport.DefectId = newDefect.DefectId;
-            }
-
             if (defectReport.DefectId == null)
-            {
                 return BadRequest("DefectId is required.");
-            }
 
             defectReport.Defect = null;
+            defectReport.LineProduction = null;
+            defectReport.Section = null;
+            defectReport.WpModel = null;
 
             _context.DefectReports.Add(defectReport);
             await _context.SaveChangesAsync();
 
-            return Ok(new { success = true, message = "Data added successfully" });
+            return Ok(new { success = true, message = "Report added successfully" });
         }
 
         [HttpPut("update/{id}")]
@@ -249,7 +248,7 @@ namespace DefectRecord.Controllers
             var lines = await _context.LineProductions
                 .Select(l => new { l.Id, l.LineProductionName })
                 .ToListAsync();
-            
+
             var models = await _context.WpModels
                 .Select(m => new { m.ModelId, m.ModelName })
                 .ToListAsync();

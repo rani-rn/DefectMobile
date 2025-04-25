@@ -54,6 +54,7 @@ class _DefectReportTableState extends State<DefectReportTable> {
     );
   }
 
+
   void _confirmDelete(DefectReport report) async {
     final confirm = await showDialog<bool>(
       context: context,

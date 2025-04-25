@@ -1,4 +1,5 @@
-import 'package:defect_report_mobile/Screens/Record/tableRecord.dart';
+import 'package:defect_report_mobile/Screens/Record/defect_report_export.dart';
+import 'package:defect_report_mobile/Screens/Record/table_record.dart';
 import 'package:flutter/material.dart';
 import '../Models/defect_report_model.dart';
 import '../Services/api_services.dart';
@@ -13,6 +14,8 @@ class RecordListScreen extends StatefulWidget {
 class _RecordListScreenState extends State<RecordListScreen> {
   late Future<List<DefectReport>> _futureReports;
   String _searchTerm = "";
+  int _currentPage = 0;
+  int _rowsPerPage = 15;
 
   @override
   void initState() {
@@ -38,14 +41,20 @@ class _RecordListScreenState extends State<RecordListScreen> {
               },
             ),
             const SizedBox(height: 10),
-               Row(
+          
+
+            Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final reports = await _futureReports;
+
+                    await exportToExcel(context, reports); 
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Colors.green,
+                    foregroundColor: Colors.white, 
+                    backgroundColor: Colors.green,
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -57,25 +66,49 @@ class _RecordListScreenState extends State<RecordListScreen> {
               ],
             ),
             const SizedBox(height: 10),
+
             Expanded(
               child: FutureBuilder<List<DefectReport>>(
                 future: _futureReports,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final filtered = snapshot.data!
-                        .where((d) =>
-                            d.reporter.toLowerCase().contains(_searchTerm) ||
-                            (d.modelName.toLowerCase())
-                                .contains(_searchTerm) ||
-                            (d.sectionName.toLowerCase())
-                                .contains(_searchTerm) ||
-                            (d.lineProductionName.toLowerCase() )
-                                .contains(_searchTerm) ||
-                            (d.defectName.toLowerCase() )
-                                .contains(_searchTerm))
+                        .where((d) {
+                          final matchSearch = d.reporter.toLowerCase().contains(_searchTerm) ||
+                              d.modelName.toLowerCase().contains(_searchTerm) ||
+                              d.sectionName.toLowerCase().contains(_searchTerm) ||
+                              d.lineProductionName.toLowerCase().contains(_searchTerm) ||
+                              d.defectName.toLowerCase().contains(_searchTerm);
+
+                          return matchSearch;
+                        })
                         .toList();
 
-                    return DefectReportTable(reports: filtered, onRefresh: () {  },);
+                    final pagedReports = filtered.skip(_currentPage * _rowsPerPage).take(_rowsPerPage).toList();
+
+                    return Column(
+                      children: [
+                        DefectReportTable(reports: pagedReports, onRefresh: () {  }),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: _currentPage > 0
+                                  ? () => setState(() => _currentPage--)
+                                  : null,
+                              icon: const Icon(Icons.chevron_left),
+                            ),
+                            Text("Page ${_currentPage + 1}"),
+                            IconButton(
+                              onPressed: (_currentPage + 1) * _rowsPerPage < filtered.length
+                                  ? () => setState(() => _currentPage++)
+                                  : null,
+                              icon: const Icon(Icons.chevron_right),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
                   } else if (snapshot.hasError) {
                     return Center(child: Text("Error: ${snapshot.error}"));
                   }

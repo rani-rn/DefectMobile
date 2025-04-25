@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:defect_report_mobile/Models/chart_data_model.dart';
 import 'package:defect_report_mobile/Models/defect_report_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:defect_report_mobile/Services/api_config.dart';
 
 class ApiServices {
@@ -25,9 +25,24 @@ class ApiServices {
     throw Exception('Failed to load report');
   }
 
+  static Future<int> addDefect(String defectName) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/add-defect'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({"defectName": defectName}),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final data = jsonDecode(response.body);
+      return data['defectId'];
+    } else {
+      throw Exception('Failed to add defect');
+    }
+  }
+
   static Future<bool> addDefectReport(DefectReport report) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/add'),
+      Uri.parse('$baseUrl/add-report'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(report.toJson()),
     );

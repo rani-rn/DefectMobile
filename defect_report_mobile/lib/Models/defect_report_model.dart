@@ -5,7 +5,7 @@ class DefectReport {
   final int lineProdQty;
   final int sectionId;
   final int lineProductionId;
-  final int defectId;
+  late final int defectId;
   final String? description;
   final int defectQty;
   final String sectionName;

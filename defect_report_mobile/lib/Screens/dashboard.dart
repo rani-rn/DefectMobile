@@ -88,25 +88,6 @@ class _DashboardPageState extends State<DashboardPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  DropdownButton<int?>(
-                    value: selectedLineId,
-                    hint: const Text("Select Line"),
-                    items: [
-                      const DropdownMenuItem<int?>(
-                        value: null,
-                        child: Text("All Line Production"),
-                      ),
-                      ...lineOptions.map((line) => DropdownMenuItem<int?>(
-                            value: line.id,
-                            child: Text(line.lineProductionName),
-                          )),
-                    ],
-                    onChanged: (val) {
-                      setState(() => selectedLineId = val);
-                      loadData();
-                    },
-                  ),
-                  const SizedBox(width: 16),
                   DropdownButton<String>(
                     value: selectedPeriod,
                     items: ['daily', 'weekly', 'monthly', 'annual']
