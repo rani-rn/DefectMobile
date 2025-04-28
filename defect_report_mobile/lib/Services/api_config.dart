@@ -3,7 +3,7 @@ import 'dart:io';
 
 class ApiConfig {
   static String get baseUrl {
-    const laptopIp = '192.168.182.54';
+    const laptopIp = '192.168.34.54';
 
     if (kDebugMode) {
       if (Platform.isAndroid) {

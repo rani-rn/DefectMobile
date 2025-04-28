@@ -24,6 +24,25 @@ namespace DefectRecord.Controllers
         {
             var today = DateTime.Today;
             DateTime startDate = today;
+            var startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
+            var startOfMonth = new DateTime(today.Year, today.Month, 1);
+            var startOfYear = new DateTime(today.Year, 1, 1);
+
+            var dailyCount = _context.DefectReports
+    .Where(d => d.ReportDate.Date == today)
+    .Sum(d => (int?)d.DefectQty) ?? 0;
+
+            var weeklyCount = _context.DefectReports
+                .Where(d => d.ReportDate >= startOfWeek)
+                .Sum(d => (int?)d.DefectQty) ?? 0;
+
+            var monthlyCount = _context.DefectReports
+                .Where(d => d.ReportDate >= startOfMonth)
+                .Sum(d => (int?)d.DefectQty) ?? 0;
+
+            var annualCount = _context.DefectReports
+                .Where(d => d.ReportDate >= startOfYear)
+                .Sum(d => (int?)d.DefectQty) ?? 0;
 
             switch (timePeriod.ToLower())
             {
@@ -54,15 +73,22 @@ namespace DefectRecord.Controllers
                 .Select(g => new
                 {
                     label = g.Key.LineProductionName,
-                    value = g.Count()
+                    value = g.Sum(d => d.DefectQty)
                 })
                 .ToList();
 
-            var total = query.Count(); 
+            var total = query.Count();
 
-            return Ok(new { chartData, total });
+            return Ok(new
+            {
+                chartData,
+                total,
+                daily = dailyCount,
+                weekly = weeklyCount,
+                monthly = monthlyCount,
+                annual = annualCount
+            });
         }
-
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllReports()

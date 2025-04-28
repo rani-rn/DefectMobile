@@ -15,17 +15,17 @@ class DefectInputForm extends StatefulWidget {
 }
 
 class _DefectInputFormState extends State<DefectInputForm> {
-  final _formKey = GlobalKey<FormState>();
-  final _reporterController = TextEditingController();
-  final _dateController = TextEditingController();
-  final _productionQtyController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  final _defectQtyController = TextEditingController();
+  static final _formKey = GlobalKey<FormState>();
+  static final _reporterController = TextEditingController();
+  static final _dateController = TextEditingController();
+  static final _productionQtyController = TextEditingController();
+  static final _descriptionController = TextEditingController();
+  static final _defectQtyController = TextEditingController();
 
-  String? _selectedSection;
-  String? _selectedLineProduction;
-  String? _selectedModel;
-  String? _selectedDefect;
+  static String? _selectedSection;
+  static String? _selectedLineProduction;
+  static String? _selectedModel;
+  static String? _selectedDefect;
 
   late Future<Map<String, dynamic>> _dropdownDataFuture;
   Future<Map<String, dynamic>>? _editDataFuture;

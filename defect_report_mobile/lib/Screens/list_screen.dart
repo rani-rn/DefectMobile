@@ -41,31 +41,6 @@ class _RecordListScreenState extends State<RecordListScreen> {
               },
             ),
             const SizedBox(height: 10),
-          
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    final reports = await _futureReports;
-
-                    await exportToExcel(context, reports); 
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, 
-                    backgroundColor: Colors.green,
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    elevation: 5, 
-                  ),
-                  child: const Text('Export to Excel'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
 
             Expanded(
               child: FutureBuilder<List<DefectReport>>(

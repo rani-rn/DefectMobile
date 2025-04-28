@@ -1,8 +1,182 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    .dashboard-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1000px;
+    }
+
+    .chart-container {
+        width: 600px;
+        max-width: 100%;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+
+    .summary-boxes {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .summary-box {
+        width: 120px;
+        height: 80px;
+        background-color: #5fc7f2;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary-box span {
+        font-size: 14px;
+    }
+
+    .filters {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .filters select {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+</style>
+<div class="container">
+    <h2 class="text-header">Dashboard</h2>
+    <div class="filters">
+        <div>
+            <label for="lineProductionFilter" class="form-label">Filter by Line Production</label>
+            <select id="lineProduction" name="LineProductionId" class="form-control">
+                <option value="">All Line Production</option>
+                @foreach (var line in (ViewBag.LineProductions ?? new List<LineProduction>()))
+                {
+                    <option value="@line.Id">@line.LineProductionName</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label for="timeFilter" class="form-label">Filter by Time Period</label>
+            <select id="timeFilter" name="timePeriod" class="form-control">
+                <option value="daily" selected>Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="annual">Annual</option>
+            </select>
+        </div>
+    </div>
+    <div class="dashboard-container">
+        <div class="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
+        <div class="summary-boxes">
+            <div class="summary-box">
+                <span>Daily</span>
+                <div id="dailyDefect">0</div>
+            </div>
+            <div class="summary-box">
+                <span>Weekly</span>
+                <div id="weeklyDefect">0</div>
+            </div>
+            <div class="summary-box">
+                <span>Monthly</span>
+                <div id="monthlyDefect">0</div>
+            </div>
+            <div class="summary-box"></div>
+                <span>Annual</span>
+                <div id="annualDefect">0</div>
+            </div>
+        </div>
+    </div>
 </div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let chartInstance = null;
+
+            function loadChart(lineProductionId = '', timePeriod = 'daily') {
+                $.ajax({
+                    url: '@Url.Action("GetChartData", "Defect")',
+                    type: 'GET',
+                    data: { 
+                        lineProductionId: lineProductionId,
+                        timePeriod: timePeriod
+                    },
+                    success: function (response) {
+                        const labels = response.chartData.map(item => item.label);
+                        const values = response.chartData.map(item => item.value);
+
+                        $("#dailyDefect").text(response.daily);
+                        $("#weeklyDefect").text(response.weekly);
+                        $("#monthlyDefect").text(response.monthly);
+                        $("#annualDefect").text(response.annual);
+
+                        if (chartInstance) {
+                            chartInstance.destroy();
+                        }
+
+                        const ctx = document.getElementById("chart").getContext("2d");
+                        chartInstance = new Chart(ctx, {
+                            type: "bar",
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: "Defect Count",
+                                    data: values,
+                                    backgroundColor: "rgba(95, 246, 232, 0.8)",
+                                    borderColor: "rgba(47, 163, 152, 0.8)",
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    error: function () {
+                        console.error("Error loading chart data.");
+                    }
+                });
+            }
+
+            loadChart();
+
+            $("#lineProduction, #timeFilter").change(function () {
+                let selectedLineProductionId = $("#lineProduction").val();
+                let selectedTimePeriod = $("#timeFilter").val();
+                loadChart(selectedLineProductionId, selectedTimePeriod);
+            });
+        });
+    </script>
+}

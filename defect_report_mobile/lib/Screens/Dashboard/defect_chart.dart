@@ -8,85 +8,77 @@ class DefectChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filteredData = data
-        .where(
-            (item) => item.value != 0 && item.label.toLowerCase() != 'overflow')
-        .toList();
-
-    return SizedBox(
-      height: 300,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SizedBox(
-          width: (filteredData.length * 60).toDouble().clamp(300, 1000),
-          child: LineChart(
-            LineChartData(
-              lineBarsData: [
-                LineChartBarData(
-                  spots: _generateSpots(filteredData),
-                  isCurved: true,
-                  color: Colors.cyanAccent,
-                  barWidth: 3,
-                  belowBarData: BarAreaData(show: false),
-                  dotData: FlDotData(show: true),
-                ),
-              ],
-              titlesData: FlTitlesData(
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 40,
-                    getTitlesWidget: (value, meta) {
-                      return SideTitleWidget(
-                        meta: meta,
-                        child: Text(
-                          value.toInt().toString(),
-                          style: const TextStyle(fontSize: 10),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                rightTitles:
-                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                topTitles:
-                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: false,
-                  ),
-                ),
+    return AspectRatio(
+      aspectRatio: 1.5,
+      child: BarChart(
+        BarChartData(
+          barGroups: _generateBarGroups(),
+          titlesData: FlTitlesData(
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 40,
+                interval: 1,
+                getTitlesWidget: (value, meta) {
+                  return Text(
+                    value.toInt().toString(),
+                    style: const TextStyle(fontSize: 12),
+                  );
+                },
               ),
-              borderData: FlBorderData(show: true),
-              gridData: FlGridData(show: false),
-              lineTouchData: LineTouchData(
-                touchTooltipData: LineTouchTooltipData(
-                  getTooltipItems: (touchedSpots) {
-                    return touchedSpots.map((spot) {
-                      final index = spot.x.toInt();
-                      final label = filteredData[index].label;
-                      final value = filteredData[index].value;
-                      return LineTooltipItem(
-                        '$label\n$value',
-                        const TextStyle(color: Colors.white),
-                      );
-                    }).toList();
-                  },
-                ),
+            ),
+            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 40,
+                getTitlesWidget: (value, meta) {
+                  final int index = value.toInt();
+                  if (index < 0 || index >= data.length)
+                    return const SizedBox();
+                  return SideTitleWidget(
+                    space: 4,
+                    meta: meta,
+                    child: Transform.rotate(
+                      angle: -0.5,
+                      child: Text(
+                        data[index].label,
+                        style: const TextStyle(fontSize: 10),
+                        overflow: TextOverflow
+                            .ellipsis, 
+                      ),
+                    ),
+                  );
+                },
               ),
-              minY: 0,
             ),
           ),
+          groupsSpace: 20, 
+          borderData: FlBorderData(show: false),
+          gridData: FlGridData(show: true),
         ),
       ),
     );
   }
 
-  List<FlSpot> _generateSpots(List<DefectChartData> filteredData) {
-    return filteredData.asMap().entries.map((entry) {
-      final index = entry.key.toDouble();
-      final value = entry.value.value.toDouble();
-      return FlSpot(index, value);
+  List<BarChartGroupData> _generateBarGroups() {
+    return data.asMap().entries.map((entry) {
+      final index = entry.key;
+      final item = entry.value;
+
+      return BarChartGroupData(
+        x: index,
+        barRods: [
+          BarChartRodData(
+            toY: item.value.toDouble(),
+            color: Colors.cyanAccent
+                .withAlpha((0.8 * 255).toInt()),
+            borderRadius: BorderRadius.circular(6),
+            width: 22,
+          ),
+        ],
+      );
     }).toList();
   }
 }
