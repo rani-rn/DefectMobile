@@ -70,16 +70,6 @@
     <h2 class="text-header">Dashboard</h2>
     <div class="filters">
         <div>
-            <label for="lineProductionFilter" class="form-label">Filter by Line Production</label>
-            <select id="lineProduction" name="LineProductionId" class="form-control">
-                <option value="">All Line Production</option>
-                @foreach (var line in (ViewBag.LineProductions ?? new List<LineProduction>()))
-                {
-                    <option value="@line.Id">@line.LineProductionName</option>
-                }
-            </select>
-        </div>
-        <div>
             <label for="timeFilter" class="form-label">Filter by Time Period</label>
             <select id="timeFilter" name="timePeriod" class="form-control">
                 <option value="daily" selected>Daily</option>
@@ -106,7 +96,7 @@
                 <span>Monthly</span>
                 <div id="monthlyDefect">0</div>
             </div>
-            <div class="summary-box"></div>
+            <div class="summary-box">
                 <span>Annual</span>
                 <div id="annualDefect">0</div>
             </div>

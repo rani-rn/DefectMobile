@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "M68ij2YfCNmZPInh8BJyhLk+8FdhSgyD+iWETnxNKRA=",
+  "Hash": "5X9uMQ+maXXhgJaJyiCnGS8YoKh7nlNTbuJ3yklVRCY=",
   "Source": "DefectApi",
   "BasePath": "_content/DefectApi",
   "Mode": "Default",
@@ -248,12 +248,12 @@
       "OriginalItemSpec": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-8tz42tw0fx.gz",
+      "Identity": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-hwcc4zu9fd.gz",
       "SourceId": "DefectApi",
       "SourceType": "Computed",
       "ContentRoot": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/DefectApi",
-      "RelativePath": "DefectApi#[.{fingerprint=8tz42tw0fx}]!.bundle.scp.css.gz",
+      "RelativePath": "DefectApi#[.{fingerprint=hwcc4zu9fd}]!.bundle.scp.css.gz",
       "AssetKind": "All",
       "AssetMode": "Reference",
       "AssetRole": "Alternative",
@@ -262,8 +262,8 @@
       "RelatedAsset": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DefectApi.bundle.scp.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "z73g1y22rc",
-      "Integrity": "sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=",
+      "Fingerprint": "wqu12mfeqr",
+      "Integrity": "GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DefectApi.bundle.scp.css"
@@ -1025,12 +1025,12 @@
       "OriginalItemSpec": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-8tz42tw0fx.gz",
+      "Identity": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-hwcc4zu9fd.gz",
       "SourceId": "DefectApi",
       "SourceType": "Computed",
       "ContentRoot": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/DefectApi",
-      "RelativePath": "DefectApi#[.{fingerprint=8tz42tw0fx}]?.styles.css.gz",
+      "RelativePath": "DefectApi#[.{fingerprint=hwcc4zu9fd}]?.styles.css.gz",
       "AssetKind": "All",
       "AssetMode": "CurrentProject",
       "AssetRole": "Alternative",
@@ -1039,8 +1039,8 @@
       "RelatedAsset": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\bundle\\DefectApi.styles.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "z73g1y22rc",
-      "Integrity": "sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=",
+      "Fingerprint": "wqu12mfeqr",
+      "Integrity": "GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\bundle\\DefectApi.styles.css"
@@ -1375,8 +1375,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
-      "Fingerprint": "8tz42tw0fx",
-      "Integrity": "TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=",
+      "Fingerprint": "hwcc4zu9fd",
+      "Integrity": "UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\bundle\\DefectApi.styles.css"
@@ -1396,8 +1396,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
-      "Fingerprint": "8tz42tw0fx",
-      "Integrity": "TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=",
+      "Fingerprint": "hwcc4zu9fd",
+      "Integrity": "UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DefectApi.bundle.scp.css"
@@ -2752,7 +2752,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 19 Apr 2025 03:47:27 GMT"
+          "Value": "Mon, 28 Apr 2025 03:23:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2805,7 +2805,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 19 Apr 2025 03:47:27 GMT"
+          "Value": "Mon, 28 Apr 2025 03:23:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2842,7 +2842,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 19 Apr 2025 03:47:27 GMT"
+          "Value": "Mon, 28 Apr 2025 03:23:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2889,7 +2889,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 19 Apr 2025 03:47:27 GMT"
+          "Value": "Mon, 28 Apr 2025 03:23:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2950,7 +2950,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 19 Apr 2025 03:47:27 GMT"
+          "Value": "Mon, 28 Apr 2025 03:23:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2995,7 +2995,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 19 Apr 2025 03:47:27 GMT"
+          "Value": "Mon, 28 Apr 2025 03:23:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3026,13 +3026,13 @@
       ]
     },
     {
-      "Route": "DefectApi.8tz42tw0fx.bundle.scp.css",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-8tz42tw0fx.gz",
+      "Route": "DefectApi.bundle.scp.css",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-hwcc4zu9fd.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001060445387"
+          "Quality": "0.001841620626"
         }
       ],
       "ResponseHeaders": [
@@ -3042,19 +3042,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "942"
+          "Value": "542"
         },
         {
           "Name": "ETag",
-          "Value": "\"sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=\""
+          "Value": "\"GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -3070,26 +3070,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=\""
+          "Value": "W/\"UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "8tz42tw0fx"
-        },
-        {
-          "Name": "label",
-          "Value": "DefectApi.bundle.scp.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k="
+          "Value": "sha256-UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os="
         }
       ]
     },
     {
-      "Route": "DefectApi.8tz42tw0fx.bundle.scp.css",
+      "Route": "DefectApi.bundle.scp.css",
       "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DefectApi.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3099,7 +3091,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3179"
+          "Value": "1127"
         },
         {
           "Name": "Content-Type",
@@ -3107,11 +3099,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=\""
+          "Value": "\"UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os="
+        }
+      ]
+    },
+    {
+      "Route": "DefectApi.bundle.scp.css.gz",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-hwcc4zu9fd.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "542"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc="
+        }
+      ]
+    },
+    {
+      "Route": "DefectApi.hwcc4zu9fd.bundle.scp.css",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-hwcc4zu9fd.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001841620626"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "542"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hwcc4zu9fd"
+        },
+        {
+          "Name": "label",
+          "Value": "DefectApi.bundle.scp.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os="
+        }
+      ]
+    },
+    {
+      "Route": "DefectApi.hwcc4zu9fd.bundle.scp.css",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DefectApi.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1127"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3121,7 +3258,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tz42tw0fx"
+          "Value": "hwcc4zu9fd"
         },
         {
           "Name": "label",
@@ -3129,13 +3266,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k="
+          "Value": "sha256-UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os="
         }
       ]
     },
     {
-      "Route": "DefectApi.8tz42tw0fx.bundle.scp.css.gz",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-8tz42tw0fx.gz",
+      "Route": "DefectApi.hwcc4zu9fd.bundle.scp.css.gz",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-hwcc4zu9fd.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3144,7 +3281,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "942"
+          "Value": "542"
         },
         {
           "Name": "Content-Type",
@@ -3152,11 +3289,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=\""
+          "Value": "\"GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3174,7 +3311,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tz42tw0fx"
+          "Value": "hwcc4zu9fd"
         },
         {
           "Name": "label",
@@ -3182,18 +3319,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0="
+          "Value": "sha256-GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc="
         }
       ]
     },
     {
-      "Route": "DefectApi.8tz42tw0fx.styles.css",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-8tz42tw0fx.gz",
+      "Route": "DefectApi.hwcc4zu9fd.styles.css",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-hwcc4zu9fd.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001060445387"
+          "Quality": "0.001841620626"
         }
       ],
       "ResponseHeaders": [
@@ -3203,15 +3340,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "942"
+          "Value": "542"
         },
         {
           "Name": "ETag",
-          "Value": "\"sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=\""
+          "Value": "\"GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3231,13 +3368,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=\""
+          "Value": "W/\"UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tz42tw0fx"
+          "Value": "hwcc4zu9fd"
         },
         {
           "Name": "label",
@@ -3245,12 +3382,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k="
+          "Value": "sha256-UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os="
         }
       ]
     },
     {
-      "Route": "DefectApi.8tz42tw0fx.styles.css",
+      "Route": "DefectApi.hwcc4zu9fd.styles.css",
       "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\bundle\\DefectApi.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3260,7 +3397,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3179"
+          "Value": "1127"
         },
         {
           "Name": "Content-Type",
@@ -3268,11 +3405,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=\""
+          "Value": "\"UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3282,7 +3419,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tz42tw0fx"
+          "Value": "hwcc4zu9fd"
         },
         {
           "Name": "label",
@@ -3290,13 +3427,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k="
+          "Value": "sha256-UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os="
         }
       ]
     },
     {
-      "Route": "DefectApi.8tz42tw0fx.styles.css.gz",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-8tz42tw0fx.gz",
+      "Route": "DefectApi.hwcc4zu9fd.styles.css.gz",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-hwcc4zu9fd.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3305,7 +3442,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "942"
+          "Value": "542"
         },
         {
           "Name": "Content-Type",
@@ -3313,11 +3450,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=\""
+          "Value": "\"GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3335,7 +3472,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8tz42tw0fx"
+          "Value": "hwcc4zu9fd"
         },
         {
           "Name": "label",
@@ -3343,155 +3480,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0="
-        }
-      ]
-    },
-    {
-      "Route": "DefectApi.bundle.scp.css",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-8tz42tw0fx.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.001060445387"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "942"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k="
-        }
-      ]
-    },
-    {
-      "Route": "DefectApi.bundle.scp.css",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DefectApi.bundle.scp.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "3179"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k="
-        }
-      ]
-    },
-    {
-      "Route": "DefectApi.bundle.scp.css.gz",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-8tz42tw0fx.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "942"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0="
+          "Value": "sha256-GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc="
         }
       ]
     },
     {
       "Route": "DefectApi.styles.css",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-8tz42tw0fx.gz",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-hwcc4zu9fd.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001060445387"
+          "Quality": "0.001841620626"
         }
       ],
       "ResponseHeaders": [
@@ -3501,15 +3501,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "942"
+          "Value": "542"
         },
         {
           "Name": "ETag",
-          "Value": "\"sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=\""
+          "Value": "\"GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3529,13 +3529,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=\""
+          "Value": "W/\"UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k="
+          "Value": "sha256-UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os="
         }
       ]
     },
@@ -3550,7 +3550,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3179"
+          "Value": "1127"
         },
         {
           "Name": "Content-Type",
@@ -3558,11 +3558,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k=\""
+          "Value": "\"UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3572,13 +3572,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-TGRwKTUZfEUyBywbHunGiv28Dst9YzEQiBG1ZJJIe6k="
+          "Value": "sha256-UdzaJ7Ih52ZqxIE6DATfWmz+97z6LYdnLKH3n3XM0Os="
         }
       ]
     },
     {
       "Route": "DefectApi.styles.css.gz",
-      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-8tz42tw0fx.gz",
+      "AssetFile": "D:\\Panasonic\\DefectMobile-main\\DefectMobile-main\\defectapi\\obj\\Debug\\net9.0\\compressed\\qtwde2ugk8-hwcc4zu9fd.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3587,7 +3587,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "942"
+          "Value": "542"
         },
         {
           "Name": "Content-Type",
@@ -3595,11 +3595,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0=\""
+          "Value": "\"GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Mon, 28 Apr 2025 01:29:13 GMT"
+          "Value": "Tue, 29 Apr 2025 00:36:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3617,7 +3617,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-sYJbGwqJ+Z3aIthVr267ZaGpFkI4kd7hRdo6sVPN1P0="
+          "Value": "sha256-GOSRH2UjnHe9hCiTF0th1y4eiit4IB5jqJR22L3MkUc="
         }
       ]
     },

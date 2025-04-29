@@ -1,0 +1,137 @@
+@{
+    ViewData["Title"] = "Record List";
+}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container">
+    <h2 class="text-header">Record</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-10">
+            <div class="d-flex justify-content-between mb-3">
+                <input type="text" id="searchInput" class="form-control w-50" placeholder="Search...">
+                <button id="exportBtn" class="btn btn-success ms-3"  asp-controller="Home" asp-action="ExportToExcel">
+                    Export to Excel
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0 table-responsive rounded-3 overflow-hidden">
+                    <thead class="table-light rounded-top-3">
+                        <tr class="text-center">
+                            <th>No</th>
+                            <th>Date</th>
+                            <th>Report by</th>
+                            <th>Model</th>
+                            <th>Section</th>
+                            <th>Line Production</th>
+                            <th>Line Production Qty</th>
+                            <th>Defect</th>
+                            <th>Description</th>
+                            <th>Defect Qty</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int index = 1;
+                        }
+                        @foreach (var defect in Model)
+                        {
+                            <tr id="row-@defect.ReportId" class="text-center">
+                                <td>@index</td>
+                                <td>@defect.ReportDate</td>
+                                <td>@defect.Reporter</td>
+                                <td>@defect.WpModel?.ModelName</td>
+                                <td>@defect.Section?.SectionName</td>
+                                <td>@defect.LineProduction?.LineProductionName</td>
+                                <td>@defect.LineProdQty</td>
+                                <td>@defect.Defect?.DefectName</td>
+                                <td>@defect.Description</td>
+                                <td>@defect.DefectQty</td>
+                                <td>
+                                    <a asp-controller="Home" asp-action="Update" asp-route-id="@defect.ReportId"
+                                        class="btn btn-sm btn-warning">Edit</a>
+                                    <button class="btn btn-sm btn-danger"
+                                        onclick="confirmDelete(@defect.ReportId)">Delete</button>
+                                </td>
+                            </tr>
+                            index++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+    function confirmDelete(reportId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to delete this defect record?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/api/defect/delete/{$id}',
+                    type: 'DELETE',
+                    data: { id: reportId },
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire(
+                                'Deleted!',
+                                response.message,
+                                'success'
+                            );
+
+                            $("#row-" + reportId).fadeOut(500, function () {
+                                $(this).remove();
+                            });
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function () {
+                        Swal.fire(
+                            'Error!',
+                            'There was a problem deleting the record. Please try again.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+     document.getElementById("exportBtn").addEventListener("click", function () {
+        var table = document.querySelector("table");
+
+        var wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+
+        XLSX.writeFile(wb, "DefectReport.xlsx");
+    });
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        let input = this.value.toLowerCase();
+        let rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            let cells = row.getElementsByTagName("td");
+            let match = false;
+
+            for (let i = 0; i < cells.length; i++) {
+                if (cells[i].innerText.toLowerCase().includes(input)) {
+                    match = true;
+                    break;
+                }
+            }
+            row.style.display = match ? "" : "none";
+        });
+    });
+</script>

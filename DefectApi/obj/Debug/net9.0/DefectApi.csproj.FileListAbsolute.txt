@@ -382,7 +382,6 @@ D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\Defe
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\scopedcss\bundle\DefectApi.styles.css
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\scopedcss\projectbundle\DefectApi.bundle.scp.css
-D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\compressed\jrmwcqmg6a-lugek5hnai.gz
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\compressed\4cmpabn91c-61n19gt1b8.gz
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\compressed\gf5gbae9n6-fr7q2aak1r.gz
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectApi\obj\Debug\net9.0\compressed\14erze16dq-bqjiyaj88i.gz
@@ -924,5 +923,14 @@ D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectReport\obj\Debug\net9.0\r
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectReport\obj\Debug\net9.0\DefectApi.pdb
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectReport\obj\Debug\net9.0\DefectApi.genruntimeconfig.cache
 D:\Panasonic\DefectMobile-main\DefectMobile-main\DefectReport\obj\Debug\net9.0\ref\DefectApi.dll
-D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\qtwde2ugk8-8tz42tw0fx.gz
-D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\8qiorrps7l-8tz42tw0fx.gz
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\jrmwcqmg6a-lugek5hnai.gz
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\qtwde2ugk8-hwcc4zu9fd.gz
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\8qiorrps7l-hwcc4zu9fd.gz
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\bin\Debug\net9.0\ClosedXML.dll
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\bin\Debug\net9.0\ClosedXML.Parser.dll
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\bin\Debug\net9.0\DocumentFormat.OpenXml.dll
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\bin\Debug\net9.0\DocumentFormat.OpenXml.Framework.dll
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\bin\Debug\net9.0\ExcelNumberFormat.dll
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\bin\Debug\net9.0\RBush.dll
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\bin\Debug\net9.0\SixLabors.Fonts.dll
+D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\bin\Debug\net9.0\System.IO.Packaging.dll

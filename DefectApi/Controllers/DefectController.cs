@@ -4,9 +4,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using DefectRecord.Models;
+using DefectApi.Models;
 
-namespace DefectRecord.Controllers
+namespace DefectApi.Controllers
 {
     [ApiController]
     [Route("api/defect")]
@@ -287,5 +287,7 @@ namespace DefectRecord.Controllers
                 models
             });
         }
+
+    
     }
 }

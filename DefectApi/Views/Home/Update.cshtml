@@ -1,0 +1,207 @@
+
+@model DefectReport
+
+@{
+    ViewData["Title"] = "Update Defect";
+}
+<style>
+    .ts-wrapper {
+        border: none !important;
+        background-color: #D9D9D9 !important;
+        border-radius: 5px;
+        color: black;
+        padding: 1px;
+        width: 100%;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .ts-wrapper.focus {
+        background-color: white !important;
+        border: 1px solid #0F58A8 !important;
+    }
+
+    .ts-control {
+        background: transparent !important;
+        border: none !important;
+        padding: 0;
+    }
+
+    .ts-control::placeholder {
+        color: #D9D9D9;
+        text-align: end;
+    }
+
+    .ts-control:focus::placeholder {
+        text-align: start;
+    }
+
+    .ts-dropdown {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background: white;
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="">
+    <h2 class="text-header">Update Defect</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <form class="form-input" method="post" asp-action="Update">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label for="reporter" class="form-label">Reporter</label>
+                        <input asp-for="Reporter" type="text" id="reporter" name="Reporter" class="form-control">
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="date" class="form-label">Date</label>
+                        <input type="date" id="date" name="ReportDate" class="form-control" asp-for="ReportDate">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="wpModel" class="form-label">Model</label>
+                    <select id="wpModel" name="ModelId" class="form-control" asp-for="ModelId">
+                        <option value="">Select Model</option>
+                        @foreach (var wpModel in (ViewBag.WpModels ?? new List<WpModel>()))
+                        {
+                            <option value="@wpModel.ModelId">@wpModel.ModelName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label for="section" class="form-label">Section</label>
+                        <select id="section" name="SectionId" class="form-control" asp-for="SectionId">
+                            <option value="">Select Section</option>
+                            @foreach (var sec in (ViewBag.Sections ?? new List<Section>()))
+                            {
+                                <option value="@sec.SectionId">@sec.SectionName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label for="lineProduction" class="form-label">Line Production</label>
+                        <select id="lineProduction" name="LineProductionId" class="form-control"
+                            asp-for="LineProductionId">
+                            <option value="">Select Line Production</option>
+                            @foreach (var line in (ViewBag.LineProductions ?? new List<LineProduction>()))
+                            {
+                                <option value="@line.Id">@line.LineProductionName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="qtyProd" class="form-label">Line Production Quantity</label>
+                    <input type="number" id="lineProdQty" name="LineProdQty" class="form-control" asp-for="LineProdQty">
+                </div>
+
+                <div class="mb-3">
+                    <label for="defectRecord" class="form-label">Defect Item</label>
+                    <select id="defectRecord" name="DefectId" class="form-control" asp-for="DefectId">
+                        <option value="">Select Defect</option>
+                        @foreach (var defect in (ViewBag.Defects ?? new List<Defect>()))
+                        {
+                            <option value="@defect.DefectId">@defect.DefectName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="qtyDefect" class="form-label">Defect Quantity</label>
+                    <input type="number" id="qtyDefect" name="DefectQty" class="form-control" asp-for="DefectQty">
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-success" id="saveButton">Save</button>
+                    <button type="button" class="btn btn-danger" id="cancelButton">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new TomSelect("#defectRecord", {
+            create: true,
+            sortField: {
+                field: "text",
+                direction: "asc"
+            },
+        });
+    });
+
+    document.getElementById("saveButton").addEventListener("click", function (event) {
+
+        let reporter = document.getElementById("reporter").value.trim();
+        let date = document.getElementById("date").value.trim();
+        let qtyProd = document.getElementById("qtyProd").value;
+        let section = document.getElementById("section").value;
+        let lineProduction = document.getElementById("lineProduction").value;
+        let defectRecord = document.getElementById("defectRecord").value;
+        let description = document.getElementById("description").value.trim();
+        let status = document.getElementById("status").value;
+        let qtyDefect = document.getElementById("qtyDefect").value;
+        let form = document.querySelector(".form-update");
+        let emptyFields = [];
+        if (!reporter) emptyFields.push("Reporter");
+        if (!date) emptyFields.push("Date");
+        if (!qtyProd) emptyFields.push("Production Quantity");
+        if (!section) emptyFields.push("Section");
+        if (!lineProduction) emptyFields.push("Line Production");
+        if (!defectRecord) emptyFields.push("Defect Record");
+        if (!status) emptyFields.push("Status");
+        if (!qtyDefect) emptyFields.push("Defect Quantity");
+        if (emptyFields.length > 0) {
+            Swal.fire({
+                title: "Missing Fields!",
+                text: `Please fill in the following fields: \n${emptyFields.join(", ")}`,
+                icon: "warning",
+                confirmButtonColor: "#0F58A8"
+            });
+            return;
+        }
+
+        Swal.fire({
+            title: "Confirmation!",
+            text: "Are you sure you want to save this report?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Save!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+
+    document.getElementById("cancelButton").addEventListener("click", function () {
+        Swal.fire({
+            title: "Confirmation",
+            text: "Are you sure to cancel? All Data will delete.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#28a745",
+            confirmButtonText: "Yes, Delete!",
+            cancelButtonText: "Back"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.querySelector(".form-update").reset();
+            }
+        });
+    });
+</script>

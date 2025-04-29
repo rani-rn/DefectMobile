@@ -1,5 +1,4 @@
 using DefectApi.Models;
-using DefectRecord.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 

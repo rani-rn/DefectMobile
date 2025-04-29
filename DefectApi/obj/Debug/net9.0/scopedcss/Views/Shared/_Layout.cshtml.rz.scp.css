@@ -1,153 +1,48 @@
-html[b-41j07dgkvz] {
-  font-family: 'Roboto', sans-serif;
-}
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
 
-header[b-41j07dgkvz]{
-  position: fixed;
-  margin: 15px 20px;
-}
-
-body[b-41j07dgkvz] {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: row;
-  overflow-x: hidden;
-}
-
-.container-fluid[b-41j07dgkvz] {
-  padding: 2.8%;
-  width: 100vw;
-  position: relative;
-  transition: all 0.3s ease-in-out;
-  width: 100%;
-  background-color: white;
-}
-.container-fluid img[b-41j07dgkvz] {
-  max-width: 200px !important; 
-  height: auto;
-}
-.sidebar_menu[b-41j07dgkvz] {
-  position: fixed;
-  height: 100vh;
-  width: 280px;
-  top: 120px;
-  border-radius: 0px 60px;
-  background-color: #0F58A8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  left: 0;
-  transition: all 0.3s ease-in-out;
-}
-.sidebar_menu .btn-input[b-41j07dgkvz] {
-  background-color: white;
-  border-radius: 24px;
-  border: none;
-  margin: 20px 0 40px;
-  padding: 10px 30px;
-  font-weight: bold;
-  font-size: larger;
-  color: #0F58A8;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.sidebar_menu .btn-input:hover[b-41j07dgkvz] {
-  background-color: #e0e0e0;
-}
-.nav-btn[b-41j07dgkvz] {
-  color: white !important;
-}
-.nav-btn:hover[b-41j07dgkvz] {
-  background-color: #d1e8ff;
-  color: #0F58A8;
-}
-.nav-link span[b-41j07dgkvz]{
-  display: inline !important;
-  color: white;
-}
-.sidebar_menu[b-41j07dgkvz] {
-  color: white;
-}
-.sidebar_menu ul[b-41j07dgkvz] {
-  list-style: none;
-  padding: 0;
-}
-.sidebar_menu li[b-41j07dgkvz] {
-  margin-bottom: 20px;
+a.navbar-brand[b-41j07dgkvz] {
+  white-space: normal;
   text-align: center;
+  word-break: break-all;
 }
-.sidebar_menu button[b-41j07dgkvz]{
-  background-color: none;
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  font-size: larger;
-  display: flex;
-  gap: 10px; 
-  align-items: center;
+
+a[b-41j07dgkvz] {
+  color: #0077cc;
 }
-.sidebar_menu button :hover[b-41j07dgkvz] {
-  color: #d1e8ff;
+
+.btn-primary[b-41j07dgkvz] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
 }
+
+.nav-pills .nav-link.active[b-41j07dgkvz], .nav-pills .show > .nav-link[b-41j07dgkvz] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-41j07dgkvz] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-41j07dgkvz] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-41j07dgkvz] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-41j07dgkvz] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
 .footer[b-41j07dgkvz] {
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  text-align: right;
-  padding: 10px 20px;
-  font-size: 14px;
-  color: #333;
-}
-.toggle-btn[b-41j07dgkvz] {
-  position: fixed;
-  top: 20px;
-  right: 10px;
-  color: white;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 10px;
-  background: #0F58A8;
-  border-radius: 5px;
-  display: none;
-  z-index: 1002;
-}
-@media screen and (max-width: 768px) {
-  .sidebar_menu[b-41j07dgkvz] {
-    width: 55%;
-    height: auto;
-    top: 0;
-    right: 0;
-    left: auto;
-    border-radius: 0 0 0 60px;
-    flex-direction: column; 
-    align-items: center;
-    justify-content: center;
-    padding: 15px 0;
-    position: fixed;
-    transition: top 0.3s ease-in-out;
-  }
-  .sidebar_menu ul[b-41j07dgkvz] {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin: 0;
-  }
-  .sidebar_menu li[b-41j07dgkvz] {
-    margin: 10px 0;
-  }
-  .sidebar_menu .btn-input[b-41j07dgkvz] {
-    font-size: small;
-    padding: 5px 15px;
-    margin-bottom: 10px;
-  }
-  .toggle-btn[b-41j07dgkvz] {
-    display: block;
-  }
-  .sidebar_menu.closed[b-41j07dgkvz] {
-    right: -100%;
-  }
-  .nav-link span[b-41j07dgkvz] {
-    display: inline;
-  }
+  white-space: nowrap;
+  line-height: 60px;
 }

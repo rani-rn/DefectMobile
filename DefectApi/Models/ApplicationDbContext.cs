@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace DefectRecord.Models
+namespace DefectApi.Models
 {
     public class ApplicationDbContext : DbContext
     {
