@@ -1,9 +1,12 @@
-
 @model DefectReport
 
 @{
     ViewData["Title"] = "Update Defect";
 }
+<link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
     .ts-wrapper {
         border: none !important;
@@ -49,6 +52,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <form class="form-input" method="post" asp-action="Update">
+                <input type="hidden" id="reportId" value="@Model.ReportId" />
+
                 <div class="row">
                     <div class="mb-3 col-md-6">
                         <label for="reporter" class="form-label">Reporter</label>
@@ -110,7 +115,6 @@
                         }
                     </select>
                 </div>
-
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea id="description" asp-for="Description" class="form-control" rows="3"></textarea>
@@ -137,42 +141,40 @@
             sortField: {
                 field: "text",
                 direction: "asc"
-            },
+            }
         });
     });
 
-    document.getElementById("saveButton").addEventListener("click", function (event) {
-
+    const reportId = document.getElementById("reportId").value;
+    document.getElementById("saveButton").addEventListener("click", async function () {
         let reporter = document.getElementById("reporter").value.trim();
         let date = document.getElementById("date").value.trim();
-        let qtyProd = document.getElementById("qtyProd").value;
+        let qtyProd = document.getElementById("lineProdQty").value;
         let section = document.getElementById("section").value;
+        let wpModel = document.getElementById("wpModel").value;
         let lineProduction = document.getElementById("lineProduction").value;
         let defectRecord = document.getElementById("defectRecord").value;
-        let description = document.getElementById("description").value.trim();
-        let status = document.getElementById("status").value;
         let qtyDefect = document.getElementById("qtyDefect").value;
-        let form = document.querySelector(".form-update");
+        let description = document.getElementById("description").value.trim();
         let emptyFields = [];
         if (!reporter) emptyFields.push("Reporter");
         if (!date) emptyFields.push("Date");
         if (!qtyProd) emptyFields.push("Production Quantity");
         if (!section) emptyFields.push("Section");
+        if (!wpModel) emptyFields.push("Model");
         if (!lineProduction) emptyFields.push("Line Production");
-        if (!defectRecord) emptyFields.push("Defect Record");
-        if (!status) emptyFields.push("Status");
+        if (!defectRecord && !description) emptyFields.push("Defect Record or Description");
         if (!qtyDefect) emptyFields.push("Defect Quantity");
         if (emptyFields.length > 0) {
             Swal.fire({
                 title: "Missing Fields!",
-                text: `Please fill in the following fields: \n${emptyFields.join(", ")}`,
+                text: `Please fill in the following fields:\n${emptyFields.join(", ")}`,
                 icon: "warning",
                 confirmButtonColor: "#0F58A8"
             });
             return;
         }
-
-        Swal.fire({
+        const result = await Swal.fire({
             title: "Confirmation!",
             text: "Are you sure you want to save this report?",
             icon: "question",
@@ -181,11 +183,92 @@
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, Save!",
             cancelButtonText: "Cancel"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
         });
+        if (!result.isConfirmed) return;
+        let defectId = defectRecord;
+        if (!Number.isInteger(parseInt(defectRecord))) {
+            const newDefect = {
+                DefectName: defectRecord
+            };
+            try {
+                const defectResponse = await fetch('/api/defect/add-defect', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newDefect)
+                });
+                if (!defectResponse.ok) {
+                    const errorData = await defectResponse.json();
+                    Swal.fire({
+                        title: "Error!",
+                        text: errorData.message || "Failed to add new defect.",
+                        icon: "error",
+                        confirmButtonColor: "#d33"
+                    });
+                    return;
+                }
+                const defectData = await defectResponse.json();
+                defectId = defectData.defectId || defectData.DefectId || defectData.id;
+
+            } catch (error) {
+                Swal.fire({
+                    title: "Error!",
+                    text: "An error occurred while adding the defect: " + error.message,
+                    icon: "error",
+                    confirmButtonColor: "#d33"
+                });
+                return;
+            }
+        }
+
+        const payload = {
+            ReportId: reportId,
+            Reporter: reporter,
+            ReportDate: date,
+            LineProdQty: parseInt(qtyProd),
+            SectionId: parseInt(section),
+            ModelId: parseInt(wpModel),
+            LineProductionId: parseInt(lineProduction),
+            DefectId: parseInt(defectId),
+            DefectQty: parseInt(qtyDefect),
+            Description: description
+        };
+
+        try {
+            const response = await fetch(`/api/defect/update/${reportId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const resultData = await response.json();
+            if (response.ok) {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Defect report has been saved.",
+                    icon: "success",
+                    confirmButtonColor: "#28a745"
+                });
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: resultData.message || "Failed to save defect report.",
+                    icon: "error",
+                    confirmButtonColor: "#d33"
+                });
+            }
+
+        } catch (error) {
+            Swal.fire({
+                title: "Error!",
+                text: "An unexpected error occurred: " + error.message,
+                icon: "error",
+                confirmButtonColor: "#d33"
+            });
+        }
     });
 
     document.getElementById("cancelButton").addEventListener("click", function () {
@@ -200,7 +283,7 @@
             cancelButtonText: "Back"
         }).then((result) => {
             if (result.isConfirmed) {
-                document.querySelector(".form-update").reset();
+                location.reload();
             }
         });
     });

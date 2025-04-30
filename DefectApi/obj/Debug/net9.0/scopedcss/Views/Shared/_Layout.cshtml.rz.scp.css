@@ -17,7 +17,8 @@ a[b-41j07dgkvz] {
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active[b-41j07dgkvz], .nav-pills .show > .nav-link[b-41j07dgkvz] {
+.nav-pills .nav-link.active[b-41j07dgkvz],
+.nav-pills .show>.nav-link[b-41j07dgkvz] {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
@@ -26,6 +27,7 @@ a[b-41j07dgkvz] {
 .border-top[b-41j07dgkvz] {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom[b-41j07dgkvz] {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -45,4 +47,22 @@ button.accept-policy[b-41j07dgkvz] {
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+}
+
+.wrapper[b-41j07dgkvz] {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar[b-41j07dgkvz] {
+  width: 220px;
+  flex-shrink: 0;
+  background-color: #f8f9fa;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.content[b-41j07dgkvz] {
+  flex-grow: 1;
+  padding: 2rem;
 }

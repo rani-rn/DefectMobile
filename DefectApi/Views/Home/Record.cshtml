@@ -7,9 +7,13 @@
     <h2 class="text-header">Record</h2>
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-10">
-            <div class="d-flex justify-content-between mb-3">
-                <input type="text" id="searchInput" class="form-control w-50" placeholder="Search...">
-                <button id="exportBtn" class="btn btn-success ms-3"  asp-controller="Home" asp-action="ExportToExcel">
+            <div class="d-flex flex-wrap justify-content-between mb-3 gap-2">
+                <div class="d-flex gap-2 flex-wrap">
+                    <input type="date" id="startDate" class="form-control" />
+                    <input type="date" id="endDate" class="form-control" />
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search...">
+                </div>
+                <button id="exportBtn" class="btn btn-success">
                     Export to Excel
                 </button>
             </div>
@@ -32,14 +36,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{
-                            int index = 1;
-                        }
+
                         @foreach (var defect in Model)
                         {
                             <tr id="row-@defect.ReportId" class="text-center">
-                                <td>@index</td>
-                                <td>@defect.ReportDate</td>
+                                <td class="row-number"></td>
+                                <td>@defect.ReportDate.ToString("yyyy-MM-dd")</td>
                                 <td>@defect.Reporter</td>
                                 <td>@defect.WpModel?.ModelName</td>
                                 <td>@defect.Section?.SectionName</td>
@@ -55,16 +57,105 @@
                                         onclick="confirmDelete(@defect.ReportId)">Delete</button>
                                 </td>
                             </tr>
-                            index++;
                         }
                     </tbody>
                 </table>
             </div>
+            <nav>
+                <ul id="pagination" class="pagination justify-content-center mt-3"></ul>
+            </nav>
+
         </div>
     </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
+    const rowsPerPage = 10;
+    let currentPage = 1;
+    let filteredRows = [];
+    function showPage(page) {
+        const totalRows = filteredRows.length;
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        currentPage = page;
+
+        filteredRows.forEach(row => row.style.display = "none");
+
+        const startIndex = (page - 1) * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        filteredRows.slice(startIndex, endIndex).forEach(row => row.style.display = "");
+
+        updatePagination(totalPages);
+        updateRowNumbers();
+    }
+
+
+    function updatePagination(totalPages) {
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement("li");
+            li.className = "page-item" + (i === currentPage ? " active" : "");
+            const a = document.createElement("a");
+            a.className = "page-link";
+            a.href = "#";
+            a.innerText = i;
+            a.addEventListener("click", (e) => {
+                e.preventDefault();
+                showPage(i);
+            });
+            li.appendChild(a);
+            pagination.appendChild(li);
+        }
+    }
+
+    function updateRowNumbers() {
+        const startIndex = (currentPage - 1) * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        const visibleRows = filteredRows.slice(startIndex, endIndex);
+
+        visibleRows.forEach((row, index) => {
+            const cell = row.querySelector(".row-number");
+            if (cell) {
+                cell.innerText = startIndex + index + 1;
+            }
+        });
+    }
+
+    function filterTable() {
+        let startDate = document.getElementById("startDate").value;
+        let endDate = document.getElementById("endDate").value;
+        let searchInput = document.getElementById("searchInput").value.toLowerCase();
+        let rows = Array.from(document.querySelectorAll("tbody tr"));
+
+        filteredRows = rows.filter(row => {
+            let dateText = row.cells[1].innerText.trim();
+            let [year, month, day] = dateText.split("-");
+            let rowDate = new Date(year, month - 1, day);
+
+            let matchesSearch = Array.from(row.cells).some(cell =>
+                cell.innerText.toLowerCase().includes(searchInput)
+            );
+
+            let matchesDate = true;
+            if (startDate && new Date(startDate) > rowDate) matchesDate = false;
+            if (endDate && new Date(endDate) < rowDate) matchesDate = false;
+
+            return matchesSearch && matchesDate;
+        });
+
+        rows.forEach(row => row.style.display = "none");
+
+        filteredRows.forEach(row => row.style.display = "");
+
+        showPage(1);
+    }
+
+    document.getElementById("startDate").addEventListener("change", filterTable);
+    document.getElementById("endDate").addEventListener("change", filterTable);
+    document.getElementById("searchInput").addEventListener("keyup", filterTable);
+    filterTable();
     function confirmDelete(reportId) {
         Swal.fire({
             title: 'Are you sure?',
@@ -77,61 +168,47 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '/api/defect/delete/{$id}',
+                    url: `/api/defect/delete/${reportId}`,
                     type: 'DELETE',
-                    data: { id: reportId },
                     success: function (response) {
                         if (response.success) {
-                            Swal.fire(
-                                'Deleted!',
-                                response.message,
-                                'success'
-                            );
-
-                            $("#row-" + reportId).fadeOut(500, function () {
-                                $(this).remove();
-                            });
+                            Swal.fire('Deleted!', response.message, 'success');
+                            document.getElementById("row-" + reportId).remove();
                         } else {
-                            Swal.fire(
-                                'Error!',
-                                response.message,
-                                'error'
-                            );
+                            Swal.fire('Error!', response.message, 'error');
                         }
                     },
                     error: function () {
-                        Swal.fire(
-                            'Error!',
-                            'There was a problem deleting the record. Please try again.',
-                            'error'
-                        );
+                        Swal.fire('Error!', 'Failed to delete record.', 'error');
                     }
                 });
             }
         });
+        document.getElementById("row-" + reportId).remove();
+        updateRowNumbers();
+
     }
-     document.getElementById("exportBtn").addEventListener("click", function () {
-        var table = document.querySelector("table");
+    document.getElementById("exportBtn").addEventListener("click", function () {
+        let originalTable = document.querySelector("table");
+        let clonedTable = originalTable.cloneNode(true);
 
-        var wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+        let headerRow = clonedTable.querySelector("thead tr");
+        headerRow.deleteCell(headerRow.cells.length - 1);
 
+        let clonedTbody = clonedTable.querySelector("tbody");
+        clonedTbody.innerHTML = "";
+
+        let allRows = originalTable.querySelectorAll("tbody tr");
+        allRows.forEach(row => {
+            let clone = row.cloneNode(true);
+            clone.deleteCell(clone.cells.length - 1);
+            clone.style.display = "";
+            clonedTbody.appendChild(clone);
+        });
+
+        let wb = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
         XLSX.writeFile(wb, "DefectReport.xlsx");
     });
-    document.getElementById("searchInput").addEventListener("keyup", function () {
-        let input = this.value.toLowerCase();
-        let rows = document.querySelectorAll("tbody tr");
 
-        rows.forEach(row => {
-            let cells = row.getElementsByTagName("td");
-            let match = false;
-
-            for (let i = 0; i < cells.length; i++) {
-                if (cells[i].innerText.toLowerCase().includes(input)) {
-                    match = true;
-                    break;
-                }
-            }
-            row.style.display = match ? "" : "none";
-        });
-    });
+    filterTable();
 </script>

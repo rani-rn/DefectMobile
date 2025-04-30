@@ -246,6 +246,7 @@ namespace DefectApi.Controllers
 
             return Ok(new { success = true, message = "Data updated successfully" });
         }
+        
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteReport(int id)
@@ -288,6 +289,6 @@ namespace DefectApi.Controllers
             });
         }
 
-    
+
     }
 }

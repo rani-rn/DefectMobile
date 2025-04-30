@@ -185,14 +185,12 @@
             cancelButtonText: "Cancel"
         });
 
-        if (!result.isConfirmed) {
-            return;
-        }
+        if (!result.isConfirmed) return;
 
         let defectId = defectRecord;
-        if (!defectId) {
+        if (!Number.isInteger(parseInt(defectRecord))) {
             const newDefect = {
-                DefectName: description
+                DefectName: defectRecord
             };
 
             try {
@@ -216,7 +214,7 @@
                 }
 
                 const defectData = await defectResponse.json();
-                defectId = defectData.DefectId;
+                defectId = defectData.defectId || defectData.DefectId || defectData.id;
 
             } catch (error) {
                 Swal.fire({
@@ -249,6 +247,7 @@
                 },
                 body: JSON.stringify(payload)
             });
+            const resultData = await response.json();
 
             if (response.ok) {
                 Swal.fire({

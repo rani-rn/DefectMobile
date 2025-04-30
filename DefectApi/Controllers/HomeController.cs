@@ -23,27 +23,30 @@ public class HomeController : Controller
         await LoadViewBagData();
         return View();
     }
-    [HttpGet]
+
+    public IActionResult Index()
+    {
+        return View();
+    }
+    
     public async Task<IActionResult> Update(int id)
     {
         var defectReport = await _context.DefectReports
             .Include(d => d.Defect)
             .Include(d => d.LineProduction)
             .Include(d => d.Section)
+            .Include(d => d.WpModel)
             .FirstOrDefaultAsync(d => d.ReportId == id);
 
         if (defectReport == null)
-        {
             return NotFound();
-        }
 
-        await LoadViewBagData();
+        ViewBag.Sections = await _context.Sections.ToListAsync();
+        ViewBag.Defects = await _context.Defect.ToListAsync();
+        ViewBag.LineProductions = await _context.LineProductions.ToListAsync();
+        ViewBag.WpModels = await _context.WpModels.ToListAsync();
+
         return View(defectReport);
-    }
-
-    public IActionResult Index()
-    {
-        return View();
     }
 
     public IActionResult Record()

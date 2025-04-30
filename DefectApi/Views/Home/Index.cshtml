@@ -1,72 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-<style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .dashboard-container {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        max-width: 1000px;
-    }
-
-    .chart-container {
-        width: 600px;
-        max-width: 100%;
-        height: 400px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 10px;
-    }
-
-    .summary-boxes {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .summary-box {
-        width: 120px;
-        height: 80px;
-        background-color: #5fc7f2;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .summary-box span {
-        font-size: 14px;
-    }
-
-    .filters {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-    }
-
-    .filters select {
-        padding: 8px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-</style>
-<div class="container">
+﻿<div class="container">
     <h2 class="text-header">Dashboard</h2>
     <div class="filters">
         <div>
@@ -79,10 +11,8 @@
             </select>
         </div>
     </div>
+
     <div class="dashboard-container">
-        <div class="chart-container">
-            <canvas id="chart"></canvas>
-        </div>
         <div class="summary-boxes">
             <div class="summary-box">
                 <span>Daily</span>
@@ -101,8 +31,13 @@
                 <div id="annualDefect">0</div>
             </div>
         </div>
+
+        <div class="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
     </div>
 </div>
+
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -114,7 +49,7 @@
                 $.ajax({
                     url: '@Url.Action("GetChartData", "Defect")',
                     type: 'GET',
-                    data: { 
+                    data: {
                         lineProductionId: lineProductionId,
                         timePeriod: timePeriod
                     },
@@ -170,3 +105,73 @@
         });
     </script>
 }
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        max-width: 1000px;
+        width: 100%;
+    }
+
+    .chart-container {
+        width: 600px;
+        max-width: 100%;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+
+    .summary-boxes {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        justify-content: center;
+        /* Align the boxes in one row */
+    }
+
+    .summary-box {
+        width: 120px;
+        height: 80px;
+        background-color: #5fc7f2;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary-box span {
+        font-size: 14px;
+    }
+
+    .filters {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .filters select {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+</style>
