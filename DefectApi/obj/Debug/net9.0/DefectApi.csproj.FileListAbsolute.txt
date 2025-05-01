@@ -855,7 +855,6 @@ D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\Defe
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\scopedcss\bundle\DefectApi.styles.css
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\scopedcss\projectbundle\DefectApi.bundle.scp.css
-D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\jrmwcqmg6a-lugek5hnai.gz
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\4cmpabn91c-61n19gt1b8.gz
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\14erze16dq-bqjiyaj88i.gz
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\g94m4fi1w6-c2jlpeoesf.gz
@@ -932,5 +931,6 @@ D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\Defe
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\DefectApi.genruntimeconfig.cache
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\ref\DefectApi.dll
 D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\gf5gbae9n6-eq3tie9sf5.gz
-D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\qtwde2ugk8-g0qx7vz8cu.gz
-D:\Panasonic\DefectMobile-main\DefectMobile-main\defectapi\obj\Debug\net9.0\compressed\8qiorrps7l-g0qx7vz8cu.gz
+D:\Panasonic\DefectMobile-main\defectmobile-main\defectapi\obj\Debug\net9.0\compressed\qtwde2ugk8-i0et5t7dy6.gz
+D:\Panasonic\DefectMobile-main\defectmobile-main\defectapi\obj\Debug\net9.0\compressed\8qiorrps7l-i0et5t7dy6.gz
+D:\Panasonic\DefectMobile-main\defectmobile-main\defectapi\obj\Debug\net9.0\compressed\jrmwcqmg6a-d8m4zdl5ty.gz
