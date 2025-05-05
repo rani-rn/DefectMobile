@@ -5,7 +5,7 @@
 namespace DefectApi.Migrations
 {
     /// <inheritdoc />
-    public partial class edit : Migration
+    public partial class Newest : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

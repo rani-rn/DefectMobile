@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DefectApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250423075654_Changedatatype")]
-    partial class Changedatatype
+    [Migration("20250505010603_Newest")]
+    partial class Newest
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,10 +67,13 @@ namespace DefectApi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("LineProdQty")
+                        .HasColumnType("int");
+
                     b.Property<int>("LineProductionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProdQty")
+                    b.Property<int>("ModelId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ReportDate")
@@ -83,15 +86,13 @@ namespace DefectApi.Migrations
                     b.Property<int>("SectionId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ReportId");
 
                     b.HasIndex("DefectId");
 
                     b.HasIndex("LineProductionId");
+
+                    b.HasIndex("ModelId");
 
                     b.HasIndex("SectionId");
 
@@ -135,6 +136,23 @@ namespace DefectApi.Migrations
                     b.ToTable("Sections");
                 });
 
+            modelBuilder.Entity("WpModel", b =>
+                {
+                    b.Property<int>("ModelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ModelId"));
+
+                    b.Property<string>("ModelName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ModelId");
+
+                    b.ToTable("WpModels");
+                });
+
             modelBuilder.Entity("Defect", b =>
                 {
                     b.HasOne("Section", "Section")
@@ -158,6 +176,12 @@ namespace DefectApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WpModel", "WpModel")
+                        .WithMany()
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Section", "Section")
                         .WithMany()
                         .HasForeignKey("SectionId")
@@ -169,6 +193,8 @@ namespace DefectApi.Migrations
                     b.Navigation("LineProduction");
 
                     b.Navigation("Section");
+
+                    b.Navigation("WpModel");
                 });
 #pragma warning restore 612, 618
         }
