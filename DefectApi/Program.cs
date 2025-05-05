@@ -49,14 +49,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseSession();
-
-
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapStaticAssets();
 
 app.MapControllerRoute(

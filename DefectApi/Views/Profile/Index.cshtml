@@ -1,35 +1,100 @@
 @{
     ViewData["Title"] = "Profile";
 }
+<title>@ViewData["Title"]</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+    }
+    .profile-card {
+        background: #ffffff;
+        padding: 30px 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
 
-<h2>Profile Page</h2>
+    .profile-card h2 {
+        margin-bottom: 25px;
+    }
 
-<p><strong>Name:</strong> @ViewBag.Name</p>
-<p><strong>Email:</strong> @ViewBag.Email</p>
-<p><strong>Role:</strong> @ViewBag.Role</p>
+    .profile-info p {
+        font-size: 16px;
+        color: #333;
+        margin: 10px 0;
+    }
 
-<a asp-action="ChangePassword">Change Password</a> | 
-<a asp-controller="Home" asp-action="Index">Back to Home</a> | 
-<a href="#" id="logoutBtn">Logout</a>
+    .profile-info strong {
+        color: #0f56af;
+    }
 
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.getElementById('logoutBtn').addEventListener('click', function (e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You will be logged out",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, logout'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '@Url.Action("Logout", "Auth")';
-                }
-            });
+    .actions {
+        margin-top: 30px;
+    }
+
+    .actions a {
+        display: inline-block;
+        margin: 8px;
+        padding: 10px 20px;
+        background-color: #0f56af;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background 0.3s ease;
+    }
+
+    .actions a:hover {
+        background-color: #0c448c;
+    }
+
+    .actions a.logout {
+        background-color: #d32f2f;
+    }
+
+    .actions a.logout:hover {
+        background-color: #b71c1c;
+    }
+</style>
+<div class="profile-container">
+    <div class="profile-card">
+        <h2>Profile Page</h2>
+        <div class="profile-info">
+            <p><strong>Name:</strong> @ViewBag.Name</p>
+            <p><strong>Email:</strong> @ViewBag.Email</p>
+            <p><strong>Role:</strong> @ViewBag.Role</p>
+        </div>
+
+        <div class="actions">
+            <a asp-action="ChangePassword">Change Password</a>
+            <a asp-controller="Home" asp-action="Index">Back to Home</a>
+            <a href="#" class="logout" id="logoutBtn">Logout</a>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('logoutBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You will be logged out",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0f56af',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '@Url.Action("Logout", "Auth")';
+            }
         });
-    </script>
-}
+    });
+</script>

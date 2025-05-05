@@ -3,35 +3,166 @@
     Layout = null;
 }
 
-<h2>Register</h2>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
 
-<form method="post" asp-action="Register" asp-controller="Auth">
-    <label>Name:</label><br/>
-    <input asp-for="Name" /><br/>
-    <span asp-validation-for="Name"></span><br/>
+        .container {
+            display: flex;
+            width: 100%;
+        }
 
-    <label>Email:</label><br/>
-    <input asp-for="Email" /><br/>
-    <span asp-validation-for="Email"></span><br/>
+        .form-box {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-    <label>Password:</label><br/>
-    <input asp-for="Password" type="password"/><br/>
-    <span asp-validation-for="Password"></span><br/>
+        .form-box form {
+            width: 300px;
+        }
 
-    <label>Role:</label><br/>
-    <input asp-for="Role" /><br/>
-    <span asp-validation-for="Role"></span><br/><br/>
+        .form-box h1 {
+            text-align: center;
+            color: #0f56af;
+            margin-bottom: 30px;
+        }
 
-    <button type="submit">Register</button>
-</form>
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
 
-<p>Already have an account? <a asp-action="Login" asp-controller="Auth">Login here</a></p>
+        .input-box input,
+        .input-box select {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background-color: #e0e0e0;
+            outline: none;
+            font-size: 14px;
+        }
 
-@if (TempData["Success"] != null)
-{
-    <p style="color:green">@TempData["Success"]</p>
-}
+        .input-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+        .btn-submit {
+            width: 100%;
+            background-color: #0f56af;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0c448c;
+        }
+
+        .right-panel {
+            background-color: #0f56af;
+            color: white;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 80px;
+            border-bottom-left-radius: 80px;
+        }
+
+        .right-panel h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .right-panel p {
+            margin-bottom: 20px;
+        }
+
+        .right-panel a.btn {
+            background: none;
+            border: 2px solid white;
+            padding: 10px 30px;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .right-panel a.btn:hover {
+            background-color: white;
+            color: #0f56af;
+        }
+
+        span {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="form-box">
+            <form method="post" asp-action="Register" asp-controller="Auth">
+                <h1>Registration</h1>
+
+                <div class="input-box">
+                    <input asp-for="Name" placeholder="Name" type="text" required />
+                    <i class='bx bx-rename'></i>
+                    <span asp-validation-for="Name"></span>
+                </div>
+
+                <div class="input-box">
+                    <input asp-for="Email" placeholder="Email" type="email" required />
+                    <i class="bx bxs-user"></i>
+                    <span asp-validation-for="Email"></span>
+                </div>
+
+                <div class="input-box">
+                    <select asp-for="Role" required>
+                        <option value="" disabled selected>Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="qc">QC</option>
+                    </select>
+                    <i class="bx bxs-id-card"></i>
+                    <span asp-validation-for="Role"></span>
+                </div>
+
+                <div class="input-box">
+                    <input asp-for="Password" placeholder="Password" type="password" required />
+                    <i class="bx bxs-key"></i>
+                    <span asp-validation-for="Password"></span>
+                </div>
+
+                <button type="submit" class="btn-submit">Register</button>
+            </form>
+        </div>
+
+        <div class="right-panel">
+            <h2>Hello, Welcome!</h2>
+            <p>Already have an account?</p>
+            <a asp-action="Login" asp-controller="Auth" class="btn">Login</a>
+        </div>
+    </div>
+
