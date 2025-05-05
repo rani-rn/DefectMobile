@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h2>Profile Page</h2>
+
+<p><strong>Name:</strong> @ViewBag.Name</p>
+<p><strong>Email:</strong> @ViewBag.Email</p>
+<p><strong>Role:</strong> @ViewBag.Role</p>
+
+<a asp-action="ChangePassword">Change Password</a> | 
+<a asp-controller="Home" asp-action="Index">Back to Home</a> | 
+<a href="#" id="logoutBtn">Logout</a>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You will be logged out",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, logout'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Logout", "Auth")';
+                }
+            });
+        });
+    </script>
+}

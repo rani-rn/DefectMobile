@@ -18,7 +18,7 @@
             <div class="bg-sidebar border-end" id="sidebar-wrapper">
                 <div class="sidebar-heading text-white text-center py-4">
                     <img src="~/images/logo.png" alt="Logo" width="130" />
-                    
+
                 </div>
                 <div class="list-group list-group-flush">
 
@@ -34,6 +34,10 @@
                         class="list-group-item list-group-item-action bg-sidebar text-white ps-4">
                         <i class="bi bi-file-earmark-text me-2"></i> Record
                     </a>
+                    <a  asp-controller="Profile" asp-action="Index"
+                        class="list-group-item list-group-item-action bg-sidebar text-white ps-4">
+                        <i class="bi bi-person me-2"></i> Profile
+                    </a>
                 </div>
             </div>
 
@@ -43,8 +47,6 @@
                 </main>
             </div>
         </div>
-
-
         <footer class="border-top footer text-muted">
             <div class="container">
                 &copy; 2025 - DefectRecord
@@ -55,5 +57,4 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("Scripts", required: false)
 </body>
-
 </html>

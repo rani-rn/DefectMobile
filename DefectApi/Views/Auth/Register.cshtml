@@ -1,0 +1,37 @@
+@model DefectApi.Dto.RegisterDto
+@{
+    Layout = null;
+}
+
+<h2>Register</h2>
+
+<form method="post" asp-action="Register" asp-controller="Auth">
+    <label>Name:</label><br/>
+    <input asp-for="Name" /><br/>
+    <span asp-validation-for="Name"></span><br/>
+
+    <label>Email:</label><br/>
+    <input asp-for="Email" /><br/>
+    <span asp-validation-for="Email"></span><br/>
+
+    <label>Password:</label><br/>
+    <input asp-for="Password" type="password"/><br/>
+    <span asp-validation-for="Password"></span><br/>
+
+    <label>Role:</label><br/>
+    <input asp-for="Role" /><br/>
+    <span asp-validation-for="Role"></span><br/><br/>
+
+    <button type="submit">Register</button>
+</form>
+
+<p>Already have an account? <a asp-action="Login" asp-controller="Auth">Login here</a></p>
+
+@if (TempData["Success"] != null)
+{
+    <p style="color:green">@TempData["Success"]</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
