@@ -9,13 +9,13 @@ class ApiConfig {
       if (Platform.isAndroid) {
         bool isRunOnEmulator = _isProbablyEmulator();
         return isRunOnEmulator
-            ? 'http://10.0.2.2:5145/api/defect'
-            : 'http://$laptopIp:5145/api/defect';
+            ? 'http://10.0.2.2:5145'
+            : 'http://$laptopIp:5145';
       } else {
-        return 'http://$laptopIp:5145/api/defect';
+        return 'http://$laptopIp:5145';
       }
     } else {
-      return 'http://$laptopIp:5145/api/defect';
+      return 'http://$laptopIp:5145';
     }
   }
 

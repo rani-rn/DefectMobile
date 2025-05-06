@@ -3,12 +3,59 @@ import 'package:http/http.dart' as http;
 import 'package:defect_report_mobile/Models/chart_data_model.dart';
 import 'package:defect_report_mobile/Models/defect_report_model.dart';
 import 'package:defect_report_mobile/Services/api_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiServices {
   static final String baseUrl = ApiConfig.baseUrl;
 
+
+  static Future<String?> login (String email, String password) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/ApiAuth/login'),
+      headers: {'Content-type': 'application/json'},
+      body: jsonEncode({'email':email, 'password':password}),
+    );
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final token = data['token'];
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+      return null;
+    } else {
+      return 'Invalid email or password';
+    }
+  }
+
+  static Future<String?> register(String name, String email, String role, String password) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/ApiAuth/register'),
+      headers: {'Content-type': 'application/json'},
+      body: jsonEncode({
+        'name': name,
+        'email': email,
+        'role': role,
+        'password': password
+      }),
+    );
+    if (response.statusCode == 200){
+      return null;
+    } else {
+      return jsonDecode(response.body)['error'] ?? 'Failed';
+    }
+  }
+
+  static Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+  }
+  static Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
   static Future<List<DefectReport>> getDefectReports() async {
-    final response = await http.get(Uri.parse('$baseUrl/all'));
+    final response = await http.get(Uri.parse('$baseUrl/api/defect/all'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = jsonDecode(response.body);
       return jsonData.map((e) => DefectReport.fromJson(e)).toList();
@@ -18,7 +65,7 @@ class ApiServices {
   }
 
   static Future<Map<String, dynamic>> getReportById(int id) async {
-    final response = await http.get(Uri.parse('$baseUrl/$id'));
+    final response = await http.get(Uri.parse('$baseUrl/api/defect/$id'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
@@ -27,7 +74,7 @@ class ApiServices {
 
   static Future<int> addDefect(String defectName) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/add-defect'),
+      Uri.parse('$baseUrl/api/defect/add-defect'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({"defectName": defectName}),
     );
@@ -42,7 +89,7 @@ class ApiServices {
 
   static Future<bool> addDefectReport(DefectReport report) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/add-report'),
+      Uri.parse('$baseUrl/api/defect/add-report'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(report.toJson()),
     );
@@ -51,7 +98,7 @@ class ApiServices {
 
   static Future<bool> updateDefectReport(DefectReport report) async {
     final response = await http.put(
-      Uri.parse('$baseUrl/update/${report.reportId}'),
+      Uri.parse('$baseUrl/api/defect/update/${report.reportId}'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(report.toJson()),
     );
@@ -59,12 +106,12 @@ class ApiServices {
   }
 
   static Future<bool> deleteReport(int id) async {
-    final response = await http.delete(Uri.parse('$baseUrl/delete/$id'));
+    final response = await http.delete(Uri.parse('$baseUrl/api/defect/delete/$id'));
     return response.statusCode == 200;
   }
 
   static Future<Map<String, dynamic>> getDropdownData() async {
-    final response = await http.get(Uri.parse('$baseUrl/dropdown'));
+    final response = await http.get(Uri.parse('$baseUrl/api/defect/dropdown'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -76,7 +123,7 @@ class ApiServices {
     int? lineProductionId,
     String timePeriod = 'daily',
   }) async {
-    final uri = Uri.parse('$baseUrl/chart').replace(queryParameters: {
+    final uri = Uri.parse('$baseUrl/api/defect/chart').replace(queryParameters: {
       if (lineProductionId != null)
         'lineProductionId': lineProductionId.toString(),
       'timePeriod': timePeriod,

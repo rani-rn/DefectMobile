@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using DefectApi.Models;
 
-namespace DefectApi.Controllers
+namespace DefectApi.Controllers.Api
 {
     [ApiController]
     [Route("api/defect")]

@@ -37,7 +37,16 @@ builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromHours(1);
 });
+
+
+//CORS for mobile
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 var app = builder.Build();
+app.UseCors("AllowAll");
 
 
 // Configure the HTTP request pipeline.

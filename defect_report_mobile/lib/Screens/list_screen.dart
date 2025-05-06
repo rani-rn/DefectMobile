@@ -1,4 +1,3 @@
-import 'package:defect_report_mobile/Screens/Record/defect_report_export.dart';
 import 'package:defect_report_mobile/Screens/Record/table_record.dart';
 import 'package:flutter/material.dart';
 import '../Models/defect_report_model.dart';
@@ -15,7 +14,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
   late Future<List<DefectReport>> _futureReports;
   String _searchTerm = "";
   int _currentPage = 0;
-  int _rowsPerPage = 15;
+  final int _rowsPerPage = 15;
 
   @override
   void initState() {

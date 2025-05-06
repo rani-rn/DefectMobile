@@ -64,7 +64,17 @@ namespace DefectApi.Controllers.Api
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds
             );
-            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                user = new
+                {
+                    user.Id,
+                    user.Name,
+                    user.Email,
+                    user.Role
+                }
+            });
         }
     }
 }

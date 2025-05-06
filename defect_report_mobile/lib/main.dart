@@ -1,4 +1,5 @@
-import 'package:defect_report_mobile/Screens/nav.dart';
+import 'package:defect_report_mobile/Screens/Auth/login_page.dart';
+//import 'package:defect_report_mobile/Screens/nav.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Nav(),
+      //home: Nav(),
+      home: LoginPage(),
     );
   }
 }

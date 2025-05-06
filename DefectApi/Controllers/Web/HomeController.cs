@@ -29,11 +29,7 @@ namespace DefectApi.Controllers.Web
         {
             return View();
         }
-        public IActionResult Profile()
-        {
-            return View();
-        }
-
+      
         public async Task<IActionResult> Update(int id)
         {
             var defectReport = await _context.DefectReports

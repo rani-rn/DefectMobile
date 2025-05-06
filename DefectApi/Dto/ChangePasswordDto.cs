@@ -1,5 +1,4 @@
 
-
 namespace DefectApi.Dto
 {
     public class ChangePasswordDto

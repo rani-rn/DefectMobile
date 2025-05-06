@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BCrypt.Net;
 using DefectApi.Models;
 using DefectApi.Dto;
+
 namespace DefectApi.Controllers.Api
 {
     [Authorize]
@@ -29,13 +30,10 @@ namespace DefectApi.Controllers.Api
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-
             if (!BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash))
                 return BadRequest("Current password is incorrect");
-
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
             await _context.SaveChangesAsync();
-
             return Ok("Password changed successfully");
         }
     }

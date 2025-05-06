@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DefectApi.Models;
 using DefectApi.Dto;
-namespace DefectApi.Controllers
+
+namespace DefectApi.Controllers.Web
 {
     public class AuthController : Controller
     {
