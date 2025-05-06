@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DefectApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62a9f57b1a8dd627333c4220bfc6e6c4a4bce9ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa76c5f8c7c3aa22fa19c97f7f9fd9bd22abfd9d")]
 [assembly: System.Reflection.AssemblyProductAttribute("DefectApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DefectApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

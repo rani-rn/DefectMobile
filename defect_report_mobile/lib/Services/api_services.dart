@@ -8,12 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ApiServices {
   static final String baseUrl = ApiConfig.baseUrl;
 
-
-  static Future<String?> login (String email, String password) async {
+  static Future<String?> login(String email, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/api/ApiAuth/login'),
       headers: {'Content-type': 'application/json'},
-      body: jsonEncode({'email':email, 'password':password}),
+      body: jsonEncode({'email': email, 'password': password}),
     );
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
@@ -27,21 +26,64 @@ class ApiServices {
     }
   }
 
-  static Future<String?> register(String name, String email, String role, String password) async {
+  static Future<String?> register(
+      String name, String email, String role, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/api/ApiAuth/register'),
       headers: {'Content-type': 'application/json'},
-      body: jsonEncode({
-        'name': name,
-        'email': email,
-        'role': role,
-        'password': password
-      }),
+      body: jsonEncode(
+          {'name': name, 'email': email, 'role': role, 'password': password}),
     );
-    if (response.statusCode == 200){
+    if (response.statusCode == 200) {
       return null;
     } else {
       return jsonDecode(response.body)['error'] ?? 'Failed';
+    }
+  }
+
+  static Future<Map<String, dynamic>?> getProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) return null;
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/ApiProfile/profile'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return null;
+    }
+  }
+
+  static Future<String?> changePassword(
+      String currentPassword, String newPassword) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token == null) return "No token found";
+
+    final response = await http.post(
+      
+      Uri.parse('$baseUrl/api/ApiProfile/change-password'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return null; 
+    } else {
+      return response.body; 
     }
   }
 
@@ -49,6 +91,7 @@ class ApiServices {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
   }
+
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -106,7 +149,8 @@ class ApiServices {
   }
 
   static Future<bool> deleteReport(int id) async {
-    final response = await http.delete(Uri.parse('$baseUrl/api/defect/delete/$id'));
+    final response =
+        await http.delete(Uri.parse('$baseUrl/api/defect/delete/$id'));
     return response.statusCode == 200;
   }
 
@@ -123,7 +167,8 @@ class ApiServices {
     int? lineProductionId,
     String timePeriod = 'daily',
   }) async {
-    final uri = Uri.parse('$baseUrl/api/defect/chart').replace(queryParameters: {
+    final uri =
+        Uri.parse('$baseUrl/api/defect/chart').replace(queryParameters: {
       if (lineProductionId != null)
         'lineProductionId': lineProductionId.toString(),
       'timePeriod': timePeriod,
