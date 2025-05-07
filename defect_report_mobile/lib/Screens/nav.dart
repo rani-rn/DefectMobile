@@ -19,23 +19,11 @@ class _NavState extends State<Nav> {
     DashboardPage(),
     AddScreen(),
     RecordListScreen(),
+    ProfilePage()
   ];
 @override
 Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(      
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.person),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-            );
-          },
-        ),
-      ],
-    ),
     backgroundColor: Colors.white,
     body: _pages[_currentIndex],
     bottomNavigationBar: CurvedNavigationBar(
@@ -51,6 +39,7 @@ Widget build(BuildContext context) {
         Icon(Icons.home, color: Colors.white),
         Icon(Icons.add_circle_outlined, color: Colors.white),
         Icon(Icons.view_list_rounded, color: Colors.white),
+        Icon(Icons.person_rounded, color: Colors.white),
       ],
     ),
   );

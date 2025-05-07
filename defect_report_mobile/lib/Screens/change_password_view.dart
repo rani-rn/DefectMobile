@@ -1,3 +1,4 @@
+import 'package:defect_report_mobile/Screens/Widget/auth_input.dart';
 import 'package:defect_report_mobile/Services/api_services.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final _newController = TextEditingController();
   bool _loading = false;
   String? _error;
+  bool _showCurrentPassword = false;
+  bool _showNewPassword = false;
 
   void _submit() async {
     setState(() {
@@ -40,31 +43,90 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Change Password')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextField(
-              controller: _currentController,
-              decoration: const InputDecoration(labelText: 'Current Password'),
-              obscureText: true,
-            ),
-            TextField(
-              controller: _newController,
-              decoration: const InputDecoration(labelText: 'New Password'),
-              obscureText: true,
-            ),
-            const SizedBox(height: 16),
-            if (_error != null)
-              Text(_error!, style: const TextStyle(color: Colors.red)),
-            ElevatedButton(
-              onPressed: _loading ? null : _submit,
-              child: _loading
-                  ? const CircularProgressIndicator()
-                  : const Text('Change Password'),
-            ),
-          ],
+      appBar: AppBar(
+        title: const Text('Change Password'),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 1,
+      ),
+      backgroundColor: Colors.grey.shade100,
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Icon(Icons.lock, size: 80, color: Colors.grey),
+              const SizedBox(height: 24),
+              TextField(
+                controller: _currentController,
+                obscureText: !_showCurrentPassword,
+                decoration: buildAuthInputDecoration(
+                        'Current Password', Icons.lock_outline)
+                    .copyWith(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _showCurrentPassword = !_showCurrentPassword;
+                      });
+                    },
+                    icon: Icon(
+                      _showCurrentPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _newController,
+                obscureText: !_showNewPassword,
+                decoration: buildAuthInputDecoration('New Password', Icons.lock)
+                    .copyWith(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _showNewPassword = !_showNewPassword;
+                      });
+                    },
+                    icon: Icon(
+                      _showNewPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              if (_error != null)
+                Text(
+                  _error!,
+                  style: const TextStyle(color: Colors.red),
+                  textAlign: TextAlign.center,
+                ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: _loading ? null : _submit,
+                icon: const Icon(Icons.key, color: Colors.white),
+                label: _loading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text(
+                        'Change Password',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF0D47A1),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

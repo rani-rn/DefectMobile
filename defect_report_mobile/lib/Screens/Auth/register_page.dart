@@ -1,9 +1,10 @@
 import 'package:defect_report_mobile/Screens/Auth/login_page.dart';
+import 'package:defect_report_mobile/Screens/Widget/auth_input.dart';
 import 'package:defect_report_mobile/Services/api_services.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -13,6 +14,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final nameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
+  final retypeCtrl = TextEditingController();
+  bool _showPassword = false;
+  bool _showRePassword = false;
 
   String selectedRole = '';
   final roles = ['Admin', 'QC'];
@@ -30,6 +34,14 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() {
         loading = false;
         error = 'Please select a role.';
+      });
+      return;
+    }
+
+    if (passCtrl.text != retypeCtrl.text) {
+      setState(() {
+        loading = false;
+        error = 'Passwords do not match.';
       });
       return;
     }
@@ -60,50 +72,120 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+      body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
+              const Text(
+                'Register',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0D47A1),
+                ),
+              ),
+              const SizedBox(height: 24),
               TextField(
-                  controller: nameCtrl,
-                  decoration: const InputDecoration(labelText: 'Name')),
+                controller: nameCtrl,
+                decoration:
+                    buildAuthInputDecoration('Name', Icons.person_2_outlined),
+              ),
+              const SizedBox(height: 12),
               TextField(
-                  controller: emailCtrl,
-                  decoration: const InputDecoration(labelText: 'Email')),
-              TextField(
-                  controller: passCtrl,
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password')),
-              const SizedBox(height: 16),
+                controller: emailCtrl,
+                decoration:
+                    buildAuthInputDecoration('Email', Icons.email_outlined),
+              ),
+              const SizedBox(height: 12),
               DropdownButtonFormField<String>(
                 value: selectedRole.isEmpty ? null : selectedRole,
-                decoration: const InputDecoration(labelText: 'Role'),
+                decoration:
+                    buildAuthInputDecoration('Role', Icons.badge_outlined),
                 items: roles.map((role) {
                   return DropdownMenuItem(value: role, child: Text(role));
                 }).toList(),
-                onChanged: (value) {
-                  setState(() => selectedRole = value ?? '');
-                },
+                onChanged: (value) =>
+                    setState(() => selectedRole = value ?? ''),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
+              TextField(
+                controller: passCtrl,
+                obscureText: true,
+                decoration:
+                    buildAuthInputDecoration('Password', Icons.lock_outline).copyWith(
+                      suffixIcon: IconButton(onPressed: (){
+                        setState(() {
+                          _showPassword = !_showPassword; 
+                        });
+                      }, icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off, color: Colors.grey,)),
+                    )
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: retypeCtrl,
+                obscureText: !_showRePassword,
+                decoration:
+                    buildAuthInputDecoration('Re-type Password', Icons.lock)
+                        .copyWith(
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _showRePassword ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _showRePassword = !_showRePassword;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
               if (error != null)
                 Text(error!, style: const TextStyle(color: Colors.red)),
-              ElevatedButton(
-                onPressed: loading ? null : register,
-                child: loading
-                    ? const CircularProgressIndicator()
-                    : const Text('Register'),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Already have account?'),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                      );
+                    },
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  )
+                ],
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-                child: const Text('Back to Login'),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0D47A1),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: loading ? null : register,
+                  child: loading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text(
+                          'Register',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                ),
               ),
             ],
           ),

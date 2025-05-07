@@ -19,26 +19,55 @@ class DefectDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownSearch<String>(
       selectedItem: selectedDefect,
-      items:(String? filter,_ ) => defectList.map((e) => e['defectName'] as String).toList(),
+      items: (String? filter, _) {
+        final List<String> defects =
+            defectList.map((e) => e['defectName'] as String).toList();
+        return [...defects, 'ADD_NEW|$filter'];
+      },
+      filterFn: (item, filter) {
+        final itemName =
+            item.startsWith('ADD_NEW|') ? item.split('|').last : item;
+        if (filter.isEmpty) return true;
+        return itemName.toLowerCase().contains(filter.toLowerCase());
+      },
       popupProps: PopupProps.menu(
         showSearchBox: true,
         showSelectedItems: true,
         searchFieldProps: TextFieldProps(
-          decoration: const InputDecoration(hintText: 'Search or add defect...'),
+          decoration:
+              const InputDecoration(hintText: 'Search or add defect...'),
         ),
-        emptyBuilder: (context, searchEntry) => ListTile(
-          title: Text('Add "$searchEntry" as new defect'),
-          leading: const Icon(Icons.add),
-          onTap: () {
-            Navigator.pop(context);
-            onAddNew?.call(searchEntry);
-          },
-        ),
+        itemBuilder: (context, item, isDisabled, isSelected) {
+          if (item.startsWith('ADD_NEW|')) {
+            final searchText = item.split('|').last;
+            return ListTile(
+              title: Text('Add new defect: $searchText'),
+              leading: const Icon(Icons.add),
+              tileColor: isSelected ? Colors.grey[200] : null,
+            );
+          }
+          return ListTile(
+            title: Text(item),
+            selected: isSelected,
+            tileColor: isSelected ? Colors.grey[200] : null,
+          );
+        },
       ),
-      dropdownBuilder: (context, selectedItem) =>
-          Text(selectedItem ?? '', style: const TextStyle(fontSize: 14)),
+      dropdownBuilder: (context, selectedItem) {
+        if (selectedItem == null || selectedItem.startsWith('ADD_NEW|')) {
+          return const Text('', style: TextStyle(fontSize: 14));
+        }
+        return Text(selectedItem, style: const TextStyle(fontSize: 14));
+      },
       validator: (value) => value == null ? 'Required' : null,
-      onChanged: onChanged,
+      onChanged: (value) {
+        if (value?.startsWith('ADD_NEW|') ?? false) {
+          final query = value!.split('|').last;
+          onAddNew?.call(query);
+        } else {
+          onChanged?.call(value);
+        }
+      },
       decoratorProps: DropDownDecoratorProps(
         decoration: InputDecoration(
           labelText: 'Defect',
