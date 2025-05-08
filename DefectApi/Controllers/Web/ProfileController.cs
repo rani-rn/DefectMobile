@@ -46,22 +46,22 @@ namespace DefectApi.Controllers
 
             if (newPassword != confirmPassword)
             {
-                ModelState.AddModelError("", "New password and confirm password do not match");
+                ModelState.AddModelError(string.Empty, "New password and confirm password do not match");
                 return View();
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(currentPassword, user.PasswordHash))
             {
-                ModelState.AddModelError("", "Current password is incorrect");
+                ModelState.AddModelError(string.Empty, "Current password is incorrect");
                 return View();
             }
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
             await _context.SaveChangesAsync();
 
-            TempData["Success"] = "Password updated successfully";
-            return RedirectToAction("Index");
+            ViewBag.Success = "Password updated successfully";
+            return View();
         }
     }
 }

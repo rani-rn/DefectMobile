@@ -26,18 +26,30 @@ class ApiServices {
     }
   }
 
-  static Future<String?> register(
-      String name, String email, String role, String password) async {
+  static Future<String?> register(String name, String email, String role,
+      String password, String confirmPassword) async {
     final response = await http.post(
       Uri.parse('$baseUrl/api/ApiAuth/register'),
       headers: {'Content-type': 'application/json'},
-      body: jsonEncode(
-          {'name': name, 'email': email, 'role': role, 'password': password}),
+      body: jsonEncode({
+        'name': name,
+        'email': email,
+        'role': role,
+        'password': password,
+        'confirmPassword': confirmPassword,
+      }),
     );
     if (response.statusCode == 200) {
-      return null;
+      return null; 
+    } else if (response.statusCode == 400) {
+      try {
+        var jsonResponse = jsonDecode(response.body);
+        return jsonResponse['error'] ?? 'Failed';
+      } catch (e) {
+        return 'Error: ${e.toString()}';
+      }
     } else {
-      return jsonDecode(response.body)['error'] ?? 'Failed';
+      return 'Request failed with status: ${response.statusCode}';
     }
   }
 
@@ -68,7 +80,6 @@ class ApiServices {
     if (token == null) return "No token found";
 
     final response = await http.post(
-      
       Uri.parse('$baseUrl/api/ApiProfile/change-password'),
       headers: {
         'Content-Type': 'application/json',
@@ -81,9 +92,9 @@ class ApiServices {
     );
 
     if (response.statusCode == 200) {
-      return null; 
+      return null;
     } else {
-      return response.body; 
+      return response.body;
     }
   }
 

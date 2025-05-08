@@ -4,137 +4,143 @@
 }
 
 
-    <title>Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            height: 100vh;
-        }
+<title>Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+    }
 
-        .container {
-            display: flex;
-            width: 100%;
-        }
+    .container {
+        display: flex;
+        width: 100%;
+    }
 
-        .left-panel {
-            background-color: #0f56af;
-            color: white;
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-top-right-radius: 80px;
-            border-bottom-right-radius: 80px;
-        }
+    .left-panel {
+        background-color: #0f56af;
+        color: white;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-top-right-radius: 80px;
+        border-bottom-right-radius: 80px;
+    }
 
-        .left-panel h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
+    .left-panel h2 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
 
-        .left-panel p {
-            margin-bottom: 20px;
-        }
+    .left-panel p {
+        margin-bottom: 20px;
+    }
 
-        .left-panel a.btn {
-            background: none;
-            border: 2px solid white;
-            padding: 10px 30px;
-            border-radius: 10px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+    .left-panel a.btn {
+        background: none;
+        border: 2px solid white;
+        padding: 10px 30px;
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
 
-        .left-panel a.btn:hover {
-            background-color: white;
-            color: #0f56af;
-        }
+    .left-panel a.btn:hover {
+        background-color: white;
+        color: #0f56af;
+    }
 
-        .form-box {
-            width: 60%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    .form-box {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .form-box form {
-            width: 300px;
-        }
+    .form-box form {
+        width: 300px;
+    }
 
-        .form-box h1 {
-            text-align: center;
-            color: #0f56af;
-            margin-bottom: 30px;
-        }
+    .form-box h1 {
+        text-align: center;
+        color: #0f56af;
+        margin-bottom: 30px;
+    }
 
-        .input-box {
-            position: relative;
-            margin-bottom: 20px;
-        }
+    .input-box {
+        position: relative;
+        margin-bottom: 20px;
+    }
 
-        .input-box input {
-            width: 100%;
-            padding: 10px 40px 10px 15px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            background-color: #e0e0e0;
-            outline: none;
-        }
+    .input-box input {
+        width: 100%;
+        padding: 10px 40px 10px 15px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        background-color: #e0e0e0;
+        outline: none;
+    }
 
-        .input-box i {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
-        }
+    .input-box i {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+    }
 
-        .btn-submit {
-            width: 100%;
-            background-color: #0f56af;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    .btn-submit {
+        width: 100%;
+        background-color: #0f56af;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
 
-        .btn-submit:hover {
-            background-color: #0c448c;
-        }
-    </style>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    .btn-submit:hover {
+        background-color: #0c448c;
+    }
+</style>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <div class="container">
-        <div class="left-panel">
-            <h2>Hello, Welcome!</h2>
-            <p>Don't have account?</p>
-            <a asp-action="Register" asp-controller="Auth" class="btn">Register</a>
-        </div>
-
-        <div class="form-box">
-            <form method="post" asp-action="Login" asp-controller="Auth">
-                <h1>Login</h1>
-                <div class="input-box">
-                    <input asp-for="Email" placeholder="Email" required />
-                    <i class='bx bxs-user'></i>
-                </div>
-                <div class="input-box">
-                    <input asp-for="Password" type="password" placeholder="Password" required />
-                    <i class='bx bxs-key'></i>
-                </div>
-                <button type="submit" class="btn-submit">Login</button>
-            </form>
-        </div>
+<div class="container">
+    <div class="left-panel">
+        <h2>Hello, Welcome!</h2>
+        <p>Don't have account?</p>
+        <a asp-action="Register" asp-controller="Auth" class="btn">Register</a>
     </div>
 
+    <div class="form-box">
+        <form method="post" asp-action="Login" asp-controller="Auth">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input asp-for="Email" placeholder="Email" required />
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input asp-for="Password" type="password" placeholder="Password" required />
+                <i class='bx bxs-key'></i>
+            </div>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div style="color:red; margin-bottom: 15px;">
+                    @ViewData.ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage
+                </div>
+            }
+
+            <button type="submit" class="btn-submit">Login</button>
+        </form>
+    </div>
+</div>

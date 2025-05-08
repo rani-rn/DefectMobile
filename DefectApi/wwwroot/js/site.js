@@ -2,6 +2,13 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+const wrapper = document.getElementById("wrapper");
+const content = document.getElementById("page-content-wrapper");
+
+document.getElementById("menu-toggle").addEventListener("click", function () {
+    wrapper.classList.toggle("toggled");
+    content.classList.toggle("content-shifted");
+});
 document.addEventListener('DOMContentLoaded', function () {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.getElementById('sidebarOverlay');

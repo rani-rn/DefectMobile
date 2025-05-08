@@ -3,51 +3,13 @@
 @{
     ViewData["Title"] = "Update Defect";
 }
+
+
 <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<style>
-    .ts-wrapper {
-        border: none !important;
-        background-color: #D9D9D9 !important;
-        border-radius: 5px;
-        color: black;
-        padding: 1px;
-        width: 100%;
-        transition: background-color 0.3s ease-in-out;
-    }
-
-    .ts-wrapper.focus {
-        background-color: white !important;
-        border: 1px solid #0F58A8 !important;
-    }
-
-    .ts-control {
-        background: transparent !important;
-        border: none !important;
-        padding: 0;
-    }
-
-    .ts-control::placeholder {
-        color: #D9D9D9;
-        text-align: end;
-    }
-
-    .ts-control:focus::placeholder {
-        text-align: start;
-    }
-
-    .ts-dropdown {
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        background: white;
-    }
-</style>
-<link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<div class="">
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<div>
     <h2 class="text-header text-center justify-center">Update Defect</h2>
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">

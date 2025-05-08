@@ -46,12 +46,8 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    final result = await ApiServices.register(
-      nameCtrl.text,
-      emailCtrl.text,
-      passCtrl.text,
-      selectedRole,
-    );
+    final result = await ApiServices.register(nameCtrl.text, emailCtrl.text,
+        selectedRole, passCtrl.text, retypeCtrl.text);
 
     setState(() => loading = false);
 
@@ -110,17 +106,24 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               const SizedBox(height: 12),
               TextField(
-                controller: passCtrl,
-                obscureText: true,
-                decoration:
-                    buildAuthInputDecoration('Password', Icons.lock_outline).copyWith(
-                      suffixIcon: IconButton(onPressed: (){
-                        setState(() {
-                          _showPassword = !_showPassword; 
-                        });
-                      }, icon: Icon(_showPassword ? Icons.visibility : Icons.visibility_off, color: Colors.grey,)),
-                    )
-              ),
+                  controller: passCtrl,
+                  obscureText: !_showPassword,
+                  decoration:
+                      buildAuthInputDecoration('Password', Icons.lock_outline)
+                          .copyWith(
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _showPassword = !_showPassword;
+                          });
+                        },
+                        icon: Icon(
+                          _showPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        )),
+                  )),
               const SizedBox(height: 12),
               TextField(
                 controller: retypeCtrl,

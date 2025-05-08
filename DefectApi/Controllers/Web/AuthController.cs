@@ -18,7 +18,16 @@ namespace DefectApi.Controllers.Web
             var userExist = await _context.Users.AnyAsync(u => u.Email == dto.Email);
             if (userExist)
             {
-                ModelState.AddModelError("", "Email sudah terdaftar");
+                ModelState.AddModelError(string.Empty, "Email has been registered");
+            }
+
+            if (dto.Password != dto.ConfirmPassword)
+            {
+                ModelState.AddModelError(string.Empty, "Password do not match");
+            }
+
+            if (!ModelState.IsValid)
+            {
                 return View(dto);
             }
 
@@ -29,11 +38,13 @@ namespace DefectApi.Controllers.Web
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 Role = dto.Role
             };
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            TempData["Success"] = "Registrasi berhasil. Silakan login";
+            TempData["Success"] = "Registration Success. Time to login";
             return RedirectToAction("Login");
         }
+
 
         public IActionResult Login() => View();
 
@@ -43,7 +54,7 @@ namespace DefectApi.Controllers.Web
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
             {
-                ModelState.AddModelError("", "Email atau password salah");
+                ModelState.AddModelError(string.Empty, "Email or password invalid");
                 return View(dto);
             }
 

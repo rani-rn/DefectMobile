@@ -23,11 +23,19 @@ namespace DefectApi.Controllers.Api
             _config = config;
         }
 
-        [HttpPost("register")]
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             var userExist = await _context.Users.AnyAsync(u => u.Email == dto.Email);
-            if (userExist) return BadRequest("Email already exists");
+            if (userExist)
+            {
+                return BadRequest(new { error = "Email has been registered" });
+            }
+
+            if (dto.Password != dto.ConfirmPassword)
+            {
+                return BadRequest(new { error = "Passwords do not match" });
+            }
 
             var user = new User
             {
@@ -36,10 +44,12 @@ namespace DefectApi.Controllers.Api
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 Role = dto.Role
             };
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return Ok("Register success");
+            return Ok(); 
         }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)

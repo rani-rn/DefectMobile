@@ -12,16 +12,26 @@ class ChangePasswordPage extends StatefulWidget {
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final _currentController = TextEditingController();
   final _newController = TextEditingController();
+  final _retypeController = TextEditingController();
   bool _loading = false;
   String? _error;
   bool _showCurrentPassword = false;
   bool _showNewPassword = false;
+  bool _showRetypePassword = false;
 
   void _submit() async {
     setState(() {
       _loading = true;
       _error = null;
     });
+
+    if (_newController.text != _retypeController.text) {
+      setState(() {
+        _loading = false;
+        _error = 'New passwords do not match';
+      });
+      return;
+    }
 
     final error = await ApiServices.changePassword(
       _currentController.text,
@@ -99,6 +109,27 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     ),
                   ),
                 ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: _retypeController,
+                obscureText: !_showRetypePassword,
+                decoration: buildAuthInputDecoration(
+                        'Retype Password', Icons.lock_outline)
+                    .copyWith(
+                        suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _showRetypePassword = !_showRetypePassword;
+                    });
+                  },
+                  icon: Icon(
+                    _showRetypePassword
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                )),
               ),
               const SizedBox(height: 16),
               if (_error != null)

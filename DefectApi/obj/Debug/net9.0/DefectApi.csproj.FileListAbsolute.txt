@@ -1095,9 +1095,7 @@ D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\DefectApi.sourcelink.json
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\scopedcss\bundle\DefectApi.styles.css
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\scopedcss\projectbundle\DefectApi.bundle.scp.css
-D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\jrmwcqmg6a-l73e10gb24.gz
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\4cmpabn91c-61n19gt1b8.gz
-D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\gf5gbae9n6-e8xvyv0e91.gz
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\14erze16dq-t1cqhe9u97.gz
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\g94m4fi1w6-c2jlpeoesf.gz
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\3kgp7un9do-sejl45xvog.gz
@@ -1157,8 +1155,6 @@ D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\crounxhu2d-jjsuc
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\wmolzaosf2-9vr69e8ynj.gz
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\35tj8kqncg-87fc7y1x7t.gz
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\ce7gpk0znj-mlv21k5csn.gz
-D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\qtwde2ugk8-i0et5t7dy6.gz
-D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\compressed\8qiorrps7l-i0et5t7dy6.gz
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\staticwebassets.build.json
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\staticwebassets.development.json
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -1176,3 +1172,7 @@ D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\DefectApi.genruntimeconfig.
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\ref\DefectApi.dll
 D:\Panasonic\DefectRecord\DefectApi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Panasonic\DefectRecord\defectapi\bin\Debug\net9.0\BCrypt.Net-Next.dll
+D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\jrmwcqmg6a-j5kmgg5bvy.gz
+D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\gf5gbae9n6-nurb7ae17i.gz
+D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\qtwde2ugk8-hwcc4zu9fd.gz
+D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\8qiorrps7l-hwcc4zu9fd.gz
