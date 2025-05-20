@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 using DefectApi.Models;
 using DefectApi.Dto;
 
@@ -11,6 +14,7 @@ namespace DefectApi.Controllers.Web
         public AuthController(ApplicationDbContext context) => _context = context;
 
         public IActionResult Register() => View();
+        public IActionResult Login() => View();
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDto dto)
@@ -45,9 +49,6 @@ namespace DefectApi.Controllers.Web
             return RedirectToAction("Login");
         }
 
-
-        public IActionResult Login() => View();
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto dto)
         {
@@ -58,6 +59,18 @@ namespace DefectApi.Controllers.Web
                 return View(dto);
             }
 
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.Name),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.Role, user.Role)
+    };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
             HttpContext.Session.SetString("Name", user.Name);
             HttpContext.Session.SetString("Email", user.Email);
             HttpContext.Session.SetString("Role", user.Role);
@@ -65,10 +78,12 @@ namespace DefectApi.Controllers.Web
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
+
     }
 }

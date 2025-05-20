@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using DefectApi.Models;
 
 namespace DefectApi.Controllers.Api
 {
+ 
     [ApiController]
     [Route("api/defect")]
     public class DefectController : ControllerBase

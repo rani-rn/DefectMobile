@@ -47,7 +47,7 @@ namespace DefectApi.Controllers.Api
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return Ok(); 
+            return Ok();
         }
 
 
@@ -60,10 +60,10 @@ namespace DefectApi.Controllers.Api
 
             var claims = new[]
             {
-            new Claim(ClaimTypes.Name, user.Name),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role)
-        };
+        new Claim(ClaimTypes.Name, user.Name),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.Role, user.Role)
+    };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -74,9 +74,20 @@ namespace DefectApi.Controllers.Api
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds
             );
+
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            Response.Cookies.Append("jwtToken", tokenString, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.Now.AddDays(1)
+            });
+
             return Ok(new
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
+                token = tokenString,
                 user = new
                 {
                     user.Id,

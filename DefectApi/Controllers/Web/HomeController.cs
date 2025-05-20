@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClosedXML.Excel;
 using DefectApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DefectApi.Controllers.Web
 {
-
+    [Authorize]
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
 
@@ -17,6 +19,7 @@ namespace DefectApi.Controllers.Web
             _logger = logger;
             _context = context;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Input()
@@ -29,7 +32,7 @@ namespace DefectApi.Controllers.Web
         {
             return View();
         }
-      
+
         public async Task<IActionResult> Update(int id)
         {
             var defectReport = await _context.DefectReports
