@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <h2 class="text-header">Dashboard</h2>
+    <h2 class="text-header text-center">Dashboard</h2>
     <div class="filters">
         <div>
             <label for="timeFilter" class="form-label">Filter by Time Period</label>
@@ -14,24 +14,19 @@
 
     <div class="dashboard-container">
         <div class="summary-boxes">
-            <div class="summary-box">
-                <span>Daily</span>
+            <div class="summary-box"><span>Daily</span>
                 <div id="dailyDefect">0</div>
             </div>
-            <div class="summary-box">
-                <span>Weekly</span>
+            <div class="summary-box"><span>Weekly</span>
                 <div id="weeklyDefect">0</div>
             </div>
-            <div class="summary-box">
-                <span>Monthly</span>
+            <div class="summary-box"><span>Monthly</span>
                 <div id="monthlyDefect">0</div>
             </div>
-            <div class="summary-box">
-                <span>Annual</span>
+            <div class="summary-box"><span>Annual</span>
                 <div id="annualDefect">0</div>
             </div>
         </div>
-
         <div class="chart-container">
             <canvas id="chart"></canvas>
         </div>
@@ -39,81 +34,108 @@
 </div>
 
 @section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(function () {
             let chartInstance = null;
 
-            function loadChart(lineProductionId = '', timePeriod = 'daily') {
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            function loadChart(timePeriod = 'daily') {
                 $.ajax({
                     url: '@Url.Action("GetChartData", "Defect")',
                     type: 'GET',
-                    data: {
-                        lineProductionId: lineProductionId,
-                        timePeriod: timePeriod
-                    },
+                    data: { timePeriod: timePeriod },
                     success: function (response) {
-                        const labels = response.chartData.map(item => item.label);
-                        const values = response.chartData.map(item => item.value);
+                        console.log("Chart data loaded:", response);
 
-                        $("#dailyDefect").text(response.daily);
-                        $("#weeklyDefect").text(response.weekly);
-                        $("#monthlyDefect").text(response.monthly);
-                        $("#annualDefect").text(response.annual);
+                        const labels = response.labels || [];
+                        const rawDatasets = response.datasets || [];
+
+                        $("#dailyDefect").text(response.daily ?? 0);
+                        $("#weeklyDefect").text(response.weekly ?? 0);
+                        $("#monthlyDefect").text(response.monthly ?? 0);
+                        $("#annualDefect").text(response.annual ?? 0);
 
                         if (chartInstance) {
                             chartInstance.destroy();
                         }
 
+                  
+                        const filteredLabels = labels;
+
+                        const filteredDatasets = rawDatasets.map(set => {
+                            const color = set.backgroundColor || getRandomColor();
+                            return {
+                                ...set,
+                                data: set.data,
+                                backgroundColor: labels.map(() => color),
+                            };
+                        });
+
                         const ctx = document.getElementById("chart").getContext("2d");
+
                         chartInstance = new Chart(ctx, {
-                            type: "bar",
+                            type: 'bar',
                             data: {
                                 labels: labels,
-                                datasets: [{
-                                    label: "Defect Count",
-                                    data: values,
-                                    backgroundColor: "rgba(95, 246, 232, 0.8)",
-                                    borderColor: "rgba(47, 163, 152, 0.8)",
-                                    borderWidth: 1
-                                }]
+                                datasets: filteredDatasets
                             },
                             options: {
                                 responsive: true,
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
+                                maintainAspectRatio: false,
+                                interaction: {
+                                    mode: 'nearest',
+                                    axis: 'x',
+                                    intersect: true
+                                },
+                                plugins: {
+                                    tooltip: {
+                                        mode: 'nearest',
+                                        intersect: true,
+                                        filter: function (tooltipItem) {
+                                            return tooltipItem.raw !== 0;
+                                        }
+                                    },
+                                    legend: {
+                                        display: false
                                     }
+                                },
+                             
+                                scales: {
+                                    x: { stacked: true },
+                                    y: { stacked: true, beginAtZero: true }
                                 }
                             }
                         });
                     },
-                    error: function () {
-                        console.error("Error loading chart data.");
+                    error: function (xhr, status, error) {
+                        console.error("AJAX Error:", status, error);
+                        console.log(xhr.responseText);
                     }
                 });
             }
 
             loadChart();
 
-            $("#lineProduction, #timeFilter").change(function () {
-                let selectedLineProductionId = $("#lineProduction").val();
-                let selectedTimePeriod = $("#timeFilter").val();
-                loadChart(selectedLineProductionId, selectedTimePeriod);
+            $("#timeFilter").change(function () {
+                let selectedTimePeriod = $(this).val();
+                loadChart(selectedTimePeriod);
             });
         });
     </script>
 }
 
 <style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
+    
     .dashboard-container {
         display: flex;
         flex-direction: column;
@@ -124,8 +146,8 @@
     }
 
     .chart-container {
-        width: 600px;
-        max-width: 100%;
+        width: 100%;
+        max-width: 800px;
         height: 400px;
         display: flex;
         justify-content: center;
@@ -136,12 +158,16 @@
         padding: 10px;
     }
 
+    canvas#chart {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
     .summary-boxes {
         display: flex;
         gap: 15px;
         width: 100%;
         justify-content: center;
-        /* Align the boxes in one row */
     }
 
     .summary-box {

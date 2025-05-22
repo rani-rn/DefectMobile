@@ -20,78 +20,94 @@ namespace DefectApi.Controllers.Api
         {
             _context = context;
         }
-
         [HttpGet("chart")]
-        public IActionResult GetChartData(int? defectId = null, string timePeriod = "daily")
+        public IActionResult GetChartData(string timePeriod = "daily")
         {
             var today = DateTime.Today;
-            DateTime startDate = today;
-            var startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
-            var startOfMonth = new DateTime(today.Year, today.Month, 1);
-            var startOfYear = new DateTime(today.Year, 1, 1);
 
-            var dailyCount = _context.DefectReports
-    .Where(d => d.ReportDate.Date == today)
-    .Sum(d => (int?)d.DefectQty) ?? 0;
-
-            var weeklyCount = _context.DefectReports
-                .Where(d => d.ReportDate >= startOfWeek)
-                .Sum(d => (int?)d.DefectQty) ?? 0;
-
-            var monthlyCount = _context.DefectReports
-                .Where(d => d.ReportDate >= startOfMonth)
-                .Sum(d => (int?)d.DefectQty) ?? 0;
-
-            var annualCount = _context.DefectReports
-                .Where(d => d.ReportDate >= startOfYear)
-                .Sum(d => (int?)d.DefectQty) ?? 0;
-
-            switch (timePeriod.ToLower())
+            DateTime startDate = timePeriod.ToLower() switch
             {
-                case "weekly":
-                    int diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
-                    startDate = today.AddDays(-1 * diff);
-                    break;
-                case "monthly":
-                    startDate = new DateTime(today.Year, today.Month, 1);
-                    break;
-                case "annual":
-                    startDate = new DateTime(today.Year, 1, 1);
-                    break;
-                default:
-                    startDate = today;
-                    break;
-            }
+                "weekly" => today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday),
+                "monthly" => new DateTime(today.Year, today.Month, 1),
+                "annual" => new DateTime(today.Year, 1, 1),
+                _ => today
+            };
 
-            var query = _context.DefectReports
-                .Include(d => d.LineProduction)
-                .Where(d =>
-                    (!defectId.HasValue || d.DefectId == defectId) &&
-                    d.ReportDate >= startDate
-                );
+            var allDefectTypes = _context.Defect
+                .Select(d => d.DefectName)
+                .Distinct()
+                .ToList();
 
-            var chartData = query
-            // .Include(d => d.Defect)
-                .GroupBy(d => new { d.LineProductionId, d.LineProduction.LineProductionName})
-                .Select(g => new
+            var allLineProductions = _context.LineProductions
+                .Select(lp => lp.LineProductionName)
+                .Distinct()
+                .ToList();
+
+            allLineProductions = allLineProductions
+                .OrderBy(name =>
                 {
-                    label = g.Key.LineProductionName,
-                    value = g.Sum(d => d.DefectQty)
+                    var match = System.Text.RegularExpressions.Regex.Match(name, @"\d+");
+                    return match.Success ? int.Parse(match.Value) : int.MaxValue;
                 })
                 .ToList();
 
-            var total = query.Count();
+            var rawData = _context.DefectReports
+                .Where(d => d.ReportDate >= startDate)
+                .Select(d => new
+                {
+                    d.Defect.DefectName,
+                    d.LineProduction.LineProductionName,
+                    d.DefectQty
+                })
+                .ToList();
+
+            var grouped = rawData
+                .GroupBy(d => new { d.DefectName, d.LineProductionName })
+                .ToDictionary(
+                    g => new { g.Key.DefectName, g.Key.LineProductionName },
+                    g => g.Sum(x => x.DefectQty)
+                );
+
+            var colorMap = allDefectTypes.ToDictionary(
+                defect => defect,
+                defect => $"#{Random.Shared.Next(0x1000000):X6}"
+            );
+
+            var datasets = allDefectTypes.Select(defect => new
+            {
+                label = defect,
+                data = allLineProductions.Select(lp =>
+                    grouped.TryGetValue(new { DefectName = defect, LineProductionName = lp }, out var qty)
+                        ? qty
+                        : 0
+                ).ToList(),
+                backgroundColor = colorMap[defect]
+            }).ToList();
+
+            var summaryData = _context.DefectReports
+                .Where(d => d.ReportDate >= today.AddYears(-1))
+                .ToList();
+
+            var allCounts = new
+            {
+                Daily = summaryData.Where(d => d.ReportDate == today).Sum(d => d.DefectQty),
+                Weekly = summaryData.Where(d => d.ReportDate >= today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday)).Sum(d => d.DefectQty),
+                Monthly = summaryData.Where(d => d.ReportDate >= new DateTime(today.Year, today.Month, 1)).Sum(d => d.DefectQty),
+                Annual = summaryData.Sum(d => d.DefectQty)
+            };
 
             return Ok(new
             {
-                chartData,
-                total,
-                daily = dailyCount,
-                weekly = weeklyCount,
-                monthly = monthlyCount,
-                annual = annualCount
+                labels = allLineProductions,
+                datasets = datasets,
+                daily = allCounts.Daily,
+                weekly = allCounts.Weekly,
+                monthly = allCounts.Monthly,
+                annual = allCounts.Annual
             });
         }
+
+
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllReports()
