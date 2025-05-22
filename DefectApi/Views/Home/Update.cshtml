@@ -233,20 +233,21 @@
         }
     });
 
-    document.getElementById("cancelButton").addEventListener("click", function () {
-        Swal.fire({
-            title: "Confirmation",
-            text: "Are you sure to cancel? All Data will delete.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#28a745",
-            confirmButtonText: "Yes, Delete!",
-            cancelButtonText: "Back"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                location.reload();
-            }
-        });
-    });
+   document.getElementById("cancelButton").addEventListener("click", function () {
+    Swal.fire({
+        title: "Confirmation",
+        text: "Are you sure to cancel? You will redirect to previous page",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#28a745",
+        confirmButtonText: "Yes, Cancel!",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Back"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            history.back(); 
+        }
+     });
+});
+
 </script>

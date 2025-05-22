@@ -9,7 +9,9 @@
         <div class="col-md-10 col-lg-10">
             <div class="d-flex flex-wrap justify-content-between mb-3 gap-2">
                 <div class="d-flex gap-2 flex-wrap">
+                    <label for="startDate" class="form-label mb-0">Start</label>
                     <input type="date" id="startDate" class="form-control" />
+                    <label for="endDate" class="form-label mb-0">Until</label>
                     <input type="date" id="endDate" class="form-control" />
                     <input type="text" id="searchInput" class="form-control" placeholder="Search...">
                 </div>
@@ -36,7 +38,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach (var defect in Model)
                         {
                             <tr id="row-@defect.ReportId" class="text-center">
@@ -74,6 +75,7 @@
     const rowsPerPage = 10;
     let currentPage = 1;
     let filteredRows = [];
+
     function showPage(page) {
         const totalRows = filteredRows.length;
         const totalPages = Math.ceil(totalRows / rowsPerPage);
@@ -88,7 +90,6 @@
         updatePagination(totalPages);
         updateRowNumbers();
     }
-
 
     function updatePagination(totalPages) {
         const pagination = document.getElementById("pagination");
@@ -146,7 +147,6 @@
         });
 
         rows.forEach(row => row.style.display = "none");
-
         filteredRows.forEach(row => row.style.display = "");
 
         showPage(1);
@@ -155,7 +155,9 @@
     document.getElementById("startDate").addEventListener("change", filterTable);
     document.getElementById("endDate").addEventListener("change", filterTable);
     document.getElementById("searchInput").addEventListener("keyup", filterTable);
+
     filterTable();
+
     function confirmDelete(reportId) {
         Swal.fire({
             title: 'Are you sure?',
@@ -174,6 +176,7 @@
                         if (response.success) {
                             Swal.fire('Deleted!', response.message, 'success');
                             document.getElementById("row-" + reportId).remove();
+                            filterTable();
                         } else {
                             Swal.fire('Error!', response.message, 'error');
                         }
@@ -184,31 +187,39 @@
                 });
             }
         });
-        document.getElementById("row-" + reportId).remove();
-        updateRowNumbers();
-
     }
+
     document.getElementById("exportBtn").addEventListener("click", function () {
-        let originalTable = document.querySelector("table");
-        let clonedTable = originalTable.cloneNode(true);
+        let visibleRows = Array.from(document.querySelectorAll("tbody tr"))
+            .filter(row => row.style.display !== "none");
 
-        let headerRow = clonedTable.querySelector("thead tr");
-        headerRow.deleteCell(headerRow.cells.length - 1);
+        let data = [];
 
-        let clonedTbody = clonedTable.querySelector("tbody");
-        clonedTbody.innerHTML = "";
+        let headers = [
+            "No",
+            "Date",
+            "Report by",
+            "Model",
+            "Section",
+            "Line Production",
+            "Line Production Qty",
+            "Defect",
+            "Description",
+            "Defect Qty"
+        ];
+        data.push(headers);
 
-        let allRows = originalTable.querySelectorAll("tbody tr");
-        allRows.forEach(row => {
-            let clone = row.cloneNode(true);
-            clone.deleteCell(clone.cells.length - 1);
-            clone.style.display = "";
-            clonedTbody.appendChild(clone);
+        visibleRows.forEach((row, index) => {
+            let cells = Array.from(row.cells).slice(0, -1);
+            let rowData = cells.map(cell => cell.innerText.trim());
+            rowData[0] = (currentPage - 1) * rowsPerPage + index + 1;
+            data.push(rowData);
         });
 
-        let wb = XLSX.utils.table_to_book(clonedTable, { sheet: "Sheet1" });
+        let ws = XLSX.utils.aoa_to_sheet(data);
+        let wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
         XLSX.writeFile(wb, "DefectReport.xlsx");
     });
-
-    filterTable();
 </script>

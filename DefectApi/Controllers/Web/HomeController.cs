@@ -25,6 +25,9 @@ namespace DefectApi.Controllers.Web
         public async Task<IActionResult> Input()
         {
             await LoadViewBagData();
+            var reporterName = HttpContext.Session.GetString("Name");
+
+            ViewBag.ReporterName = reporterName;
             return View();
         }
 

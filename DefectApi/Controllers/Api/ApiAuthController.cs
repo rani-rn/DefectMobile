@@ -23,7 +23,7 @@ namespace DefectApi.Controllers.Api
             _config = config;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             var userExist = await _context.Users.AnyAsync(u => u.Email == dto.Email);

@@ -19,8 +19,11 @@
                 <div class="row">
                     <div class="mb-3 col-md-6">
                         <label for="reporter" class="form-label">Reporter</label>
-                        <input asp-for="Reporter" type="text" id="reporter" name="Reporter" class="form-control">
+                        <input type="text" class="form-control" id="reporter" name="Reporter"
+                            value="@ViewBag.ReporterName" readonly />
+
                     </div>
+
                     <div class="mb-3 col-md-6">
                         <label for="date" class="form-label">Date</label>
                         <input type="date" id="date" name="ReportDate" class="form-control" asp-for="ReportDate">

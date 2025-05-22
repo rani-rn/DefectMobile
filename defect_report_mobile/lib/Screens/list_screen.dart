@@ -14,7 +14,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
   late Future<List<DefectReport>> _futureReports;
   String _searchTerm = "";
   int _currentPage = 0;
-  final int _rowsPerPage = 15;
+  final int _rowsPerPage = 10;
 
   @override
   void initState() {
@@ -40,29 +40,36 @@ class _RecordListScreenState extends State<RecordListScreen> {
               },
             ),
             const SizedBox(height: 10),
-
             Expanded(
               child: FutureBuilder<List<DefectReport>>(
                 future: _futureReports,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    final filtered = snapshot.data!
-                        .where((d) {
-                          final matchSearch = d.reporter.toLowerCase().contains(_searchTerm) ||
-                              d.modelName.toLowerCase().contains(_searchTerm) ||
-                              d.sectionName.toLowerCase().contains(_searchTerm) ||
-                              d.lineProductionName.toLowerCase().contains(_searchTerm) ||
-                              d.defectName.toLowerCase().contains(_searchTerm);
+                    final filtered = snapshot.data!.where((d) {
+                      final matchSearch = d.reporter
+                              .toLowerCase()
+                              .contains(_searchTerm) ||
+                          d.modelName.toLowerCase().contains(_searchTerm) ||
+                          d.sectionName.toLowerCase().contains(_searchTerm) ||
+                          d.lineProductionName
+                              .toLowerCase()
+                              .contains(_searchTerm) ||
+                          d.defectName.toLowerCase().contains(_searchTerm);
 
-                          return matchSearch;
-                        })
+                      return matchSearch;
+                    }).toList();
+
+                    final pagedReports = filtered
+                        .skip(_currentPage * _rowsPerPage)
+                        .take(_rowsPerPage)
                         .toList();
-
-                    final pagedReports = filtered.skip(_currentPage * _rowsPerPage).take(_rowsPerPage).toList();
 
                     return Column(
                       children: [
-                        DefectReportTable(reports: pagedReports, onRefresh: () {  }),
+                        Expanded(
+                          child: DefectReportTable(
+                              reports: pagedReports, onRefresh: () {}),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -74,7 +81,8 @@ class _RecordListScreenState extends State<RecordListScreen> {
                             ),
                             Text("Page ${_currentPage + 1}"),
                             IconButton(
-                              onPressed: (_currentPage + 1) * _rowsPerPage < filtered.length
+                              onPressed: (_currentPage + 1) * _rowsPerPage <
+                                      filtered.length
                                   ? () => setState(() => _currentPage++)
                                   : null,
                               icon: const Icon(Icons.chevron_right),

@@ -40,7 +40,9 @@ class _DefectInputFormState extends State<DefectInputForm> {
 
     if (widget.defectReportId != null) {
       _editDataFuture = ApiServices.getReportById(widget.defectReportId!);
-    }
+    } else {
+    _clearForm(); 
+  }
   }
 
   void _populateFields(Map<String, dynamic> data) {
@@ -80,8 +82,6 @@ class _DefectInputFormState extends State<DefectInputForm> {
       _selectedModel = null;
     });
   }
-
- 
 
   Future<void> _saveReport({
     required List<Map<String, dynamic>> sections,
@@ -275,15 +275,63 @@ class _DefectInputFormState extends State<DefectInputForm> {
             _buildTextField(_defectQtyController, 'Defect Qty',
                 inputType: TextInputType.number),
             const SizedBox(height: 12),
-            BuildButton('Save', Colors.green, () {
-              _saveReport(
+            BuildButton('Save', Colors.green, () async {
+              final confirmed = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Confirm Save'),
+                  content: const Text('Are you sure you want to save?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text('Save'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirmed == true) {
+                _saveReport(
                   sections: sections,
                   lines: lines,
                   defects: defects,
-                  models: models);
+                  models: models,
+                );
+              }
             }),
             const SizedBox(height: 10),
-            BuildButton('Cancel', Colors.red, _clearForm),
+            BuildButton('Cancel', Colors.red, () async {
+              final confirmCancel = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Confirm Cancel'),
+                  content: const Text(
+                      'Your data will not be saved. Are you sure you want to cancel?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text('Yes'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirmCancel == true) {
+                if (widget.defectReportId != null) {
+                  Navigator.pop(context);
+                } else {
+                  _clearForm();
+                }
+              }
+            }),
           ],
         ),
       ),

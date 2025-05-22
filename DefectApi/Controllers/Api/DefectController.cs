@@ -9,7 +9,7 @@ using DefectApi.Models;
 
 namespace DefectApi.Controllers.Api
 {
- 
+
     [ApiController]
     [Route("api/defect")]
     public class DefectController : ControllerBase
@@ -71,7 +71,8 @@ namespace DefectApi.Controllers.Api
                 );
 
             var chartData = query
-                .GroupBy(d => new { d.LineProductionId, d.LineProduction.LineProductionName })
+            // .Include(d => d.Defect)
+                .GroupBy(d => new { d.LineProductionId, d.LineProduction.LineProductionName})
                 .Select(g => new
                 {
                     label = g.Key.LineProductionName,
@@ -248,7 +249,7 @@ namespace DefectApi.Controllers.Api
 
             return Ok(new { success = true, message = "Data updated successfully" });
         }
-        
+
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteReport(int id)
