@@ -1,4 +1,8 @@
-﻿<div class="container">
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container">
     <h2 class="text-header text-center">Dashboard</h2>
     <div class="filters">
         <div>
@@ -11,6 +15,7 @@
             </select>
         </div>
     </div>
+    <br />
 
     <div class="dashboard-container">
         <div class="summary-boxes">
@@ -30,6 +35,28 @@
         <div class="chart-container">
             <canvas id="chart"></canvas>
         </div>
+        <div id="defectBreakdownCard" style="width: 100%; max-width: 800px; margin-top: 20px;">
+            <div
+                style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; box-shadow: 2px 2px 8px #ddd; background: white;">
+                <h5><strong>📊 Breakdown</strong></h5>
+                <div id="breakdownSummary" style="margin-bottom: 10px;">🧮 Total: -</div>
+                <ul id="breakdownList" style="list-style: none; padding: 0;">
+                    <li>Select Bar...</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top-stats-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+            <div class="top-chart-box">
+                <h6 class="text-center">Top 3 Defects</h6>
+                <canvas id="topDefectsChart"></canvas>
+            </div>
+            <div class="top-chart-box">
+                <h6 class="text-center">Top 3 Line Productions</h6>
+                <canvas id="topLinesChart"></canvas>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -49,14 +76,131 @@
                 return color;
             }
 
+            function showBreakdownCard(lineProduction, defectName, timePeriod) {
+                $("#breakdownSummary").text("Loading data...");
+                $("#breakdownList").html("<li>Loading breakdown...</li>");
+
+                $.ajax({
+                    url: '@Url.Action("GetDefectBreakdown", "Defect")',
+                    type: 'GET',
+                    data: { lineProduction, timePeriod },
+                    success: function (result) {
+                        const defects = result.defects || [];
+                        const totalCount = result.totalCount ?? 0;
+
+                        const periodLabelMap = {
+                            daily: "Daily",
+                            weekly: "Weekly",
+                            monthly: "Monthly",
+                            annual: "Annual"
+                        };
+                        const periodLabel = periodLabelMap[timePeriod] || "Selected";
+
+                        $("#defectBreakdownCard h5 strong").text(`📊 Breakdown - ${result.lineProduction}`);
+                        $("#breakdownSummary").html(`<strong>🧮 Total in ${periodLabel} Period:</strong> ${totalCount}`);
+
+                        const listItems = defects.map(d =>
+                            `<li style="padding: 4px 0; font-weight: ${d.name === defectName ? 'bold' : 'normal'};">
+                                                        ${d.name} → ${d.count}
+                                                    </li>`
+                        ).join('');
+
+                        $("#breakdownList").html(listItems);
+                    },
+                    error: function () {
+                        $("#breakdownSummary").text("❌ Failed to load breakdown data.");
+                        $("#breakdownList").html("");
+                    }
+                });
+            }
+
+            function loadTopStats(timePeriod) {
+                $.ajax({
+                    url: '@Url.Action("GetTopDefectsAndLines", "Defect")',
+                    type: 'GET',
+                    data: { timePeriod: timePeriod },
+                    success: function (response) {
+                        const defectLabels = response.topDefects.map(d => d.name);
+                        const defectData = response.topDefects.map(d => d.count);
+                        const lineLabels = response.topLines.map(l => l.name);
+                        const lineData = response.topLines.map(l => l.count);
+
+                        if (window.topDefectChartInstance) window.topDefectChartInstance.destroy();
+                        if (window.topLineChartInstance) window.topLineChartInstance.destroy();
+
+                        const defectCtx = document.getElementById("topDefectsChart").getContext("2d");
+                        const lineCtx = document.getElementById("topLinesChart").getContext("2d");
+
+                        window.topDefectChartInstance = new Chart(defectCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: defectLabels,
+                                datasets: [{
+                                    label: 'Defect Count',
+                                    data: defectData,
+                                    backgroundColor: defectLabels.map(() => getRandomColor())
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        display: false,
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: { stepSize: 1 }
+                                    }
+                                }
+                            }
+                        });
+
+                        window.topLineChartInstance = new Chart(lineCtx, {
+                            type: 'bar',
+                            data: {
+                                labels: lineLabels,
+                                datasets: [{
+                                    label: 'Line Count',
+                                    data: lineData,
+                                    backgroundColor: lineLabels.map(() => getRandomColor())
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        display: false,
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: { stepSize: 1 }
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+                });
+            }
+
+
+
             function loadChart(timePeriod = 'daily') {
                 $.ajax({
                     url: '@Url.Action("GetChartData", "Defect")',
                     type: 'GET',
                     data: { timePeriod: timePeriod },
                     success: function (response) {
-                        console.log("Chart data loaded:", response);
-
                         const labels = response.labels || [];
                         const rawDatasets = response.datasets || [];
 
@@ -68,9 +212,6 @@
                         if (chartInstance) {
                             chartInstance.destroy();
                         }
-
-                  
-                        const filteredLabels = labels;
 
                         const filteredDatasets = rawDatasets.map(set => {
                             const color = set.backgroundColor || getRandomColor();
@@ -109,40 +250,53 @@
                                         display: false
                                     }
                                 },
-                             
                                 scales: {
                                     x: { stacked: true },
                                     y: { stacked: true, beginAtZero: true }
+                                },
+                                onClick: function (event, elements) {
+                                    if (elements.length > 0) {
+                                        const elementIndex = elements[0].index;
+                                        const datasetIndex = elements[0].datasetIndex;
+                                        const label = this.data.labels[elementIndex]?.trim();
+                                        const dataset = this.data.datasets[datasetIndex];
+                                        const defectName = dataset.label;
+                                        const timePeriod = $("#timeFilter").val();
+
+                                        console.log("Clicked Line:", label, "Defect:", defectName, "Time:", timePeriod);
+
+                                        showBreakdownCard(label, defectName, timePeriod);
+                                    }
                                 }
                             }
                         });
                     },
                     error: function (xhr, status, error) {
-                        console.error("AJAX Error:", status, error);
-                        console.log(xhr.responseText);
+                        console.error("Chart Load Error:", status, error);
                     }
                 });
             }
 
             loadChart();
+            loadTopStats('daily');
+
 
             $("#timeFilter").change(function () {
-                let selectedTimePeriod = $(this).val();
+                const selectedTimePeriod = $(this).val();
                 loadChart(selectedTimePeriod);
+                loadTopStats(selectedTimePeriod);
             });
         });
     </script>
 }
-
 <style>
-    
     .dashboard-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 20px;
-        max-width: 1000px;
         width: 100%;
+        padding: 0 15px;
     }
 
     .chart-container {
@@ -156,22 +310,26 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 10px;
+        box-sizing: border-box;
     }
 
     canvas#chart {
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
     }
 
     .summary-boxes {
         display: flex;
+        flex-wrap: wrap;
         gap: 15px;
-        width: 100%;
         justify-content: center;
+        width: 100%;
     }
 
     .summary-box {
-        width: 120px;
+        flex: 1 1 120px;
+        min-width: 100px;
+        max-width: 160px;
         height: 80px;
         background-color: #0F58A8;
         color: white;
@@ -192,6 +350,7 @@
     .filters {
         display: flex;
         gap: 15px;
+        flex-wrap: wrap;
         justify-content: center;
     }
 
@@ -199,5 +358,28 @@
         padding: 8px;
         border-radius: 5px;
         border: 1px solid #ccc;
+        min-width: 180px;
+    }
+
+    .top-stats-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 800px;
+        width: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .top-chart-box {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        flex: 1 1 calc(50% - 20px);
+        min-width: 250px;
+        box-sizing: border-box;
+        height: 300px;
     }
 </style>

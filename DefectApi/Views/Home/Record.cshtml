@@ -123,25 +123,33 @@
             }
         });
     }
+    function toDateOnly(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+
 
     function filterTable() {
-        let startDate = document.getElementById("startDate").value;
-        let endDate = document.getElementById("endDate").value;
+        let startDateValue = document.getElementById("startDate").value;
+        let endDateValue = document.getElementById("endDate").value;
         let searchInput = document.getElementById("searchInput").value.toLowerCase();
         let rows = Array.from(document.querySelectorAll("tbody tr"));
+
+        let startDate = startDateValue ? toDateOnly(new Date(startDateValue)) : null;
+        let endDate = endDateValue ? toDateOnly(new Date(endDateValue)) : null;
 
         filteredRows = rows.filter(row => {
             let dateText = row.cells[1].innerText.trim();
             let [year, month, day] = dateText.split("-");
             let rowDate = new Date(year, month - 1, day);
+            rowDate = toDateOnly(rowDate);
 
             let matchesSearch = Array.from(row.cells).some(cell =>
                 cell.innerText.toLowerCase().includes(searchInput)
             );
 
             let matchesDate = true;
-            if (startDate && new Date(startDate) > rowDate) matchesDate = false;
-            if (endDate && new Date(endDate) < rowDate) matchesDate = false;
+            if (startDate && rowDate < startDate) matchesDate = false;
+            if (endDate && rowDate > endDate) matchesDate = false;
 
             return matchesSearch && matchesDate;
         });
@@ -151,6 +159,8 @@
 
         showPage(1);
     }
+
+
 
     document.getElementById("startDate").addEventListener("change", filterTable);
     document.getElementById("endDate").addEventListener("change", filterTable);
@@ -190,8 +200,7 @@
     }
 
     document.getElementById("exportBtn").addEventListener("click", function () {
-        let visibleRows = Array.from(document.querySelectorAll("tbody tr"))
-            .filter(row => row.style.display !== "none");
+        let visibleRows = filteredRows;
 
         let data = [];
 
@@ -212,7 +221,7 @@
         visibleRows.forEach((row, index) => {
             let cells = Array.from(row.cells).slice(0, -1);
             let rowData = cells.map(cell => cell.innerText.trim());
-            rowData[0] = (currentPage - 1) * rowsPerPage + index + 1;
+            rowData[0] = index + 1;
             data.push(rowData);
         });
 
@@ -220,6 +229,8 @@
         let wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
-        XLSX.writeFile(wb, "DefectReport.xlsx");
+        XLSX.writeFile(wb, "Filtered_DefectReport.xlsx");
     });
+
+
 </script>

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +8,6 @@ using DefectApi.Models;
 
 namespace DefectApi.Controllers.Api
 {
-
     [ApiController]
     [Route("api/defect")]
     public class DefectController : ControllerBase
@@ -20,28 +18,35 @@ namespace DefectApi.Controllers.Api
         {
             _context = context;
         }
-        [HttpGet("chart")]
-        public IActionResult GetChartData(string timePeriod = "daily")
-        {
-            var today = DateTime.Today;
 
-            DateTime startDate = timePeriod.ToLower() switch
+        private (DateTime Start, DateTime End) GetDateRange(string timePeriod)
+        {
+            DateTime today = DateTime.Today;
+            DateTime start = timePeriod.ToLower() switch
             {
                 "weekly" => today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday),
                 "monthly" => new DateTime(today.Year, today.Month, 1),
                 "annual" => new DateTime(today.Year, 1, 1),
                 _ => today
             };
+            DateTime end = today.AddDays(1).AddTicks(-1);
+            return (start, end);
+        }
 
-            var allDefectTypes = _context.Defect
+        [HttpGet("chart")]
+        public async Task<IActionResult> GetChartData(string timePeriod = "daily")
+        {
+            var (startDate, endDate) = GetDateRange(timePeriod);
+
+            var allDefectTypes = await _context.Defect
                 .Select(d => d.DefectName)
                 .Distinct()
-                .ToList();
+                .ToListAsync();
 
-            var allLineProductions = _context.LineProductions
+            var allLineProductions = await _context.LineProductions
                 .Select(lp => lp.LineProductionName)
                 .Distinct()
-                .ToList();
+                .ToListAsync();
 
             allLineProductions = allLineProductions
                 .OrderBy(name =>
@@ -51,15 +56,17 @@ namespace DefectApi.Controllers.Api
                 })
                 .ToList();
 
-            var rawData = _context.DefectReports
-                .Where(d => d.ReportDate >= startDate)
+            var rawData = await _context.DefectReports
+                .Where(d => d.ReportDate >= startDate && d.ReportDate <= endDate)
+                .Include(d => d.Defect)
+                .Include(d => d.LineProduction)
                 .Select(d => new
                 {
-                    d.Defect.DefectName,
-                    d.LineProduction.LineProductionName,
+                    DefectName = d.Defect.DefectName,
+                    LineProductionName = d.LineProduction.LineProductionName,
                     d.DefectQty
                 })
-                .ToList();
+                .ToListAsync();
 
             var grouped = rawData
                 .GroupBy(d => new { d.DefectName, d.LineProductionName })
@@ -70,7 +77,7 @@ namespace DefectApi.Controllers.Api
 
             var colorMap = allDefectTypes.ToDictionary(
                 defect => defect,
-                defect => $"#{Random.Shared.Next(0x1000000):X6}"
+                _ => $"#{Random.Shared.Next(0x1000000):X6}"
             );
 
             var datasets = allDefectTypes.Select(defect => new
@@ -84,30 +91,89 @@ namespace DefectApi.Controllers.Api
                 backgroundColor = colorMap[defect]
             }).ToList();
 
-            var summaryData = _context.DefectReports
-                .Where(d => d.ReportDate >= today.AddYears(-1))
-                .ToList();
+            var summaryData = await _context.DefectReports
+                .Where(d => d.ReportDate >= DateTime.Today.AddYears(-1))
+                .ToListAsync();
 
             var allCounts = new
             {
-                Daily = summaryData.Where(d => d.ReportDate == today).Sum(d => d.DefectQty),
-                Weekly = summaryData.Where(d => d.ReportDate >= today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday)).Sum(d => d.DefectQty),
-                Monthly = summaryData.Where(d => d.ReportDate >= new DateTime(today.Year, today.Month, 1)).Sum(d => d.DefectQty),
-                Annual = summaryData.Sum(d => d.DefectQty)
+                daily = summaryData.Where(d => d.ReportDate.Date == DateTime.Today).Sum(d => d.DefectQty),
+                weekly = summaryData.Where(d => d.ReportDate >= DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday)).Sum(d => d.DefectQty),
+                monthly = summaryData.Where(d => d.ReportDate >= new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)).Sum(d => d.DefectQty),
+                annual = summaryData.Sum(d => d.DefectQty)
             };
 
             return Ok(new
             {
                 labels = allLineProductions,
-                datasets = datasets,
-                daily = allCounts.Daily,
-                weekly = allCounts.Weekly,
-                monthly = allCounts.Monthly,
-                annual = allCounts.Annual
+                datasets,
+                daily = allCounts.daily,
+                weekly = allCounts.weekly,
+                monthly = allCounts.monthly,
+                annual = allCounts.annual
             });
         }
 
+        [HttpGet("breakdown")]
+        public async Task<IActionResult> GetDefectBreakdown(string lineProduction, string timePeriod = "daily")
+        {
+            var (startDate, endDate) = GetDateRange(timePeriod);
 
+            var defectsInLine = await _context.DefectReports
+                .Include(d => d.LineProduction)
+                .Include(d => d.Defect)
+                .Where(d => d.ReportDate >= startDate && d.ReportDate <= endDate && d.LineProduction.LineProductionName == lineProduction)
+                .GroupBy(d => d.Defect.DefectName)
+                .Select(g => new
+                {
+                    name = g.Key,
+                    count = g.Sum(x => x.DefectQty)
+                })
+                .OrderByDescending(d => d.count)
+                .ToListAsync();
+
+            var totalCount = defectsInLine.Sum(d => d.count);
+
+            return Ok(new
+            {
+                lineProduction,
+                defects = defectsInLine,
+                totalCount
+            });
+        }
+
+        [HttpGet("GetTopDefectsAndLines")]
+        public async Task<IActionResult> GetTopDefectsAndLines(string timePeriod)
+        {
+            var (start, end) = GetDateRange(timePeriod);
+
+            var topDefects = await _context.DefectReports
+                .Where(d => d.ReportDate >= start && d.ReportDate <= end)
+                .GroupBy(d => d.Defect)
+                .Select(g => new
+                {
+                    Name = g.Key.DefectName,
+                    Count = g.Sum(x => x.DefectQty)
+                })
+                .OrderByDescending(x => x.Count)
+                .Take(3)
+                .ToListAsync();
+
+            var topLines = await _context.DefectReports
+                .Where(d => d.ReportDate >= start && d.ReportDate <= end)
+                .GroupBy(d => d.LineProduction)
+                .Select(g => new
+                {
+                    Name = g.Key.LineProductionName,
+                    Count = g.Sum(x => x.DefectQty)
+                })
+                .OrderByDescending(x => x.Count)
+                .Take(3)
+                .ToListAsync();
+
+            return Ok(new { topDefects, topLines });
+
+        }
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllReports()
@@ -125,26 +191,10 @@ namespace DefectApi.Controllers.Api
                     d.Reporter,
                     d.Description,
                     d.DefectQty,
-                    WpModel = d.WpModel != null ? new
-                    {
-                        d.WpModel.ModelId,
-                        d.WpModel.ModelName
-                    } : null,
-                    Section = d.Section != null ? new
-                    {
-                        d.Section.SectionId,
-                        d.Section.SectionName
-                    } : null,
-                    LineProduction = d.LineProduction != null ? new
-                    {
-                        d.LineProduction.Id,
-                        d.LineProduction.LineProductionName
-                    } : null,
-                    Defect = d.Defect != null ? new
-                    {
-                        d.Defect.DefectId,
-                        d.Defect.DefectName
-                    } : null
+                    WpModel = d.WpModel == null ? null : new { d.WpModel.ModelId, d.WpModel.ModelName },
+                    Section = d.Section == null ? null : new { d.Section.SectionId, d.Section.SectionName },
+                    LineProduction = d.LineProduction == null ? null : new { d.LineProduction.Id, d.LineProduction.LineProductionName },
+                    Defect = d.Defect == null ? null : new { d.Defect.DefectId, d.Defect.DefectName }
                 })
                 .ToListAsync();
 
@@ -154,7 +204,7 @@ namespace DefectApi.Controllers.Api
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var d = await _context.DefectReports
+            var report = await _context.DefectReports
                 .Include(r => r.Defect)
                 .Include(r => r.LineProduction)
                 .Include(r => r.Section)
@@ -168,34 +218,19 @@ namespace DefectApi.Controllers.Api
                     r.Reporter,
                     r.Description,
                     r.DefectQty,
-                    WpModel = r.WpModel != null ? new
-                    {
-                        r.WpModel.ModelId,
-                        r.WpModel.ModelName
-                    } : null,
-                    Section = r.Section != null ? new
-                    {
-                        r.Section.SectionId,
-                        r.Section.SectionName
-                    } : null,
-                    LineProduction = r.LineProduction != null ? new
-                    {
-                        r.LineProduction.Id,
-                        r.LineProduction.LineProductionName
-                    } : null,
-                    Defect = r.Defect != null ? new
-                    {
-                        r.Defect.DefectId,
-                        r.Defect.DefectName
-                    } : null
+                    WpModel = r.WpModel == null ? null : new { r.WpModel.ModelId, r.WpModel.ModelName },
+                    Section = r.Section == null ? null : new { r.Section.SectionId, r.Section.SectionName },
+                    LineProduction = r.LineProduction == null ? null : new { r.LineProduction.Id, r.LineProduction.LineProductionName },
+                    Defect = r.Defect == null ? null : new { r.Defect.DefectId, r.Defect.DefectName }
                 })
                 .FirstOrDefaultAsync();
 
-            if (d == null)
+            if (report == null)
                 return NotFound();
 
-            return Ok(d);
+            return Ok(report);
         }
+
         public class AddDefectRequest
         {
             public string DefectName { get; set; }
@@ -204,20 +239,20 @@ namespace DefectApi.Controllers.Api
         [HttpPost("add-defect")]
         public async Task<IActionResult> AddDefect([FromBody] AddDefectRequest request)
         {
-            if (string.IsNullOrEmpty(request.DefectName))
-                return BadRequest("Defect can not empty");
+            if (string.IsNullOrWhiteSpace(request.DefectName))
+                return BadRequest("Defect cannot be empty");
 
-            var existingDefect = await _context.Defect.FirstOrDefaultAsync(d => d.DefectName.ToLower() == request.DefectName.ToLower());
+            var existingDefect = await _context.Defect
+                .FirstOrDefaultAsync(d => d.DefectName.ToLower() == request.DefectName.ToLower());
 
             if (existingDefect != null)
-            {
-                return Ok(new { success = true, message = "Defect already exist", defectId = existingDefect.DefectId });
-            }
+                return Ok(new { success = true, message = "Defect already exists", defectId = existingDefect.DefectId });
 
             var newDefect = new Defect { DefectName = request.DefectName };
             _context.Defect.Add(newDefect);
             await _context.SaveChangesAsync();
-            return Ok(new { success = true, message = "Defect Added", defectId = newDefect.DefectId });
+
+            return Ok(new { success = true, message = "Defect added", defectId = newDefect.DefectId });
         }
 
         [HttpPost("add-report")]
@@ -254,35 +289,37 @@ namespace DefectApi.Controllers.Api
             existingReport.ReportDate = defectReport.ReportDate;
             existingReport.LineProdQty = defectReport.LineProdQty;
             existingReport.SectionId = defectReport.SectionId;
-            existingReport.ModelId = defectReport.ModelId;
-            existingReport.LineProductionId = defectReport.LineProductionId;
             existingReport.DefectId = defectReport.DefectId;
+            existingReport.LineProductionId = defectReport.LineProductionId;
             existingReport.Description = defectReport.Description;
             existingReport.DefectQty = defectReport.DefectQty;
+            existingReport.ModelId = defectReport.ModelId;
 
-            _context.DefectReports.Update(existingReport);
             await _context.SaveChangesAsync();
 
-            return Ok(new { success = true, message = "Data updated successfully" });
+            return Ok(new { success = true, message = "Report updated successfully" });
         }
-
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteReport(int id)
         {
-            var defectReport = await _context.DefectReports.FindAsync(id);
-            if (defectReport == null)
-                return NotFound(new { success = false, message = "Data not found" });
+            var report = await _context.DefectReports.FindAsync(id);
+            if (report == null)
+                return NotFound();
 
-            _context.DefectReports.Remove(defectReport);
+            _context.DefectReports.Remove(report);
             await _context.SaveChangesAsync();
 
-            return Ok(new { success = true, message = "Record deleted successfully" });
+            return Ok(new { success = true, message = "Report deleted successfully" });
         }
 
         [HttpGet("dropdown")]
         public async Task<IActionResult> GetDropdownData()
         {
+            var lineProductions = await _context.LineProductions
+                .Select(lp => new { lp.Id, lp.LineProductionName })
+                .ToListAsync();
+
             var sections = await _context.Sections
                 .Select(s => new { s.SectionId, s.SectionName })
                 .ToListAsync();
@@ -291,23 +328,17 @@ namespace DefectApi.Controllers.Api
                 .Select(d => new { d.DefectId, d.DefectName })
                 .ToListAsync();
 
-            var lines = await _context.LineProductions
-                .Select(l => new { l.Id, l.LineProductionName })
-                .ToListAsync();
-
             var models = await _context.WpModels
                 .Select(m => new { m.ModelId, m.ModelName })
                 .ToListAsync();
 
             return Ok(new
             {
+                lineProductions,
                 sections,
                 defects,
-                lineProductions = lines,
                 models
             });
         }
-
-
     }
 }
