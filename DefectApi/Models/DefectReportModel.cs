@@ -12,7 +12,7 @@ public class DefectReport {
 
     public int DefectQty {get; set;}
 
-    public int LineProdQty {get; set;}
+    public int? LineProdQty {get; set;}
     [Required]
     public int SectionId { get; set; }
     

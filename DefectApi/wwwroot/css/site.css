@@ -1,6 +1,3 @@
-html {
-  font-size: 14px;
-}
 
 .btn:focus,
 .btn:active:focus,
@@ -16,8 +13,10 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin: 0;
+  padding: 0;
 }
+
 
 .form-floating>.form-control-plaintext::placeholder,
 .form-floating>.form-control::placeholder {
@@ -81,6 +80,10 @@ body {
   background: white;
 }
 
+#sidebar-icon {
+  position: fixed;
+}
+
 #wrapper {
   display: flex;
   width: 100%;
@@ -90,6 +93,7 @@ body {
 
 #sidebar-wrapper {
   width: 250px;
+  min-height: 100vh;
   transition: all 0.3;
   background-color: #004a91 !important;
 }

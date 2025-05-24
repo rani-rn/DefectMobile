@@ -1172,7 +1172,7 @@ D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\DefectApi.genruntimeconfig.
 D:\Panasonic\DefectRecord\DefectApi\obj\Debug\net9.0\ref\DefectApi.dll
 D:\Panasonic\DefectRecord\DefectApi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Panasonic\DefectRecord\defectapi\bin\Debug\net9.0\BCrypt.Net-Next.dll
-D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\jrmwcqmg6a-j5kmgg5bvy.gz
 D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\gf5gbae9n6-nurb7ae17i.gz
 D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\qtwde2ugk8-hwcc4zu9fd.gz
 D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\8qiorrps7l-hwcc4zu9fd.gz
+D:\Panasonic\DefectRecord\defectapi\obj\Debug\net9.0\compressed\jrmwcqmg6a-zoh96w8dxq.gz

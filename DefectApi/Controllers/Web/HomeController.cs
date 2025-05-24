@@ -63,7 +63,7 @@ namespace DefectApi.Controllers.Web
                                 .Include(d => d.WpModel)
                                 .Include(d => d.LineProduction)
                                 .Include(d => d.Section)
-                                .OrderByDescending(d => d.ReportDate) 
+                                .OrderByDescending(d => d.ReportId) 
                                 .ToList();
             return View(defectReports);
         }

@@ -111,7 +111,7 @@
     document.getElementById("saveButton").addEventListener("click", async function () {
         let reporter = document.getElementById("reporter").value.trim();
         let date = document.getElementById("date").value.trim();
-        let qtyProd = document.getElementById("lineProdQty").value;
+        let qtyProd = document.getElementById("lineProdQty").value; 
         let section = document.getElementById("section").value;
         let wpModel = document.getElementById("wpModel").value;
         let lineProduction = document.getElementById("lineProduction").value;
@@ -121,7 +121,7 @@
         let emptyFields = [];
         if (!reporter) emptyFields.push("Reporter");
         if (!date) emptyFields.push("Date");
-        if (!qtyProd) emptyFields.push("Production Quantity");
+        @* if (!qtyProd) emptyFields.push("Production Quantity"); *@
         if (!section) emptyFields.push("Section");
         if (!wpModel) emptyFields.push("Model");
         if (!lineProduction) emptyFields.push("Line Production");
