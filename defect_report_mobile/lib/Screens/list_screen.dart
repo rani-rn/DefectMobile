@@ -55,9 +55,10 @@ class _RecordListScreenState extends State<RecordListScreen> {
                               .toLowerCase()
                               .contains(_searchTerm) ||
                           d.defectName.toLowerCase().contains(_searchTerm);
-
                       return matchSearch;
                     }).toList();
+
+                    filtered.sort((a, b) => b.reportDate.compareTo(a.reportDate));
 
                     final pagedReports = filtered
                         .skip(_currentPage * _rowsPerPage)
@@ -68,7 +69,13 @@ class _RecordListScreenState extends State<RecordListScreen> {
                       children: [
                         Expanded(
                           child: DefectReportTable(
-                              reports: pagedReports, onRefresh: () {}),
+                            reports: pagedReports,
+                            onRefresh: () {
+                              setState(() {
+                                _futureReports = ApiServices.getDefectReports();
+                              });
+                            },
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

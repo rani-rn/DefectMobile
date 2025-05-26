@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     final result = await ApiServices.login(emailCtrl.text, passCtrl.text);
 
     setState(() => loading = false);
-
+    if (!mounted) return;
     if (result == null) {
       Navigator.pushReplacement(
         context,

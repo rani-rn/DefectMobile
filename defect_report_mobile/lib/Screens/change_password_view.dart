@@ -41,6 +41,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     setState(() => _loading = false);
 
     if (error == null) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Password changed successfully')),
       );

@@ -4768,11 +4768,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Panasonic\\DefectRecord\\defectapi\\DefectApi.csproj",
+      "projectUniqueName": "C:\\DefectRecord\\defectapi\\DefectApi.csproj",
       "projectName": "DefectApi",
-      "projectPath": "D:\\Panasonic\\DefectRecord\\defectapi\\DefectApi.csproj",
+      "projectPath": "C:\\DefectRecord\\defectapi\\DefectApi.csproj",
       "packagesPath": "C:\\Users\\yutik\\.nuget\\packages\\",
-      "outputPath": "D:\\Panasonic\\DefectRecord\\defectapi\\obj\\",
+      "outputPath": "C:\\DefectRecord\\defectapi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

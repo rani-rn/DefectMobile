@@ -1,5 +1,4 @@
 import 'package:defect_report_mobile/Models/chart_data_model.dart';
-import 'package:defect_report_mobile/Models/line_production_model.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/box_widgets.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/defect_chart.dart';
 import 'package:defect_report_mobile/Services/api_services.dart';
@@ -9,135 +8,118 @@ class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  DashboardPageState createState() => DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
-  int? selectedLineId;
+class DashboardPageState extends State<DashboardPage> {
   String selectedPeriod = 'daily';
-  List<DefectChartData> chartData = [];
-  int daily = 0, weekly = 0, monthly = 0, annual = 0;
-
-  List<LineProduction> lineOptions = [];
-  bool isLoadingLine = true;
-
-  Future<void> loadLineProductions() async {
-    try {
-      final data = await ApiServices.getDropdownData();
-      final lines = (data["lineProductions"] as List)
-          .map((e) => LineProduction.fromJson(e))
-          .toList();
-
-      setState(() {
-        lineOptions = lines;
-        isLoadingLine = false;
-      });
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to load line production")),
-        );
-      }
-    }
-  }
-
-  Future<void> loadData() async {
-    try {
-      final data = await ApiServices.fetchChartData(
-        lineProductionId: selectedLineId,
-        timePeriod: selectedPeriod,
-      );
-      setState(() {
-        chartData = List<DefectChartData>.from(data["chartData"]);
-
-        daily = data["daily"] ?? 0;
-        weekly = data["weekly"] ?? 0;
-        monthly = data["monthly"] ?? 0;
-        annual = data["annual"] ?? 0;
-      });
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error loading data: $e")),
-        );
-      }
-    }
-  }
+  late Future<DefectChartResponse> futureData;
 
   @override
   void initState() {
     super.initState();
-    loadLineProductions().then((_) => loadData());
+    futureData = ApiServices.fetchChartData(selectedPeriod);
+  }
+
+  void _onPeriodChanged(String? value) {
+    if (value != null) {
+      setState(() {
+        selectedPeriod = value;
+        futureData = ApiServices.fetchChartData(selectedPeriod);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double itemWidth = (screenWidth - 48) / 2;
+    double itemWidth = (screenWidth - 60) / 2;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Dashboard")),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (isLoadingLine)
-              const Center(child: CircularProgressIndicator())
-            else
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DropdownButton<String>(
-                    value: selectedPeriod,
-                    items: ['daily', 'weekly', 'monthly', 'annual']
-                        .map((period) => DropdownMenuItem(
-                              value: period,
-                              child: Text(period),
-                            ))
-                        .toList(),
-                    onChanged: (val) {
-                      setState(() => selectedPeriod = val!);
-                      loadData();
-                    },
+      appBar: AppBar(title: const Text('Dashboard')),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: FutureBuilder<DefectChartResponse>(
+            future: futureData,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Error loading dashboard'));
+              } else if (snapshot.hasData) {
+                final chartData = snapshot.data!;
+
+                final summaryValues = {
+                  'Daily': chartData.daily,
+                  'Weekly': chartData.weekly,
+                  'Monthly': chartData.monthly,
+                  'Annual': chartData.annual,
+                };
+
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8),
+                        child: DropdownButtonFormField<String>(
+                          value: selectedPeriod,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(12),
+                            labelText: "Filter by Time",
+                            border: OutlineInputBorder(),
+                          ),
+                          items: ['daily', 'weekly', 'monthly', 'annual'].map((e) {
+                            return DropdownMenuItem(
+                              value: e,
+                              child: Text(e.toUpperCase()),
+                            );
+                          }).toList(),
+                          onChanged: _onPeriodChanged,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: summaryValues.entries.map((entry) {
+                            return Container(
+                              width: itemWidth,
+                              margin: const EdgeInsets.only(right: 12),
+                              child: SummaryBox(
+                                title: entry.key,
+                                value: entry.value,
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      Container(
+                        height: 500,
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(color: Colors.black12, blurRadius: 6)
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: DefectChart(data: chartData),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            const SizedBox(height: 20),
-            Wrap(
-              spacing: 16,
-              runSpacing: 16,
-              alignment: WrapAlignment.center,
-              children: [
-                SizedBox(
-                    width: itemWidth,
-                    child: SummaryBox(title: "Daily", value: daily)),
-                SizedBox(
-                    width: itemWidth,
-                    child: SummaryBox(title: "Weekly", value: weekly)),
-                SizedBox(
-                    width: itemWidth,
-                    child: SummaryBox(title: "Monthly", value: monthly)),
-                SizedBox(
-                    width: itemWidth,
-                    child: SummaryBox(title: "Annual", value: annual)),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Container(
-              height: 400,
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: chartData.isEmpty
-                  ? const Center(child: Text("No data available"))
-                  : DefectChart(data: chartData),
-            ),
-          ],
+                );
+              }
+
+              return const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ),
     );

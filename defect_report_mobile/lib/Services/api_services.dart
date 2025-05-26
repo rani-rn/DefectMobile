@@ -40,7 +40,7 @@ class ApiServices {
       }),
     );
     if (response.statusCode == 200) {
-      return null; 
+      return null;
     } else if (response.statusCode == 400) {
       try {
         var jsonResponse = jsonDecode(response.body);
@@ -174,32 +174,49 @@ class ApiServices {
     }
   }
 
-  static Future<Map<String, dynamic>> fetchChartData({
-    int? lineProductionId,
-    String timePeriod = 'daily',
-  }) async {
-    final uri =
-        Uri.parse('$baseUrl/api/defect/chart').replace(queryParameters: {
-      if (lineProductionId != null)
-        'lineProductionId': lineProductionId.toString(),
-      'timePeriod': timePeriod,
-    });
-
-    final response = await http.get(uri);
+   static Future<DefectChartResponse> fetchChartData(String period) async {
+    final response = await http.get(Uri.parse('$baseUrl/api/defect/chart?timePeriod=$period'));
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return {
-        "chartData": (data['chartData'] as List)
-            .map((e) => DefectChartData.fromJson(e))
-            .toList(),
-        "daily": data["daily"],
-        "weekly": data["weekly"],
-        "monthly": data["monthly"],
-        "annual": data["annual"],
-      };
+      return DefectChartResponse.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load chart data');
     }
-  }
-}
+
+  
+
+  // static Future<Map<String, dynamic>> fetchChartData({
+  //   int? lineProductionId,
+  //   String timePeriod = 'daily',
+  // }) async {
+  //   final uri =
+  //       Uri.parse('$baseUrl/api/defect/chart').replace(queryParameters: {
+  //     if (lineProductionId != null)
+  //       'lineProductionId': lineProductionId.toString(),
+  //     'timePeriod': timePeriod,
+  //   });
+
+  //   final response = await http.get(uri);
+
+  //   if (response.statusCode == 200) {
+  //     final data = json.decode(response.body);
+
+  //     final List<String> labels = List<String>.from(data['labels']);
+
+  //     final List<DefectChartData> datasets = (data['datasets'] as List)
+  //         .map((e) => DefectChartData.fromJson(e))
+  //         .toList();
+
+  //     return {
+  //       "labels": labels,
+  //       "datasets": datasets,
+  //       "daily": data["daily"],
+  //       "weekly": data["weekly"],
+  //       "monthly": data["monthly"],
+  //       "annual": data["annual"],
+  //     };
+  //   } else {
+  //     throw Exception('Failed to load chart data');
+  //   }
+  // }
+}}

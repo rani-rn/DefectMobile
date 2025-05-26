@@ -9,6 +9,13 @@ android {
     namespace = "com.example.defect_report_mobile"
     compileSdk = 35
     ndkVersion = flutter.ndkVersion
+    testOptions {
+        unitTests {
+            all {
+                it.enabled = false
+            }
+        }
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

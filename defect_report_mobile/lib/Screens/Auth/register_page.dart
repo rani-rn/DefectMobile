@@ -52,10 +52,12 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() => loading = false);
 
     if (result == null) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Registration successful! Please login.')),
       );
       await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),
