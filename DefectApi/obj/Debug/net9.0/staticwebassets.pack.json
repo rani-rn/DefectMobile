@@ -5,8 +5,20 @@
       "PackagePath": "staticwebassets\\DefectApi.dq3h2qpnol.bundle.scp.css"
     },
     {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css",
+      "PackagePath": "staticwebassets\\css\\icon.css"
+    },
+    {
       "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\tomselect.css",
+      "PackagePath": "staticwebassets\\css\\tomselect.css"
     },
     {
       "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\favicon.ico",
@@ -17,8 +29,28 @@
       "PackagePath": "staticwebassets\\images\\logo.png"
     },
     {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\chart.js",
+      "PackagePath": "staticwebassets\\js\\chart.js"
+    },
+    {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\jquery.js",
+      "PackagePath": "staticwebassets\\js\\jquery.js"
+    },
+    {
       "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\sweetalert.js",
+      "PackagePath": "staticwebassets\\js\\sweetalert.js"
+    },
+    {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\tomselect.js",
+      "PackagePath": "staticwebassets\\js\\tomselect.js"
+    },
+    {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\xlsx.js",
+      "PackagePath": "staticwebassets\\js\\xlsx.js"
     },
     {
       "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\bootstrap\\LICENSE",

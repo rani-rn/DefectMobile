@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gkc79BRaIm2vMzLD8U6ADo4ZivaPm9QeTH6o5VWa8Y8=",
+  "Hash": "5KV9ZdiPw8XT6VYdt0bAOKJgxu/t9oT7QL+oSZemMws=",
   "Source": "DefectApi",
   "BasePath": "_content/DefectApi",
   "Mode": "Default",
@@ -141,6 +141,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\311dlhtz5b-5ipweew5fc.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/xlsx#[.{fingerprint=5ipweew5fc}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\xlsx.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\xlsx.js"
     },
     {
       "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\35tj8kqncg-87fc7y1x7t.gz",
@@ -815,6 +836,27 @@
       "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\jgpvcyquow-yfo8b31x21.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/chart#[.{fingerprint=yfo8b31x21}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\chart.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "thk9cdxrk1",
+      "Integrity": "/38B65yZCQaPmZfrJJ94cMfAhk1+lpcfSdHU+Phhvb0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\chart.js"
+    },
+    {
       "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\jrmwcqmg6a-svm5xmrgt0.gz",
       "SourceId": "DefectApi",
       "SourceType": "Discovered",
@@ -1088,6 +1130,27 @@
       "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\rqr37hs0zz-5ipweew5fc.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/tomselect#[.{fingerprint=5ipweew5fc}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\tomselect.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\tomselect.js"
+    },
+    {
       "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\s4kiggejra-d4r6k3f320.gz",
       "SourceId": "DefectApi",
       "SourceType": "Discovered",
@@ -1170,6 +1233,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\uz2ntll2mj-5ipweew5fc.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "css/tomselect#[.{fingerprint=5ipweew5fc}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\tomselect.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\tomselect.css"
     },
     {
       "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\uzwf9nkilc-c63t5i9ira.gz",
@@ -1277,6 +1361,69 @@
       "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js"
     },
     {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wrnbjkch2e-9o5n5sr4yd.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/sweetalert#[.{fingerprint=9o5n5sr4yd}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\sweetalert.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "kdgfw6j88i",
+      "Integrity": "qChPNpRHQ3tQWiN2yJLZJ93NYbK7jlw92GPGFpPMwWQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\sweetalert.js"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wz0uz0hqzz-6dqci19kbu.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "css/icon#[.{fingerprint=6dqci19kbu}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "cnmqn17hs6",
+      "Integrity": "KMAaYW1s1iler0CFgvPCIiyqDTLLLF6SKsLKbl+YcsQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\xctcu8jmv7-5ipweew5fc.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/jquery#[.{fingerprint=5ipweew5fc}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\jquery.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\jquery.js"
+    },
+    {
       "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\y6w6xsa2xw-m9qm4tazc0.gz",
       "SourceId": "DefectApi",
       "SourceType": "Discovered",
@@ -1296,6 +1443,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\z208tr4q37-5ipweew5fc.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "css/style#[.{fingerprint=5ipweew5fc}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\style.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\style.css"
     },
     {
       "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\zl21ysmvcy-hrwsygsryq.gz",
@@ -1403,6 +1571,27 @@
       "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DefectApi.bundle.scp.css"
     },
     {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "css/icon#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "6dqci19kbu",
+      "Integrity": "hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\icon.css"
+    },
+    {
       "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\site.css",
       "SourceId": "DefectApi",
       "SourceType": "Discovered",
@@ -1422,6 +1611,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\style.css",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "css/style#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\tomselect.css",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "css/tomselect#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\tomselect.css"
     },
     {
       "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\favicon.ico",
@@ -1466,6 +1697,48 @@
       "OriginalItemSpec": "wwwroot\\images\\logo.png"
     },
     {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\chart.js",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/chart#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yfo8b31x21",
+      "Integrity": "vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\chart.js"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\jquery.js",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/jquery#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\jquery.js"
+    },
+    {
       "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\site.js",
       "SourceId": "DefectApi",
       "SourceType": "Discovered",
@@ -1485,6 +1758,69 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\sweetalert.js",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/sweetalert#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9o5n5sr4yd",
+      "Integrity": "eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\sweetalert.js"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\tomselect.js",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/tomselect#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\tomselect.js"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\xlsx.js",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "js/xlsx#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\xlsx.js"
     },
     {
       "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
@@ -2749,6 +3085,304 @@
   ],
   "Endpoints": [
     {
+      "Route": "css/icon.6dqci19kbu.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wz0uz0hqzz-6dqci19kbu.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000073827981"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13544"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KMAaYW1s1iler0CFgvPCIiyqDTLLLF6SKsLKbl+YcsQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:20:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6dqci19kbu"
+        },
+        {
+          "Name": "label",
+          "Value": "css/icon.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0="
+        }
+      ]
+    },
+    {
+      "Route": "css/icon.6dqci19kbu.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "95713"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:20:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6dqci19kbu"
+        },
+        {
+          "Name": "label",
+          "Value": "css/icon.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0="
+        }
+      ]
+    },
+    {
+      "Route": "css/icon.6dqci19kbu.css.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wz0uz0hqzz-6dqci19kbu.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13544"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KMAaYW1s1iler0CFgvPCIiyqDTLLLF6SKsLKbl+YcsQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:20:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6dqci19kbu"
+        },
+        {
+          "Name": "label",
+          "Value": "css/icon.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KMAaYW1s1iler0CFgvPCIiyqDTLLLF6SKsLKbl+YcsQ="
+        }
+      ]
+    },
+    {
+      "Route": "css/icon.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wz0uz0hqzz-6dqci19kbu.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000073827981"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13544"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KMAaYW1s1iler0CFgvPCIiyqDTLLLF6SKsLKbl+YcsQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:20:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0="
+        }
+      ]
+    },
+    {
+      "Route": "css/icon.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "95713"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:20:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hmkHeZACn2GNJ3MVx76ETwWzHCpzzDpD4l8A28965d0="
+        }
+      ]
+    },
+    {
+      "Route": "css/icon.css.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wz0uz0hqzz-6dqci19kbu.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13544"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KMAaYW1s1iler0CFgvPCIiyqDTLLLF6SKsLKbl+YcsQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:20:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KMAaYW1s1iler0CFgvPCIiyqDTLLLF6SKsLKbl+YcsQ="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\jrmwcqmg6a-svm5xmrgt0.gz",
       "Selectors": [
@@ -2773,7 +3407,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:13:32 GMT"
+          "Value": "Tue, 27 May 2025 02:01:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2826,7 +3460,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:13:32 GMT"
+          "Value": "Tue, 27 May 2025 02:01:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2863,7 +3497,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:13:32 GMT"
+          "Value": "Tue, 27 May 2025 02:01:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2910,7 +3544,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:13:32 GMT"
+          "Value": "Tue, 27 May 2025 02:01:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2971,7 +3605,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:13:32 GMT"
+          "Value": "Tue, 27 May 2025 02:01:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3016,7 +3650,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:13:32 GMT"
+          "Value": "Tue, 27 May 2025 02:01:05 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3047,6 +3681,602 @@
       ]
     },
     {
+      "Route": "css/style.5ipweew5fc.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\z208tr4q37-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:05:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/style.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.5ipweew5fc.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:05:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/style.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.5ipweew5fc.css.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\z208tr4q37-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:05:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/style.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\z208tr4q37-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:05:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:05:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/style.css.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\z208tr4q37-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:05:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/tomselect.5ipweew5fc.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\uz2ntll2mj-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:09:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/tomselect.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/tomselect.5ipweew5fc.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\tomselect.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:09:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/tomselect.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/tomselect.5ipweew5fc.css.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\uz2ntll2mj-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:09:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/tomselect.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/tomselect.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\uz2ntll2mj-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:09:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/tomselect.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\tomselect.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:09:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "css/tomselect.css.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\uz2ntll2mj-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:09:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
       "Route": "DefectApi.bundle.scp.css",
       "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\8qiorrps7l-dq3h2qpnol.gz",
       "Selectors": [
@@ -3071,7 +4301,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3124,7 +4354,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3161,7 +4391,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3208,7 +4438,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3269,7 +4499,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3314,7 +4544,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3369,7 +4599,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3430,7 +4660,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3475,7 +4705,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3530,7 +4760,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3583,7 +4813,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3620,7 +4850,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 24 May 2025 02:15:09 GMT"
+          "Value": "Tue, 27 May 2025 02:01:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4023,6 +5253,602 @@
       ]
     },
     {
+      "Route": "js/chart.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\jgpvcyquow-yfo8b31x21.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000014212015"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "70362"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/38B65yZCQaPmZfrJJ94cMfAhk1+lpcfSdHU+Phhvb0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U="
+        }
+      ]
+    },
+    {
+      "Route": "js/chart.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\chart.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "205240"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U="
+        }
+      ]
+    },
+    {
+      "Route": "js/chart.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\jgpvcyquow-yfo8b31x21.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "70362"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/38B65yZCQaPmZfrJJ94cMfAhk1+lpcfSdHU+Phhvb0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/38B65yZCQaPmZfrJJ94cMfAhk1+lpcfSdHU+Phhvb0="
+        }
+      ]
+    },
+    {
+      "Route": "js/chart.yfo8b31x21.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\jgpvcyquow-yfo8b31x21.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000014212015"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "70362"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/38B65yZCQaPmZfrJJ94cMfAhk1+lpcfSdHU+Phhvb0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yfo8b31x21"
+        },
+        {
+          "Name": "label",
+          "Value": "js/chart.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U="
+        }
+      ]
+    },
+    {
+      "Route": "js/chart.yfo8b31x21.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\chart.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "205240"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yfo8b31x21"
+        },
+        {
+          "Name": "label",
+          "Value": "js/chart.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-vlRb4Cpb/EoD1eJuqptm53YCuxAcNpkBKNDg6sUHB0U="
+        }
+      ]
+    },
+    {
+      "Route": "js/chart.yfo8b31x21.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\jgpvcyquow-yfo8b31x21.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "70362"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/38B65yZCQaPmZfrJJ94cMfAhk1+lpcfSdHU+Phhvb0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yfo8b31x21"
+        },
+        {
+          "Name": "label",
+          "Value": "js/chart.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/38B65yZCQaPmZfrJJ94cMfAhk1+lpcfSdHU+Phhvb0="
+        }
+      ]
+    },
+    {
+      "Route": "js/jquery.5ipweew5fc.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\xctcu8jmv7-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/jquery.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/jquery.5ipweew5fc.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\jquery.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/jquery.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/jquery.5ipweew5fc.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\xctcu8jmv7-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/jquery.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/jquery.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\xctcu8jmv7-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/jquery.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\jquery.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/jquery.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\xctcu8jmv7-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:07:18 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
       "Route": "js/site.js",
       "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\gf5gbae9n6-nurb7ae17i.gz",
       "Selectors": [
@@ -4047,7 +5873,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 14 May 2025 01:40:19 GMT"
+          "Value": "Tue, 27 May 2025 03:15:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4100,7 +5926,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 14 May 2025 01:40:19 GMT"
+          "Value": "Tue, 27 May 2025 03:15:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4137,7 +5963,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 14 May 2025 01:40:19 GMT"
+          "Value": "Tue, 27 May 2025 03:15:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4184,7 +6010,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 14 May 2025 01:40:19 GMT"
+          "Value": "Tue, 27 May 2025 03:15:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4245,7 +6071,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 14 May 2025 01:40:19 GMT"
+          "Value": "Tue, 27 May 2025 03:15:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4290,7 +6116,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 14 May 2025 01:40:19 GMT"
+          "Value": "Tue, 27 May 2025 03:15:55 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4317,6 +6143,900 @@
         {
           "Name": "integrity",
           "Value": "sha256-YvE3/gCZ0RDAZy12bEDC4ct7UC9z7je9BSzrq60vB4A="
+        }
+      ]
+    },
+    {
+      "Route": "js/sweetalert.9o5n5sr4yd.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wrnbjkch2e-9o5n5sr4yd.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000048487199"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20623"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qChPNpRHQ3tQWiN2yJLZJ93NYbK7jlw92GPGFpPMwWQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:11:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9o5n5sr4yd"
+        },
+        {
+          "Name": "label",
+          "Value": "js/sweetalert.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4="
+        }
+      ]
+    },
+    {
+      "Route": "js/sweetalert.9o5n5sr4yd.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\sweetalert.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "78840"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:11:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9o5n5sr4yd"
+        },
+        {
+          "Name": "label",
+          "Value": "js/sweetalert.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4="
+        }
+      ]
+    },
+    {
+      "Route": "js/sweetalert.9o5n5sr4yd.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wrnbjkch2e-9o5n5sr4yd.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20623"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qChPNpRHQ3tQWiN2yJLZJ93NYbK7jlw92GPGFpPMwWQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:11:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9o5n5sr4yd"
+        },
+        {
+          "Name": "label",
+          "Value": "js/sweetalert.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-qChPNpRHQ3tQWiN2yJLZJ93NYbK7jlw92GPGFpPMwWQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/sweetalert.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wrnbjkch2e-9o5n5sr4yd.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000048487199"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20623"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qChPNpRHQ3tQWiN2yJLZJ93NYbK7jlw92GPGFpPMwWQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:11:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4="
+        }
+      ]
+    },
+    {
+      "Route": "js/sweetalert.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\sweetalert.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "78840"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:11:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eUFgT4GWsFN2RACl3vYGA/Ma52d8HIOzYj1RtV8IUZ4="
+        }
+      ]
+    },
+    {
+      "Route": "js/sweetalert.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\wrnbjkch2e-9o5n5sr4yd.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20623"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"qChPNpRHQ3tQWiN2yJLZJ93NYbK7jlw92GPGFpPMwWQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:11:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-qChPNpRHQ3tQWiN2yJLZJ93NYbK7jlw92GPGFpPMwWQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/tomselect.5ipweew5fc.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\rqr37hs0zz-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:10:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/tomselect.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/tomselect.5ipweew5fc.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\tomselect.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:10:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/tomselect.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/tomselect.5ipweew5fc.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\rqr37hs0zz-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:10:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/tomselect.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/tomselect.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\rqr37hs0zz-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:10:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/tomselect.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\tomselect.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:10:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/tomselect.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\rqr37hs0zz-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:10:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/xlsx.5ipweew5fc.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\311dlhtz5b-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/xlsx.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/xlsx.5ipweew5fc.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\xlsx.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/xlsx.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/xlsx.5ipweew5fc.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\311dlhtz5b-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "js/xlsx.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/xlsx.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\311dlhtz5b-5ipweew5fc.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "1.000000000000"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/xlsx.js",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\js\\xlsx.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "js/xlsx.js.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\311dlhtz5b-5ipweew5fc.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 27 May 2025 03:13:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
         }
       ]
     },

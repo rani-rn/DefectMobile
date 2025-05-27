@@ -1418,3 +1418,11 @@ C:\DefectRecord\defectapi\obj\Debug\net9.0\refint\DefectApi.dll
 C:\DefectRecord\defectapi\obj\Debug\net9.0\DefectApi.pdb
 C:\DefectRecord\defectapi\obj\Debug\net9.0\DefectApi.genruntimeconfig.cache
 C:\DefectRecord\defectapi\obj\Debug\net9.0\ref\DefectApi.dll
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\z208tr4q37-5ipweew5fc.gz
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\uz2ntll2mj-5ipweew5fc.gz
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\jgpvcyquow-yfo8b31x21.gz
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\xctcu8jmv7-5ipweew5fc.gz
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\wrnbjkch2e-9o5n5sr4yd.gz
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\rqr37hs0zz-5ipweew5fc.gz
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\311dlhtz5b-5ipweew5fc.gz
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\wz0uz0hqzz-6dqci19kbu.gz
