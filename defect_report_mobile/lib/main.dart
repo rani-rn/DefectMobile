@@ -1,4 +1,3 @@
-
 import 'package:defect_report_mobile/Screens/Widget/splash_screen.dart';
 import 'package:flutter/material.dart';
 
