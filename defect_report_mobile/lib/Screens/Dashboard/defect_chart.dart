@@ -4,7 +4,8 @@ import 'package:fl_chart/fl_chart.dart';
 
 class DefectChart extends StatefulWidget {
   final DefectChartResponse data;
-  const DefectChart({super.key, required this.data});
+  final void Function(String label, String? line) onBarTapped;
+  const DefectChart({super.key, required this.data, required this.onBarTapped});
 
   @override
   State<DefectChart> createState() => _DefectChartState();
@@ -25,24 +26,6 @@ class _DefectChartState extends State<DefectChart> {
       if (stackSum > maxY) maxY = stackSum;
     }
     return (maxY == 0) ? 5 : (maxY * 1.2).ceilToDouble();
-  }
-
-  List<int> _filterNonZeroIndexes() {
-    List<int> filtered = [];
-    final count = widget.data.labels.length;
-    final dsCount = widget.data.datasets.length;
-
-    for (int i = 0; i < count; i++) {
-      bool hasValue = false;
-      for (int j = 0; j < dsCount; j++) {
-        if (widget.data.datasets[j].data[i] != 0) {
-          hasValue = true;
-          break;
-        }
-      }
-      if (hasValue) filtered.add(i);
-    }
-    return filtered;
   }
 
   List<BarChartGroupData> _generateBarGroups(List<int> filtered, double maxY) {
@@ -93,7 +76,8 @@ class _DefectChartState extends State<DefectChart> {
 
   @override
   Widget build(BuildContext context) {
-    final filtered = _filterNonZeroIndexes();
+    final filtered = List.generate(widget.data.labels.length, (i) => i);
+
     final maxY = _findMaxY();
     final barGroups = _generateBarGroups(filtered, maxY);
 
@@ -109,7 +93,7 @@ class _DefectChartState extends State<DefectChart> {
     }
 
     return Padding(
-      padding: EdgeInsets.only(top: 5, bottom: 5),
+      padding: const EdgeInsets.only(top: 5, bottom: 5),
       child: SizedBox(
         height: 300,
         child: Stack(
@@ -204,19 +188,29 @@ class _DefectChartState extends State<DefectChart> {
                         if (event is FlTapUpEvent && response?.spot != null) {
                           final groupIdx = response!.spot!.touchedBarGroupIndex;
                           final originalIndex = filtered[groupIdx];
+                          final label = widget.data.labels[originalIndex];
 
-                          final defects = widget.data.datasets
-                              .map((ds) {
-                                final val = ds.data[originalIndex].toDouble();
-                                return val > 0
-                                    ? "${ds.label}: ${val.toInt()}"
-                                    : null;
-                              })
-                              .whereType<String>()
-                              .toList();
+                          String? lineProduction;
+                          for (var ds in widget.data.datasets) {
+                            if (ds.data[originalIndex] > 0) {
+                              lineProduction = ds.label;
+                              break;
+                            }
+                          }
+
+                          widget.onBarTapped(label, lineProduction);
 
                           setState(() {
-                            tooltipText = defects.join('\n');
+                            tooltipText = widget.data.datasets
+                                .map((ds) {
+                                  final val = ds.data[originalIndex].toDouble();
+                                  return val > 0
+                                      ? "${ds.label}: ${val.toInt()}"
+                                      : null;
+                                })
+                                .whereType<String>()
+                                .toList()
+                                .join('\n');
                             touchPosition = response.spot!.offset;
                           });
 
@@ -231,37 +225,38 @@ class _DefectChartState extends State<DefectChart> {
               ),
             ),
             if (touchPosition != null && tooltipText != null)
-             Builder(builder: (context) {
-            final screenWidth = MediaQuery.of(context).size.width;
-            const tooltipWidth = 120.0;
-            const tooltipHeight = 40.0;
+              Builder(builder: (context) {
+                final screenWidth = MediaQuery.of(context).size.width;
+                const tooltipWidth = 120.0;
+                const tooltipHeight = 40.0;
 
-            final left = (screenWidth - tooltipWidth) / 2;
-            final top = (touchPosition!.dy - tooltipHeight).clamp(8.0, double.infinity);
+                final left = (screenWidth - tooltipWidth) / 2;
+                final top = (touchPosition!.dy - tooltipHeight)
+                    .clamp(8.0, double.infinity);
 
-             return Positioned(
-                
-                left: left,
-              top: top,
-                child: Material(
-                  color: Colors.transparent,
-                  child: Container(
-                    width: tooltipWidth,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.black87,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Text(
-                      tooltipText!,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
-                      textAlign: TextAlign.center,
+                return Positioned(
+                  left: left,
+                  top: top,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Container(
+                      width: tooltipWidth,
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        tooltipText!,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                )
                 );
-             }),
+              }),
           ],
         ),
       ),

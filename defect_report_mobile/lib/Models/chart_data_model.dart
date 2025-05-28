@@ -1,43 +1,45 @@
-class DefectDataset {
+class Dataset {
   final String label;
   final List<int> data;
   final String backgroundColor;
 
-  DefectDataset({required this.label, required this.data, required this.backgroundColor});
+  Dataset({required this.label, required this.data, required this.backgroundColor});
 
-  factory DefectDataset.fromJson(Map<String, dynamic> json) {
-    return DefectDataset(
-      label: json['label'],
-      data: List<int>.from(json['data']),
-      backgroundColor: json['backgroundColor'],
-    );
-  }
+  factory Dataset.fromJson(Map<String, dynamic> json) => Dataset(
+    label: json['label'],
+    data: List<int>.from(json['data']),
+    backgroundColor: json['backgroundColor'],
+  );
 }
 
 class DefectChartResponse {
   final List<String> labels;
-  final List<DefectDataset> datasets;
-  final int daily, weekly, monthly, annual;
+  final List<Dataset> datasets;
+  final Summary summary;
 
   DefectChartResponse({
     required this.labels,
     required this.datasets,
-    required this.daily,
-    required this.weekly,
-    required this.monthly,
-    required this.annual,
+    required this.summary,
   });
 
-  factory DefectChartResponse.fromJson(Map<String, dynamic> json) {
-    return DefectChartResponse(
-      labels: List<String>.from(json['labels']),
-      datasets: (json['datasets'] as List)
-          .map((e) => DefectDataset.fromJson(e))
-          .toList(),
-      daily: json['daily'],
-      weekly: json['weekly'],
-      monthly: json['monthly'],
-      annual: json['annual'],
-    );
-  }
+  factory DefectChartResponse.fromJson(Map<String, dynamic> json) => DefectChartResponse(
+    labels: List<String>.from(json['labels']),
+    datasets: (json['datasets'] as List).map((e) => Dataset.fromJson(e)).toList(),
+    summary: Summary.fromJson(json['summary']),
+  );
+}
+
+class Summary {
+  final int today;
+  final int week;
+  final int month;
+
+  Summary({required this.today, required this.week, required this.month});
+
+  factory Summary.fromJson(Map<String, dynamic> json) => Summary(
+    today: json['today'],
+    week: json['week'],
+    month: json['month'],
+  );
 }

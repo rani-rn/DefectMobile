@@ -11,7 +11,6 @@
                 <option value="daily" selected>Daily</option>
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
-                <option value="annual">Annual</option>
             </select>
         </div>
     </div>
@@ -19,32 +18,35 @@
 
     <div class="dashboard-container">
         <div class="summary-boxes">
-            <div class="summary-box"><span>Daily</span>
+            <div class="summary-box"><span>Today</span>
                 <div id="dailyDefect">0</div>
             </div>
-            <div class="summary-box"><span>Weekly</span>
+            <div class="summary-box"><span>Week</span>
                 <div id="weeklyDefect">0</div>
             </div>
-            <div class="summary-box"><span>Monthly</span>
+            <div class="summary-box"><span>Month</span>
                 <div id="monthlyDefect">0</div>
             </div>
-            <div class="summary-box"><span>Annual</span>
-                <div id="annualDefect">0</div>
-            </div>
         </div>
+
         <div class="chart-container">
             <canvas id="chart"></canvas>
         </div>
-        <div id="defectBreakdownCard" style="width: 100%; max-width: 800px; margin-top: 20px;">
+
+        <div id="defectBreakdownCard" style="width: 100%; max-width: 800px; margin-top: 20px; display:none;">
             <div
                 style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; box-shadow: 2px 2px 8px #ddd; background: white;">
                 <h5><strong>📊 Breakdown</strong></h5>
+                <div id="breakdownLineInfo" style="margin-bottom: 5px; font-weight: 500;"></div>
+                <div id="breakdownPeriodInfo" style="margin-bottom: 10px; color: #666;"></div>
+
                 <div id="breakdownSummary" style="margin-bottom: 10px;">🧮 Total: -</div>
                 <ul id="breakdownList" style="list-style: none; padding: 0;">
                     <li>Select Bar...</li>
                 </ul>
             </div>
         </div>
+
 
         <div class="top-stats-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
             <div class="top-chart-box">
@@ -56,15 +58,12 @@
                 <canvas id="topLinesChart"></canvas>
             </div>
         </div>
-
     </div>
 </div>
 
 @section Scripts {
-   
-        <script src="~/js/jquery.js" asp-append-version="true"></script>
-    
-        <script src="~/js/chart.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.js" asp-append-version="true"></script>
+    <script src="~/js/chart.js" asp-append-version="true"></script>
     <script>
         $(function () {
             let chartInstance = null;
@@ -77,44 +76,77 @@
                 }
                 return color;
             }
+            function showBreakdownCard(label, defectName, timePeriod, lineProductionName = "") {
+                const $card = $("#defectBreakdownCard");
+                const $title = $("#breakdownTitle"); // Not used in updated HTML
+                const $summary = $("#breakdownSummary");
+                const $list = $("#breakdownList");
+                const $lineInfo = $("#breakdownLineInfo");
+                const $periodInfo = $("#breakdownPeriodInfo");
 
-            function showBreakdownCard(lineProduction, defectName, timePeriod) {
-                $("#breakdownSummary").text("Loading data...");
-                $("#breakdownList").html("<li>Loading breakdown...</li>");
+                $card.show();
+                $summary.text("Loading data...");
+                $list.html("<li class='list-group-item'>Loading breakdown...</li>");
+                $lineInfo.text("");
+                $periodInfo.text("");
 
-                $.ajax({
-                    url: '@Url.Action("GetDefectBreakdown", "Defect")',
-                    type: 'GET',
-                    data: { lineProduction, timePeriod },
-                    success: function (result) {
-                        const defects = result.defects || [];
-                        const totalCount = result.totalCount ?? 0;
+                $.get('/api/defect/chart-breakdown', {
+                    timePeriod,
+                    label,
+                    lineProductionName
+                })
+                    .done(result => {
+                        if (!Array.isArray(result)) {
+                            console.error("Unexpected response format:", result);
+                            $summary.text("❌ Invalid data format.");
+                            $list.html(`<li class="list-group-item text-danger">Invalid data received from server.</li>`);
+                            return;
+                        }
 
-                        const periodLabelMap = {
-                            daily: "Daily",
-                            weekly: "Weekly",
-                            monthly: "Monthly",
-                            annual: "Annual"
-                        };
-                        const periodLabel = periodLabelMap[timePeriod] || "Selected";
+                        if (result.length === 0) {
+                            $summary.html(`🧮 Total: 0`);
+                            $list.html(`<li class="list-group-item text-muted">No data found.</li>`);
+                            return;
+                        }
 
-                        $("#defectBreakdownCard h5 strong").text(`📊 Breakdown - ${result.lineProduction}`);
-                        $("#breakdownSummary").html(`<strong>🧮 Total in ${periodLabel} Period:</strong> ${totalCount}`);
+                        let totalCount = 0;
+                        const items = result.map(d => {
+                            totalCount += d.totalQty ?? 0;
+                            return `
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>${d.defect ?? '-'}</span>
+                            <span>${d.totalQty ?? 0}</span>
+                        </li>
+                    `;
+                        }).join('');
 
-                        const listItems = defects.map(d =>
-                            `<li style="padding: 4px 0; font-weight: ${d.name === defectName ? 'bold' : 'normal'};">
-                                                        ${d.name} → ${d.count}
-                                                    </li>`
-                        ).join('');
+                        if (lineProductionName) {
+                            $lineInfo.html(`<strong>${lineProductionName}</strong>`);
+                        }
+                        if (label) {
+                            let periodText = "";
+                            if (timePeriod === "daily") {
+                                periodText = ` <strong>${label}</strong>`;
+                            } else if (timePeriod === "weekly") {
+                                periodText = `Week: <strong>${label}</strong>`;
+                            } else if (timePeriod === "monthly") {
+                                periodText = `Month: <strong>${label}</strong>`;
+                            } else {
+                                periodText = `Period: <strong>${label}</strong>`;
+                            }
+                            $periodInfo.html(periodText);
+                        }
 
-                        $("#breakdownList").html(listItems);
-                    },
-                    error: function () {
-                        $("#breakdownSummary").text("❌ Failed to load breakdown data.");
-                        $("#breakdownList").html("");
-                    }
-                });
+                        $summary.html(`🧮 Total: ${totalCount}`);
+                        $list.html(items);
+                    })
+                    .fail(err => {
+                        console.error("Error fetching breakdown:", err);
+                        $summary.text("❌ Failed to load breakdown data.");
+                        $list.html(`<li class="list-group-item text-danger">Error loading breakdown.</li>`);
+                    });
             }
+
 
             function loadTopStats(timePeriod) {
                 $.ajax({
@@ -145,19 +177,10 @@
                             },
                             options: {
                                 responsive: true,
-                                plugins: {
-                                    legend: {
-                                        display: false
-                                    }
-                                },
+                                plugins: { legend: { display: false } },
                                 scales: {
-                                    x: {
-                                        display: false,
-                                    },
-                                    y: {
-                                        beginAtZero: true,
-                                        ticks: { stepSize: 1 }
-                                    }
+                                    x: { display: false },
+                                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
                                 }
                             }
                         });
@@ -174,19 +197,10 @@
                             },
                             options: {
                                 responsive: true,
-                                plugins: {
-                                    legend: {
-                                        display: false
-                                    }
-                                },
+                                plugins: { legend: { display: false } },
                                 scales: {
-                                    x: {
-                                        display: false,
-                                    },
-                                    y: {
-                                        beginAtZero: true,
-                                        ticks: { stepSize: 1 }
-                                    }
+                                    x: { display: false },
+                                    y: { beginAtZero: true, ticks: { stepSize: 1 } }
                                 }
                             }
                         });
@@ -195,21 +209,21 @@
                 });
             }
 
-
-
             function loadChart(timePeriod = 'daily') {
                 $.ajax({
                     url: '@Url.Action("GetChartData", "Defect")',
                     type: 'GET',
-                    data: { timePeriod: timePeriod },
+                    data: { timePeriod },
                     success: function (response) {
                         const labels = response.labels || [];
                         const rawDatasets = response.datasets || [];
+                        const summary = response.summary || {};
 
-                        $("#dailyDefect").text(response.daily ?? 0);
-                        $("#weeklyDefect").text(response.weekly ?? 0);
-                        $("#monthlyDefect").text(response.monthly ?? 0);
-                        $("#annualDefect").text(response.annual ?? 0);
+                        const formatNumber = (num) => num?.toLocaleString("en-US") ?? "0";
+
+                        $("#dailyDefect").text(formatNumber(summary.today));
+                        $("#weeklyDefect").text(formatNumber(summary.week));
+                        $("#monthlyDefect").text(formatNumber(summary.month));
 
                         if (chartInstance) {
                             chartInstance.destroy();
@@ -219,7 +233,6 @@
                             const color = set.backgroundColor || getRandomColor();
                             return {
                                 ...set,
-                                data: set.data,
                                 backgroundColor: labels.map(() => color),
                             };
                         });
@@ -229,7 +242,7 @@
                         chartInstance = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: labels,
+                                labels,
                                 datasets: filteredDatasets
                             },
                             options: {
@@ -244,9 +257,7 @@
                                     tooltip: {
                                         mode: 'nearest',
                                         intersect: true,
-                                        filter: function (tooltipItem) {
-                                            return tooltipItem.raw !== 0;
-                                        }
+                                        filter: (tooltipItem) => tooltipItem.raw !== 0
                                     },
                                     legend: {
                                         display: false
@@ -254,20 +265,25 @@
                                 },
                                 scales: {
                                     x: { stacked: true },
-                                    y: { stacked: true, beginAtZero: true }
+                                    y: {
+                                        stacked: true,
+                                        beginAtZero: true,
+                                        ticks: {
+                                            callback: function (value) {
+                                                return formatNumber(value);
+                                            }
+                                        }
+                                    }
                                 },
                                 onClick: function (event, elements) {
                                     if (elements.length > 0) {
-                                        const elementIndex = elements[0].index;
+                                        const index = elements[0].index;
                                         const datasetIndex = elements[0].datasetIndex;
-                                        const label = this.data.labels[elementIndex]?.trim();
-                                        const dataset = this.data.datasets[datasetIndex];
-                                        const defectName = dataset.label;
+                                        const label = this.data.labels[index]?.trim();
+                                        const lineProductionName = this.data.datasets[datasetIndex]?.label;
                                         const timePeriod = $("#timeFilter").val();
 
-                                        console.log("Clicked Line:", label, "Defect:", defectName, "Time:", timePeriod);
-
-                                        showBreakdownCard(label, defectName, timePeriod);
+                                        showBreakdownCard(label, null, timePeriod, lineProductionName);
                                     }
                                 }
                             }
@@ -282,7 +298,6 @@
             loadChart();
             loadTopStats('daily');
 
-
             $("#timeFilter").change(function () {
                 const selectedTimePeriod = $(this).val();
                 loadChart(selectedTimePeriod);
@@ -291,6 +306,7 @@
         });
     </script>
 }
+
 <style>
     .dashboard-container {
         display: flex;

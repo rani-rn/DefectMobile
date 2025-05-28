@@ -22,26 +22,49 @@ namespace DefectApi.Controllers.Api
         private (DateTime Start, DateTime End) GetDateRange(string timePeriod)
         {
             DateTime today = DateTime.Today;
-            DateTime start = timePeriod.ToLower() switch
+            DateTime start, end;
+
+            switch (timePeriod.ToLower())
             {
-                "weekly" => today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday),
-                "monthly" => new DateTime(today.Year, today.Month, 1),
-                "annual" => new DateTime(today.Year, 1, 1),
-                _ => today
-            };
-            DateTime end = today.AddDays(1).AddTicks(-1);
+                case "daily":
+                case "today":
+                    int daysSinceMonday = ((int)today.DayOfWeek + 6) % 7;
+                    start = today.AddDays(-daysSinceMonday);
+
+                    end = today.AddDays(1).AddTicks(-1);
+
+                    if (today.DayOfWeek == DayOfWeek.Friday || today.DayOfWeek == DayOfWeek.Saturday || today.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        int daysSinceThursday = ((int)today.DayOfWeek + 3) % 7;
+                        end = today.AddDays(-daysSinceThursday).Date.AddDays(1).AddTicks(-1);
+                    }
+                    break;
+
+
+                case "weekly":
+                    start = new DateTime(today.Year, today.Month, 1);
+                    end = today.AddDays(1).AddTicks(-1);
+                    break;
+
+
+                case "monthly":
+                    start = new DateTime(today.Year, 1, 1);
+                    end = today.AddDays(1).AddTicks(-1);
+                    break;
+
+
+                default:
+                    start = today;
+                    end = today.AddDays(1).AddTicks(-1);
+                    break;
+            }
             return (start, end);
         }
 
         [HttpGet("chart")]
-        public async Task<IActionResult> GetChartData(string timePeriod = "daily")
+        public async Task<IActionResult> GetChartData(string timePeriod = "today")
         {
             var (startDate, endDate) = GetDateRange(timePeriod);
-
-            var allDefectTypes = await _context.Defect
-                .Select(d => d.DefectName)
-                .Distinct()
-                .ToListAsync();
 
             var allLineProductions = await _context.LineProductions
                 .Select(lp => lp.LineProductionName)
@@ -57,89 +80,166 @@ namespace DefectApi.Controllers.Api
                 .ToList();
 
             var rawData = await _context.DefectReports
-                .Where(d => d.ReportDate >= startDate && d.ReportDate <= endDate)
-                .Include(d => d.Defect)
-                .Include(d => d.LineProduction)
-                .Select(d => new
-                {
-                    DefectName = d.Defect.DefectName,
-                    LineProductionName = d.LineProduction.LineProductionName,
-                    d.DefectQty
-                })
-                .ToListAsync();
+       .Where(d => d.ReportDate >= startDate && d.ReportDate <= endDate)
 
-            var grouped = rawData
-                .GroupBy(d => new { d.DefectName, d.LineProductionName })
-                .ToDictionary(
-                    g => new { g.Key.DefectName, g.Key.LineProductionName },
-                    g => g.Sum(x => x.DefectQty)
-                );
+       .Select(d => new
+       {
+           d.ReportDate,
+           LineProductionName = d.LineProduction.LineProductionName,
+           d.DefectQty
+       })
+       .ToListAsync();
+            List<string> labels;
+            Dictionary<string, Dictionary<string, int>> groupedData = new();
 
-            var colorMap = allDefectTypes.ToDictionary(
-                defect => defect,
-                _ => $"#{Random.Shared.Next(0x1000000):X6}"
-            );
-
-            var datasets = allDefectTypes.Select(defect => new
+            if (timePeriod == "daily" || timePeriod == "today")
             {
-                label = defect,
-                data = allLineProductions.Select(lp =>
-                    grouped.TryGetValue(new { DefectName = defect, LineProductionName = lp }, out var qty)
-                        ? qty
-                        : 0
-                ).ToList(),
-                backgroundColor = colorMap[defect]
-            }).ToList();
+                labels = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+                foreach (var label in labels)
+                {
+                    groupedData[label] = allLineProductions.ToDictionary(lp => lp, _ => 0);
+                }
+
+                foreach (var data in rawData)
+                {
+                    var day = data.ReportDate.DayOfWeek.ToString();
+                    if (!groupedData.ContainsKey(day))
+                        continue;
+                    groupedData[day][data.LineProductionName] += data.DefectQty;
+                }
+            }
+            else if (timePeriod == "weekly")
+            {
+                labels = new List<string> { "Week 1", "Week 2", "Week 3", "Week 4" };
+
+                foreach (var label in labels)
+                {
+                    groupedData[label] = allLineProductions.ToDictionary(lp => lp, _ => 0);
+                }
+
+                foreach (var data in rawData)
+                {
+                    var weekNum = (int)Math.Ceiling(data.ReportDate.Day / 7.0);
+                    var label = $"Week {weekNum}";
+                    if (!groupedData.ContainsKey(label))
+                        continue;
+                    groupedData[label][data.LineProductionName] += data.DefectQty;
+                }
+            }
+            else if (timePeriod == "monthly")
+            {
+                labels = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames
+                    .Where(m => !string.IsNullOrWhiteSpace(m))
+                    .ToList();
+
+                foreach (var label in labels)
+                {
+                    groupedData[label] = allLineProductions.ToDictionary(lp => lp, _ => 0);
+                }
+
+                foreach (var data in rawData)
+                {
+                    var label = data.ReportDate.ToString("MMMM");
+                    if (!groupedData.ContainsKey(label))
+                        continue;
+                    groupedData[label][data.LineProductionName] += data.DefectQty;
+                }
+            }
+            else
+            {
+                return BadRequest("Invalid timePeriod.");
+            }
+
+
+            var datasets = allLineProductions.Select(lp => new
+            {
+                label = lp,
+                data = labels.Select(label => groupedData[label].ContainsKey(lp) ? groupedData[label][lp] : 0).ToList(),
+                backgroundColor = $"#{Random.Shared.Next(0x1000000):X6}"
+            });
+
+            var summaryStartOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+            var summaryStartOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
 
             var summaryData = await _context.DefectReports
-                .Where(d => d.ReportDate >= DateTime.Today.AddYears(-1))
+                .Where(d => d.ReportDate >= summaryStartOfMonth)
                 .ToListAsync();
 
-            var allCounts = new
+            var summary = new
             {
-                daily = summaryData.Where(d => d.ReportDate.Date == DateTime.Today).Sum(d => d.DefectQty),
-                weekly = summaryData.Where(d => d.ReportDate >= DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday)).Sum(d => d.DefectQty),
-                monthly = summaryData.Where(d => d.ReportDate >= new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)).Sum(d => d.DefectQty),
-                annual = summaryData.Sum(d => d.DefectQty)
+                today = summaryData
+                    .Where(d => d.ReportDate.Date == DateTime.Today)
+                    .Sum(d => d.DefectQty),
+                week = summaryData
+                    .Where(d => d.ReportDate >= summaryStartOfWeek)
+                    .Sum(d => d.DefectQty),
+                month = summaryData
+                    .Sum(d => d.DefectQty)
             };
 
             return Ok(new
             {
-                labels = allLineProductions,
+                labels,
                 datasets,
-                daily = allCounts.daily,
-                weekly = allCounts.weekly,
-                monthly = allCounts.monthly,
-                annual = allCounts.annual
+                summary
             });
+
         }
 
-        [HttpGet("breakdown")]
-        public async Task<IActionResult> GetDefectBreakdown(string lineProduction, string timePeriod = "daily")
+        [HttpGet("chart-breakdown")]
+        public async Task<IActionResult> GetBreakdown(
+ string timePeriod,
+ string label,
+ string lineProductionName)
         {
             var (startDate, endDate) = GetDateRange(timePeriod);
 
-            var defectsInLine = await _context.DefectReports
-                .Include(d => d.LineProduction)
+            var query = _context.DefectReports
                 .Include(d => d.Defect)
-                .Where(d => d.ReportDate >= startDate && d.ReportDate <= endDate && d.LineProduction.LineProductionName == lineProduction)
+                .Include(d => d.LineProduction)
+                .Where(d => d.ReportDate >= startDate && d.ReportDate <= endDate);
+
+            if (!string.IsNullOrEmpty(lineProductionName))
+            {
+                query = query.Where(d => d.LineProduction.LineProductionName == lineProductionName);
+            }
+
+            if (timePeriod == "daily" || timePeriod == "today")
+            {
+                var dayIndex = Array.IndexOf(new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }, label);
+                if (dayIndex >= 0)
+                {
+                    var targetDate = startDate.AddDays(dayIndex);
+                    query = query.Where(d => d.ReportDate.Date == targetDate.Date);
+                }
+            }
+            else if (timePeriod == "weekly")
+            {
+                var weekNum = int.Parse(label.Replace("Week ", ""));
+                var firstDayOfMonth = new DateTime(startDate.Year, startDate.Month, 1);
+                var firstMonday = firstDayOfMonth.AddDays(((int)DayOfWeek.Monday - (int)firstDayOfMonth.DayOfWeek + 7) % 7);
+                var startOfWeek = firstMonday.AddDays((weekNum - 1) * 7);
+                var endOfWeek = startOfWeek.AddDays(6);
+                query = query.Where(d => d.ReportDate >= startOfWeek && d.ReportDate <= endOfWeek);
+            }
+            else if (timePeriod == "monthly")
+            {
+                var month = DateTime.ParseExact(label, "MMMM", null).Month;
+                query = query.Where(d => d.ReportDate.Month == month);
+            }
+
+            var breakdownData = await query
                 .GroupBy(d => d.Defect.DefectName)
                 .Select(g => new
                 {
-                    name = g.Key,
-                    count = g.Sum(x => x.DefectQty)
+                    Defect = g.Key,
+                    TotalQty = g.Sum(x => x.DefectQty)
                 })
-                .OrderByDescending(d => d.count)
+                .OrderByDescending(x => x.TotalQty)
                 .ToListAsync();
 
-            var totalCount = defectsInLine.Sum(d => d.count);
-
-            return Ok(new
-            {
-                lineProduction,
-                defects = defectsInLine,
-                totalCount
-            });
+            return Ok(breakdownData);
         }
 
         [HttpGet("GetTopDefectsAndLines")]

@@ -1,5 +1,6 @@
 import 'package:defect_report_mobile/Models/chart_data_model.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/box_widgets.dart';
+import 'package:defect_report_mobile/Screens/Dashboard/breakdown.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/defect_chart.dart';
 import 'package:defect_report_mobile/Services/api_services.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ class DashboardPage extends StatefulWidget {
 class DashboardPageState extends State<DashboardPage> {
   String selectedPeriod = 'daily';
   late Future<DefectChartResponse> futureData;
+  String? selectedLabel;
+  String? selectedLine;
+  List<Map<String, dynamic>> breakdownData = [];
 
   @override
   void initState() {
@@ -51,10 +55,9 @@ class DashboardPageState extends State<DashboardPage> {
                 final chartData = snapshot.data!;
 
                 final summaryValues = {
-                  'Daily': chartData.daily,
-                  'Weekly': chartData.weekly,
-                  'Monthly': chartData.monthly,
-                  'Annual': chartData.annual,
+                  'daily': chartData.summary.today,
+                  'weekly': chartData.summary.week,
+                  'monthly': chartData.summary.month,
                 };
 
                 return SingleChildScrollView(
@@ -70,7 +73,7 @@ class DashboardPageState extends State<DashboardPage> {
                             labelText: "Filter by Time",
                             border: OutlineInputBorder(),
                           ),
-                          items: ['daily', 'weekly', 'monthly', 'annual'].map((e) {
+                          items: ['daily', 'weekly', 'monthly'].map((e) {
                             return DropdownMenuItem(
                               value: e,
                               child: Text(e.toUpperCase()),
@@ -80,7 +83,6 @@ class DashboardPageState extends State<DashboardPage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -96,9 +98,7 @@ class DashboardPageState extends State<DashboardPage> {
                           }).toList(),
                         ),
                       ),
-
                       const SizedBox(height: 16),
-
                       Container(
                         height: 500,
                         width: double.infinity,
@@ -110,13 +110,29 @@ class DashboardPageState extends State<DashboardPage> {
                           ],
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: DefectChart(data: chartData),
+                        child: DefectChart(
+                          data: chartData,
+                          onBarTapped: (String label, String? line) async {
+                            final response = await ApiServices.fetchBreakdown(
+                                selectedPeriod, label, line!);
+                            setState(() {
+                              selectedLabel = label;
+                              selectedLine = line;
+                              breakdownData = response;
+                            });
+                          },
+                        ),
                       ),
+                      const SizedBox(height: 16),
+                      // BreakdownCard(
+                      //   label: selectedLabel,
+                      //   lineProduction: selectedLine,
+                      //   breakdownData: breakdownData,
+                      // ),
                     ],
                   ),
                 );
               }
-
               return const Center(child: CircularProgressIndicator());
             },
           ),
