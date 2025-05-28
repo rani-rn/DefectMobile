@@ -1,0 +1,272 @@
+@using System.Security.Claims
+@{
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+}
+
+@{
+    ViewData["Title"] = "Admin Management";
+}
+
+<h2>Admin Management</h2>
+
+<select id="categorySelector" class="form-control mb-3" onchange="loadData()">
+    <option value="defect">Defect</option>
+    <option value="line">Line Production</option>
+    <option value="model">WP Model</option>
+</select>
+
+<div id="dataContainer"></div>
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Add Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newDataInput" class="form-control" placeholder="Enter name..." />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveNewData()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentData = [];
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let searchQuery = "";
+        let searchTimeout = null;
+
+        let filteredData = [];
+        let editingRowId = null;
+
+        async function loadData() {
+            const selected = document.getElementById("categorySelector").value;
+            let response = await fetch(`/Admin/GetData?type=${selected}`);
+            currentData = await response.json();
+            filteredData = [...currentData];
+            currentPage = 1;
+            renderTable();
+        }
+
+        function renderTable() {
+            const selected = document.getElementById("categorySelector").value;
+            const field = getField(selected);
+            const paginated = paginate(filteredData, currentPage, itemsPerPage);
+
+            let html = `
+                                                        <div class="d-flex justify-content-between mb-3">
+                                                            <div class="input-group w-50">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search..." value="${escapeHtml(searchQuery)}" />
+                <button class="btn btn-outline-secondary" id="searchBtn" type="button">Search</button>
+            </div>
+            <button class="btn btn-primary" onclick="openAddModal()">Add ${capitalize(selected)}</button>
+
+                                                        </div>
+                                                        <h4>${capitalize(selected)} List</h4>
+                                                        <p>Total data: ${filteredData.length}</p>
+                                                        <table class="table table-bordered">
+                                                            <thead><tr><th>Name</th><th>Action</th></tr></thead>
+                                                            <tbody>
+                                                        `;
+
+            paginated.items.forEach(item => {
+                const nameValue = item[field];
+                if (editingRowId === item.id) {
+                    html += `
+                                                                <tr>
+                                                                    <td><input type="text" class="form-control" value="${escapeHtml(nameValue)}" 
+                                                                        onkeydown="handleEditKey(event, ${item.id}, '${field}')" 
+                                                                        onblur="saveEdit(${item.id}, '${field}', this.value)" autofocus /></td>
+                                                                    <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${item.id})">Delete</button></td>
+                                                                </tr>`;
+                } else {
+                    html += `
+                                                                <tr ondblclick="startEdit(${item.id})">
+                                                                    <td>${escapeHtml(nameValue)}</td>
+                                                                    <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${item.id})">Delete</button></td>
+                                                                </tr>`;
+                }
+            });
+
+            html += `</tbody></table>`;
+            html += renderPagination(paginated.totalPages);
+            document.getElementById("dataContainer").innerHTML = html;
+
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    searchData(e.target.value);
+                }
+            });
+
+            document.getElementById('searchBtn').addEventListener('click', function () {
+                searchData(searchInput.value);
+            });
+
+
+        }
+
+        function searchData(query) {
+            searchQuery = query;
+            const selected = document.getElementById("categorySelector").value;
+            const field = getField(selected);
+            filteredData = currentData.filter(item =>
+                item[field]?.toLowerCase().includes(query.toLowerCase())
+            );
+            currentPage = 1;
+            editingRowId = null;
+            renderTable();
+        }
+
+        function paginate(data, page, pageSize) {
+            const start = (page - 1) * pageSize;
+            const paginatedItems = data.slice(start, start + pageSize);
+            const totalPages = Math.ceil(data.length / pageSize);
+            return { items: paginatedItems, totalPages };
+        }
+
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) return '';
+            let html = `<div class="d-flex justify-content-center"><nav><ul class="pagination">`;
+            const maxPages = 5;
+            let start = Math.max(1, currentPage - Math.floor(maxPages / 2));
+            let end = Math.min(totalPages, start + maxPages - 1);
+            if (end - start < maxPages - 1) start = Math.max(1, end - maxPages + 1);
+
+            if (currentPage > 1)
+                html += `<li class="page-item"><button class="page-link" onclick="changePage(${currentPage - 1})">‹</button></li>`;
+
+            for (let i = start; i <= end; i++) {
+                html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                                                                        <button class="page-link" onclick="changePage(${i})">${i}</button>
+                                                                     </li>`;
+            }
+
+            if (currentPage < totalPages)
+                html += `<li class="page-item"><button class="page-link" onclick="changePage(${currentPage + 1})">›</button></li>`;
+
+            html += `</ul></nav></div>`;
+            return html;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderTable();
+        }
+
+        function startEdit(id) {
+            editingRowId = id;
+            renderTable();
+        }
+
+        function handleEditKey(event, id, field) {
+            if (event.key === "Enter") event.target.blur();
+            if (event.key === "Escape") {
+                editingRowId = null;
+                renderTable();
+            }
+        }
+
+        async function saveEdit(id, field, newValue) {
+            newValue = newValue.trim();
+            if (!newValue) {
+                alert("Name cannot be empty.");
+                renderTable();
+                return;
+            }
+
+            const selected = document.getElementById("categorySelector").value;
+
+            const response = await fetch('/Admin/EditData', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: selected, id: id, name: newValue })
+            });
+
+
+            if (response.ok) {
+                currentData.find(x => x.id === id)[field] = newValue;
+                editingRowId = null;
+                renderTable();
+            } else {
+                alert("Failed to update.");
+            }
+        }
+
+        async function deleteItem(id) {
+            if (!confirm("Are you sure?")) return;
+            const selected = document.getElementById("categorySelector").value;
+
+            const response = await fetch('/Admin/DeleteData', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: selected, id: id })
+            });
+
+
+            if (response.ok) {
+                currentData = currentData.filter(x => x.id !== id);
+                filteredData = filteredData.filter(x => x.id !== id);
+                renderTable();
+            } else {
+                alert("Failed to delete.");
+            }
+        }
+
+        function getField(type) {
+            switch (type) {
+                case "defect": return "defectName";
+                case "line": return "lineProductionName";
+                case "model": return "modelName";
+            }
+        }
+
+        function capitalize(s) {
+            return s.charAt(0).toUpperCase() + s.slice(1);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function openAddModal() {
+            document.getElementById("newDataInput").value = "";
+            new bootstrap.Modal(document.getElementById("addModal")).show();
+        }
+
+        async function saveNewData() {
+            const name = document.getElementById("newDataInput").value.trim();
+            const selected = document.getElementById("categorySelector").value;
+
+            if (!name) {
+                alert("Name cannot be empty.");
+                return;
+            }
+
+            const response = await fetch('/Admin/AddData', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: selected, name: name })
+            });
+
+
+            if (response.ok) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById("addModal"));
+                modal.hide();
+                await loadData();
+            } else {
+                alert("Failed to add data.");
+            }
+        }
+        document.addEventListener("DOMContentLoaded", loadData);
+    </script>
+}

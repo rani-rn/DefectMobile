@@ -82,7 +82,7 @@ namespace DefectApi.Controllers.Web
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            return RedirectToAction("Login","Auth");
         }
 
     }

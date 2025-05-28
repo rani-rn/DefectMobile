@@ -74,25 +74,7 @@
         <div class="actions">
             <a asp-action="ChangePassword">Change Password</a>
             <a asp-controller="Home" asp-action="Index">Back to Home</a>
-            <a href="#" class="logout" id="logoutBtn">Logout</a>
+            
         </div>
     </div>
 </div>
-<script>
-    document.getElementById('logoutBtn').addEventListener('click', function (e) {
-        e.preventDefault();
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You will be logged out",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#0f56af',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, logout'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '@Url.Action("Logout", "Auth")';
-            }
-        });
-    });
-</script>

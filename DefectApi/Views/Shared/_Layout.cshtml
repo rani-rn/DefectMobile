@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@{
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -45,6 +51,18 @@
                             class="list-group-item list-group-item-action bg-sidebar text-white ps-4">
                             Profile
                         </a>
+                        @if (userRole == "admin")
+                        {
+                            <a asp-controller="Admin" asp-action="Index"
+                                class="list-group-item list-group-item-action bg-sidebar text-white ps-4">
+                                Admin
+                            </a>
+                        }
+                        <a href="#" class="logout list-group-item list-group-item-action bg-sidebar text-white ps-4"
+                            id="logoutBtn">
+                            Logout
+                        </a>
+
                     </div>
                 </div>
             </div>
@@ -60,6 +78,25 @@
         </footer>
 
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/js/sweetalert.js" asp-append-version="true"></script>
+        <script>
+            document.getElementById('logoutBtn').addEventListener('click', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You will be logged out",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0f56af',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, logout'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/Auth/Logout';
+                    }
+                });
+            });
+        </script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("Scripts", required: false)

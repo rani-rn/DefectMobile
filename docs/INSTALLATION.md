@@ -39,9 +39,9 @@ This guide explains how to set up the Defect Record on your local machine, inclu
 - Config ur Issuer domain in `appsettings.json`:
   "Jwt": {
     "Key": "ThisIsTheKeyForApiDefect12345678!!!",
-    "Issuer": "http://10.83.34.109"
+    "Issuer": "http://10.83.34.109:5145"
   }
-- Replace "http://10.83.34.109" with your actual issuer domain or IP address.
+- Replace "http://10.83.34.109:5145" with your actual issuer domain or IP address.
 
 ### 4. Kestrel Server Port
 - Update `Program.cs` to set yout IIS port
