@@ -189,9 +189,9 @@ namespace DefectApi.Controllers.Api
 
         [HttpGet("chart-breakdown")]
         public async Task<IActionResult> GetBreakdown(
- string timePeriod,
- string label,
- string lineProductionName)
+        string timePeriod,
+        string label,
+        string lineProductionName)
         {
             var (startDate, endDate) = GetDateRange(timePeriod);
 
@@ -241,6 +241,62 @@ namespace DefectApi.Controllers.Api
 
             return Ok(breakdownData);
         }
+
+        [HttpGet("mobile-breakdown")]
+        public async Task<IActionResult> GetMobileBreakdown([FromQuery] string timePeriod, [FromQuery] string label)
+
+        {
+            var (startDate, endDate) = GetDateRange(timePeriod);
+
+            var query = _context.DefectReports
+                .Include(d => d.LineProduction)
+                .Include(d => d.Defect)
+                .Where(d => d.ReportDate >= startDate && d.ReportDate <= endDate);
+
+            if (timePeriod == "daily" || timePeriod == "today")
+            {
+                var dayIndex = Array.IndexOf(new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }, label);
+                if (dayIndex >= 0)
+                {
+                    var targetDate = startDate.AddDays(dayIndex);
+                    query = query.Where(d => d.ReportDate.Date == targetDate.Date);
+                }
+            }
+            else if (timePeriod == "weekly")
+            {
+                var weekNum = int.Parse(label.Replace("Week ", ""));
+                var firstDayOfMonth = new DateTime(startDate.Year, startDate.Month, 1);
+                var firstMonday = firstDayOfMonth.AddDays(((int)DayOfWeek.Monday - (int)firstDayOfMonth.DayOfWeek + 7) % 7);
+                var startOfWeek = firstMonday.AddDays((weekNum - 1) * 7);
+                var endOfWeek = startOfWeek.AddDays(6);
+                query = query.Where(d => d.ReportDate >= startOfWeek && d.ReportDate <= endOfWeek);
+            }
+            else if (timePeriod == "monthly")
+            {
+                var month = DateTime.ParseExact(label, "MMMM", null).Month;
+                query = query.Where(d => d.ReportDate.Month == month);
+            }
+
+            var result = await query
+                .GroupBy(d => d.LineProduction.LineProductionName)
+                .Select(g => new
+                {
+                    LineProduction = g.Key,
+                    TopDefects = g.GroupBy(x => x.Defect.DefectName)
+                                  .Select(dg => new
+                                  {
+                                      Defect = dg.Key,
+                                      Qty = dg.Sum(x => x.DefectQty)
+                                  })
+                                  .OrderByDescending(d => d.Qty)
+                                  .Take(3)
+                                  .ToList()
+                })
+                .ToListAsync();
+
+            return Ok(result);
+        }
+
 
         [HttpGet("GetTopDefectsAndLines")]
         public async Task<IActionResult> GetTopDefectsAndLines(string timePeriod)

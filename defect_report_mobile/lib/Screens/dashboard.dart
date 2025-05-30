@@ -1,4 +1,5 @@
 import 'package:defect_report_mobile/Models/chart_data_model.dart';
+import 'package:defect_report_mobile/Models/breakdown_model.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/box_widgets.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/breakdown.dart';
 import 'package:defect_report_mobile/Screens/Dashboard/defect_chart.dart';
@@ -16,8 +17,7 @@ class DashboardPageState extends State<DashboardPage> {
   String selectedPeriod = 'daily';
   late Future<DefectChartResponse> futureData;
   String? selectedLabel;
-  String? selectedLine;
-  List<Map<String, dynamic>> breakdownData = [];
+  List<BreakdownItem> breakdownData = []; 
 
   @override
   void initState() {
@@ -30,6 +30,8 @@ class DashboardPageState extends State<DashboardPage> {
       setState(() {
         selectedPeriod = value;
         futureData = ApiServices.fetchChartData(selectedPeriod);
+        selectedLabel = null;
+        breakdownData = [];
       });
     }
   }
@@ -53,7 +55,6 @@ class DashboardPageState extends State<DashboardPage> {
                 return const Center(child: Text('Error loading dashboard'));
               } else if (snapshot.hasData) {
                 final chartData = snapshot.data!;
-
                 final summaryValues = {
                   'daily': chartData.summary.today,
                   'weekly': chartData.summary.week,
@@ -65,7 +66,7 @@ class DashboardPageState extends State<DashboardPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(top: 8.0),
                         child: DropdownButtonFormField<String>(
                           value: selectedPeriod,
                           decoration: const InputDecoration(
@@ -114,21 +115,19 @@ class DashboardPageState extends State<DashboardPage> {
                           data: chartData,
                           onBarTapped: (String label, String? line) async {
                             final response = await ApiServices.fetchBreakdown(
-                                selectedPeriod, label, line!);
+                                selectedPeriod, label);
                             setState(() {
                               selectedLabel = label;
-                              selectedLine = line;
                               breakdownData = response;
                             });
                           },
                         ),
                       ),
                       const SizedBox(height: 16),
-                      // BreakdownCard(
-                      //   label: selectedLabel,
-                      //   lineProduction: selectedLine,
-                      //   breakdownData: breakdownData,
-                      // ),
+                      BreakdownCard(
+                        label: selectedLabel,
+                        breakdownList: breakdownData,
+                      ),
                     ],
                   ),
                 );

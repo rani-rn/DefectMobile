@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:defect_report_mobile/Models/breakdown_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:defect_report_mobile/Models/chart_data_model.dart';
 import 'package:defect_report_mobile/Models/defect_report_model.dart';
@@ -174,20 +175,17 @@ class ApiServices {
     }
   }
 
-  static Future<List<Map<String, dynamic>>> fetchBreakdown(
-      String timePeriod, String label, String lineProductionName) async {
-    final url = Uri.parse(
-        '$baseUrl/api/defect/chart-breakdown?timePeriod=$timePeriod&label=$label&lineProductionName=$lineProductionName');
-    final response = await http.get(url);
+ static Future<List<BreakdownItem>> fetchBreakdown(String timePeriod, String label) async {
+  final uri = Uri.parse('$baseUrl/api/defect/mobile-breakdown?timePeriod=$timePeriod&label=$label');
+  final response = await http.get(uri);
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return List<Map<String, dynamic>>.from(data);
-    } else {
-      throw Exception('Failed to load breakdown data');
-    }
+  if (response.statusCode == 200) {
+    final List<dynamic> jsonList = jsonDecode(response.body);
+    return jsonList.map((e) => BreakdownItem.fromJson(e)).toList();
+  } else {
+    throw Exception('Failed to load breakdown data');
   }
-
+}
   static Future<DefectChartResponse> fetchChartData(String period) async {
     final response = await http
         .get(Uri.parse('$baseUrl/api/defect/chart?timePeriod=$period'));
