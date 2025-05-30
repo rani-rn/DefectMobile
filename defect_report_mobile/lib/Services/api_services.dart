@@ -15,12 +15,18 @@ class ApiServices {
       headers: {'Content-type': 'application/json'},
       body: jsonEncode({'email': email, 'password': password}),
     );
+
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final token = data['token'];
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
+
+      final expired =
+          DateTime.now().add(const Duration(hours: 2)).millisecondsSinceEpoch;
+      await prefs.setInt('token_expired', expired);
+
       return null;
     } else {
       return 'Invalid email or password';
@@ -175,17 +181,20 @@ class ApiServices {
     }
   }
 
- static Future<List<BreakdownItem>> fetchBreakdown(String timePeriod, String label) async {
-  final uri = Uri.parse('$baseUrl/api/defect/mobile-breakdown?timePeriod=$timePeriod&label=$label');
-  final response = await http.get(uri);
+  static Future<List<BreakdownItem>> fetchBreakdown(
+      String timePeriod, String label) async {
+    final uri = Uri.parse(
+        '$baseUrl/api/defect/mobile-breakdown?timePeriod=$timePeriod&label=$label');
+    final response = await http.get(uri);
 
-  if (response.statusCode == 200) {
-    final List<dynamic> jsonList = jsonDecode(response.body);
-    return jsonList.map((e) => BreakdownItem.fromJson(e)).toList();
-  } else {
-    throw Exception('Failed to load breakdown data');
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      return jsonList.map((e) => BreakdownItem.fromJson(e)).toList();
+    } else {
+      throw Exception('Failed to load breakdown data');
+    }
   }
-}
+
   static Future<DefectChartResponse> fetchChartData(String period) async {
     final response = await http
         .get(Uri.parse('$baseUrl/api/defect/chart?timePeriod=$period'));
