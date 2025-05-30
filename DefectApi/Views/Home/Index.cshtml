@@ -50,13 +50,14 @@
 
         <div class="top-stats-container" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
             <div class="top-chart-box">
-                <h6 class="text-center">Top 3 Defects</h6>
+                <h6 class="text-center" id="topDefectsTitle">Top 3 Defects</h6>
                 <canvas id="topDefectsChart"></canvas>
             </div>
             <div class="top-chart-box">
-                <h6 class="text-center">Top 3 Line Productions</h6>
+                <h6 class="text-center" id="topLinesTitle">Top 3 Line Productions</h6>
                 <canvas id="topLinesChart"></canvas>
             </div>
+
         </div>
     </div>
 </div>
@@ -113,11 +114,11 @@
                         const items = result.map(d => {
                             totalCount += d.totalQty ?? 0;
                             return `
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>${d.defect ?? '-'}</span>
-                            <span>${d.totalQty ?? 0}</span>
-                        </li>
-                    `;
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>${d.defect ?? '-'}</span>
+                                    <span>${d.totalQty ?? 0}</span>
+                                </li>
+                            `;
                         }).join('');
 
                         if (lineProductionName) {
@@ -158,6 +159,23 @@
                         const defectData = response.topDefects.map(d => d.count);
                         const lineLabels = response.topLines.map(l => l.name);
                         const lineData = response.topLines.map(l => l.count);
+
+                        let timeText = '';
+                        switch (timePeriod) {
+                            case 'daily':
+                                timeText = ' (This Week)';
+                                break;
+                            case 'weekly':
+                                timeText = ' (This Month)';
+                                break;
+                            case 'monthly':
+                                timeText = ' (This Year)';
+                                break;
+                            default:
+                                timeText = '';
+                        }
+                        $('#topDefectsTitle').text('Top 3 Defects' + timeText);
+                        $('#topLinesTitle').text('Top 3 Line Productions' + timeText);
 
                         if (window.topDefectChartInstance) window.topDefectChartInstance.destroy();
                         if (window.topLineChartInstance) window.topLineChartInstance.destroy();
@@ -204,10 +222,10 @@
                                 }
                             }
                         });
-
                     }
                 });
             }
+
 
             function loadChart(timePeriod = 'daily') {
                 $.ajax({
