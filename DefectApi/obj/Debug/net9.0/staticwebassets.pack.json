@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\DefectApi.dq3h2qpnol.bundle.scp.css"
     },
     {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\boxicon.css",
+      "PackagePath": "staticwebassets\\css\\boxicon.css"
+    },
+    {
       "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css",
       "PackagePath": "staticwebassets\\css\\icon.css"
     },

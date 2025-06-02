@@ -301,6 +301,304 @@
       ]
     },
     {
+      "Route": "css/boxicon.css",
+      "AssetFile": "css/boxicon.css.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000078554595"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12729"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:40:58 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.css",
+      "AssetFile": "css/boxicon.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "68028"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:40:58 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.css.gz",
+      "AssetFile": "css/boxicon.css.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12729"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:40:58 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.q9wpiwz2yt.css",
+      "AssetFile": "css/boxicon.css.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000078554595"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12729"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:40:58 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "q9wpiwz2yt"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck="
+        },
+        {
+          "Name": "label",
+          "Value": "css/boxicon.css"
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.q9wpiwz2yt.css",
+      "AssetFile": "css/boxicon.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "68028"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:40:58 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "q9wpiwz2yt"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck="
+        },
+        {
+          "Name": "label",
+          "Value": "css/boxicon.css"
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.q9wpiwz2yt.css.gz",
+      "AssetFile": "css/boxicon.css.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12729"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:40:58 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "q9wpiwz2yt"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo="
+        },
+        {
+          "Name": "label",
+          "Value": "css/boxicon.css.gz"
+        }
+      ]
+    },
+    {
       "Route": "css/icon.6dqci19kbu.css",
       "AssetFile": "css/icon.css.gz",
       "Selectors": [

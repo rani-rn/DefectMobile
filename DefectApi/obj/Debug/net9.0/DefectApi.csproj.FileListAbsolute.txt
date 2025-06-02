@@ -1426,3 +1426,4 @@ C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\xctcu8jmv7-2v9g4y38al.gz
 C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\rqr37hs0zz-2e11p3nemv.gz
 C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\311dlhtz5b-uofirzhswl.gz
 C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\gf5gbae9n6-cs9rc39e9b.gz
+C:\DefectRecord\defectapi\obj\Debug\net9.0\compressed\143m8itph3-q9wpiwz2yt.gz

@@ -16,7 +16,7 @@ class ApiConfig {
   /// final url = ApiConfig.baseUrl;
   /// ```
   static String get baseUrl {
-    const laptopIp = '192.168.7.54'; // Change to your server’s IP or hostname
+    const laptopIp = '10.100.1.100'; // Change to your server’s IP or hostname
 
     if (kDebugMode) {
       if (Platform.isAndroid) {

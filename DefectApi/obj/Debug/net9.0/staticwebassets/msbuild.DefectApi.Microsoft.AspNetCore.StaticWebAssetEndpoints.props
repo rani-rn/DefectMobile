@@ -1,5 +1,17 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/DefectApi/css/boxicon.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\boxicon.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Yg7qJLDO4djMg5XIDylc8ue2\u002BrliSTwmtJqNQrY6Tck="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"68028"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Yg7qJLDO4djMg5XIDylc8ue2\u002BrliSTwmtJqNQrY6Tck=\u0022"},{"Name":"Last-Modified","Value":"Mon, 02 Jun 2025 00:40:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/DefectApi/css/boxicon.q9wpiwz2yt.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\boxicon.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"q9wpiwz2yt"},{"Name":"integrity","Value":"sha256-Yg7qJLDO4djMg5XIDylc8ue2\u002BrliSTwmtJqNQrY6Tck="},{"Name":"label","Value":"_content/DefectApi/css/boxicon.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"68028"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Yg7qJLDO4djMg5XIDylc8ue2\u002BrliSTwmtJqNQrY6Tck=\u0022"},{"Name":"Last-Modified","Value":"Mon, 02 Jun 2025 00:40:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/DefectApi/css/icon.6dqci19kbu.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\icon.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
