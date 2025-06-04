@@ -1,4 +1,4 @@
-import 'package:defect_report_mobile/Screens/Auth/register_page.dart';
+//import 'package:defect_report_mobile/Screens/Auth/register_page.dart';
 import 'package:defect_report_mobile/Screens/Widget/auth_input.dart';
 import 'package:defect_report_mobile/Screens/nav.dart';
 import 'package:defect_report_mobile/Services/api_services.dart';
@@ -82,26 +82,26 @@ class _LoginPageState extends State<LoginPage> {
               if (error != null)
                 Text(error!, style: const TextStyle(color: Colors.red)),
               const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Don't have account?"),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterPage()),
-                      );
-                    },
-                    child: const Text(
-                      'Register',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     const Text("Don't have account?"),
+              //     TextButton(
+              //       onPressed: () {
+              //         Navigator.pushReplacement(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => const RegisterPage()),
+              //         );
+              //       },
+              //       child: const Text(
+              //         'Register',
+              //         style:
+              //             TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 8),
               SizedBox(
                 width: double.infinity,

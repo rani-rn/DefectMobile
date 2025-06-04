@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\boxicon.css"
     },
     {
+      "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\boxicon.min.css",
+      "PackagePath": "staticwebassets\\css\\boxicon.min.css"
+    },
+    {
       "Id": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css",
       "PackagePath": "staticwebassets\\css\\icon.css"
     },

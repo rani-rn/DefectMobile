@@ -5,7 +5,12 @@ import 'package:fl_chart/fl_chart.dart';
 class DefectChart extends StatefulWidget {
   final DefectChartResponse data;
   final void Function(String label, String? line) onBarTapped;
-  const DefectChart({super.key, required this.data, required this.onBarTapped});
+
+  const DefectChart({
+    super.key,
+    required this.data,
+    required this.onBarTapped,
+  });
 
   @override
   State<DefectChart> createState() => _DefectChartState();
@@ -57,7 +62,7 @@ class _DefectChartState extends State<DefectChart> {
           barRods: [
             BarChartRodData(
               toY: startY,
-              width: 24,
+              width: 16, // Smaller width to fit all 12 bars
               rodStackItems: stacks,
               borderRadius: BorderRadius.circular(4),
               backDrawRodData: BackgroundBarChartRodData(
@@ -74,16 +79,22 @@ class _DefectChartState extends State<DefectChart> {
     return groups;
   }
 
+  String _shortenLabel(String label) {
+    final parts = label.split(' ');
+    return parts.map((part) {
+      if (part.length >= 3) {
+        return part.substring(0, 3);
+      } else {
+        return part;
+      }
+    }).join(' ');
+  }
+
   @override
   Widget build(BuildContext context) {
     final filtered = List.generate(widget.data.labels.length, (i) => i);
-
     final maxY = _findMaxY();
     final barGroups = _generateBarGroups(filtered, maxY);
-
-    const barWidth = 24.0;
-    const groupSpace = 40.0;
-    final chartWidth = (barWidth + groupSpace) * filtered.length + 24;
 
     if (filtered.isEmpty) {
       return const SizedBox(
@@ -98,128 +109,116 @@ class _DefectChartState extends State<DefectChart> {
         height: 300,
         child: Stack(
           children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: SizedBox(
-                width: chartWidth,
-                child: BarChart(
-                  BarChartData(
-                    maxY: maxY,
-                    groupsSpace: groupSpace,
-                    barGroups: barGroups,
-                    alignment: BarChartAlignment.start,
-                    borderData: FlBorderData(show: false),
-                    gridData: FlGridData(
-                      show: true,
-                      drawVerticalLine: false,
-                      horizontalInterval: (maxY / 5).ceilToDouble(),
-                      getDrawingHorizontalLine: (value) => FlLine(
-                        color: Colors.grey.shade300,
-                        strokeWidth: 1,
-                      ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: BarChart(
+                BarChartData(
+                  maxY: maxY,
+                  groupsSpace: 20, // Reduced spacing to fit 12 bars
+                  barGroups: barGroups,
+                  alignment: BarChartAlignment.spaceAround,
+                  borderData: FlBorderData(show: false),
+                  gridData: FlGridData(
+                    show: true,
+                    drawVerticalLine: false,
+                    horizontalInterval: (maxY / 5).ceilToDouble(),
+                    getDrawingHorizontalLine: (value) => FlLine(
+                      color: Colors.grey.shade300,
+                      strokeWidth: 1,
                     ),
-                    titlesData: FlTitlesData(
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          interval: (maxY / 5).ceilToDouble(),
-                          reservedSize: 40,
-                          getTitlesWidget: (value, meta) => Text(
-                            value.toInt().toString(),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.black54,
-                            ),
+                  ),
+                  titlesData: FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        interval: (maxY / 5).ceilToDouble(),
+                        reservedSize: 40,
+                        getTitlesWidget: (value, meta) => Text(
+                          value.toInt().toString(),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.black54,
                           ),
                         ),
                       ),
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 50,
-                          getTitlesWidget: (value, meta) {
-                            final i = value.toInt();
-                            if (i >= filtered.length) return const SizedBox();
-
-                            final originalIndex = filtered[i];
-                            final label = widget.data.labels[originalIndex];
-                            final parts = label.split(' ');
-
-                            return SideTitleWidget(
-                              meta: meta,
-                              space: 8,
-                              child: SizedBox(
-                                width: 50,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: parts.map((part) {
-                                    return FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        part,
-                                        style: const TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black87,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
                     ),
-                    barTouchData: BarTouchData(
-                      enabled: true,
-                      touchCallback: (event, response) {
-                        if (event is FlTapUpEvent && response?.spot != null) {
-                          final groupIdx = response!.spot!.touchedBarGroupIndex;
-                          final originalIndex = filtered[groupIdx];
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: (value, meta) {
+                          final i = value.toInt();
+                          if (i >= filtered.length) return const SizedBox();
+
+                          final originalIndex = filtered[i];
                           final label = widget.data.labels[originalIndex];
+                          final shortLabel = _shortenLabel(label);
 
-                          String? lineProduction;
-                          for (var ds in widget.data.datasets) {
-                            if (ds.data[originalIndex] > 0) {
-                              lineProduction = ds.label;
-                              break;
-                            }
-                          }
-
-                          widget.onBarTapped(label, lineProduction);
-
-                          setState(() {
-                            tooltipText = widget.data.datasets
-                                .map((ds) {
-                                  final val = ds.data[originalIndex].toDouble();
-                                  return val > 0
-                                      ? "${ds.label}: ${val.toInt()}"
-                                      : null;
-                                })
-                                .whereType<String>()
-                                .toList()
-                                .join('\n');
-                            touchPosition = response.spot!.offset;
-                          });
-
-                          Future.delayed(const Duration(seconds: 4), () {
-                            if (mounted) setState(() => tooltipText = null);
-                          });
-                        }
-                      },
+                          return SideTitleWidget(
+                            meta: meta,
+                            space: 6,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                shortLabel,
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: false),
+                    ),
+                  ),
+                  barTouchData: BarTouchData(
+                    enabled: true,
+                    touchCallback: (event, response) {
+                      if (event is FlTapUpEvent && response?.spot != null) {
+                        final groupIdx = response!.spot!.touchedBarGroupIndex;
+                        final originalIndex = filtered[groupIdx];
+                        final label = widget.data.labels[originalIndex];
+
+                        String? lineProduction;
+                        for (var ds in widget.data.datasets) {
+                          if (ds.data[originalIndex] > 0) {
+                            lineProduction = ds.label;
+                            break;
+                          }
+                        }
+
+                        widget.onBarTapped(label, lineProduction);
+
+                        setState(() {
+                          tooltipText = widget.data.datasets
+                              .map((ds) {
+                                final val = ds.data[originalIndex].toDouble();
+                                return val > 0
+                                    ? "${ds.label}: ${val.toInt()}"
+                                    : null;
+                              })
+                              .whereType<String>()
+                              .toList()
+                              .join('\n');
+                          touchPosition = response.spot!.offset;
+                        });
+
+                        Future.delayed(const Duration(seconds: 4), () {
+                          if (mounted) setState(() => tooltipText = null);
+                        });
+                      }
+                    },
                   ),
                 ),
               ),
@@ -241,16 +240,16 @@ class _DefectChartState extends State<DefectChart> {
                     color: Colors.transparent,
                     child: Container(
                       width: tooltipWidth,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.black87,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         tooltipText!,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 12),
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 12),
                         textAlign: TextAlign.center,
                       ),
                     ),

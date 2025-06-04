@@ -15,17 +15,17 @@ class DefectInputForm extends StatefulWidget {
 }
 
 class _DefectInputFormState extends State<DefectInputForm> {
-  static final _formKey = GlobalKey<FormState>();
-  static final _reporterController = TextEditingController();
-  static final _dateController = TextEditingController();
-  static final _productionQtyController = TextEditingController();
-  static final _descriptionController = TextEditingController();
-  static final _defectQtyController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _reporterController;
+  late final TextEditingController _dateController;
+  late final TextEditingController _productionQtyController;
+  late final TextEditingController _descriptionController;
+  late final TextEditingController _defectQtyController;
 
-  static String? _selectedSection;
-  static String? _selectedLineProduction;
-  static String? _selectedModel;
-  static String? _selectedDefect;
+  String? _selectedSection;
+  String? _selectedLineProduction;
+  String? _selectedModel;
+  String? _selectedDefect;
 
   late Future<Map<String, dynamic>> _dropdownDataFuture;
   Future<Map<String, dynamic>>? _editDataFuture;
@@ -36,11 +36,17 @@ class _DefectInputFormState extends State<DefectInputForm> {
   @override
   void initState() {
     super.initState();
+    _reporterController = TextEditingController();
+    _dateController = TextEditingController();
+    _productionQtyController = TextEditingController();
+    _descriptionController = TextEditingController();
+    _defectQtyController = TextEditingController();
+
     _dropdownDataFuture = ApiServices.getDropdownData();
 
     ApiServices.getProfile().then((profile) {
       setState(() {
-        _reporterController.text = profile?['name']?? '';
+        _reporterController.text = profile?['name'] ?? '';
       });
     });
 
@@ -49,6 +55,16 @@ class _DefectInputFormState extends State<DefectInputForm> {
     } else {
       _clearForm();
     }
+  }
+
+  @override
+  void dispose() {
+    _reporterController.dispose();
+    _dateController.dispose();
+    _productionQtyController.dispose();
+    _descriptionController.dispose();
+    _defectQtyController.dispose();
+    super.dispose();
   }
 
   void _populateFields(Map<String, dynamic> data) {
@@ -99,21 +115,16 @@ class _DefectInputFormState extends State<DefectInputForm> {
 
     final sectionId =
         _findIdByName(sections, 'sectionName', _selectedSection, 'sectionId');
-    final lineId = _findIdByName(
-        lines, 'lineProductionName', _selectedLineProduction, 'id');
+    final lineId =
+        _findIdByName(lines, 'lineProductionName', _selectedLineProduction, 'id');
     int? defectId =
         _findIdByName(defects, 'defectName', _selectedDefect, 'defectId');
     final modelId =
         _findIdByName(models, 'modelName', _selectedModel, 'modelId');
 
-    if (defectId == null &&
-        _selectedDefect != null &&
-        _selectedDefect!.isNotEmpty) {
+    if (defectId == null && _selectedDefect != null && _selectedDefect!.isNotEmpty) {
       try {
         defectId = await ApiServices.addDefect(_selectedDefect!);
-        setState(() {
-          defects.add({'defectName': _selectedDefect, 'defectId': defectId});
-        });
       } catch (e) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -159,14 +170,9 @@ class _DefectInputFormState extends State<DefectInputForm> {
       );
 
       if (widget.defectReportId == null) {
-        setState(() {
-          _productionQtyController.clear();
-          _selectedDefect = null;
-          _descriptionController.clear();
-          _defectQtyController.clear();
-        });
+        _clearForm();
       } else {
-        Navigator.pop(context);
+        Navigator.pop(context, true); 
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -175,59 +181,84 @@ class _DefectInputFormState extends State<DefectInputForm> {
     }
   }
 
-  InputDecoration _inputDecoration(String label) => InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(fontSize: 14),
-        fillColor: Colors.white,
-        filled: true,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-      );
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: _dropdownDataFuture,
+          builder: (context, dropdownSnapshot) {
+            if (dropdownSnapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-  Widget _buildTextField(
-    TextEditingController controller,
-    String label, {
-    TextInputType? inputType,
-    bool readOnly = false,
-    VoidCallback? onTap,
-    String? Function(String?)? validator,
-    int maxLines = 1,
-  }) =>
-      TextFormField(
-        controller: controller,
-        readOnly: readOnly,
-        decoration: _inputDecoration(label),
-        keyboardType: inputType,
-        validator: validator ??
-            (value) => value == null || value.isEmpty ? 'Required' : null,
-        onTap: onTap,
-        maxLines: maxLines,
-      );
+            if (dropdownSnapshot.hasError) {
+              return Center(child: Text('Error: ${dropdownSnapshot.error}'));
+            }
+
+            if (dropdownSnapshot.hasData) {
+              final dropdownData = dropdownSnapshot.data!;
+              final sections = List<Map<String, dynamic>>.from(dropdownData['sections']);
+              final lines = List<Map<String, dynamic>>.from(dropdownData['lineProductions']);
+              final defects = List<Map<String, dynamic>>.from(dropdownData['defects']);
+              final models = List<Map<String, dynamic>>.from(dropdownData['models']);
+
+              if (_editDataFuture != null) {
+                return FutureBuilder<Map<String, dynamic>>(
+                  future: _editDataFuture,
+                  builder: (context, editSnapshot) {
+                    if (editSnapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    if (editSnapshot.hasError) {
+                      return Center(child: Text('Error: ${editSnapshot.error}'));
+                    }
+
+                    if (editSnapshot.hasData) {
+                      if (!_isPopulated) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          _populateFields(editSnapshot.data!);
+                          setState(() => _isPopulated = true);
+                        });
+                      }
+
+                      return _buildForm(sections, lines, defects, models);
+                    }
+
+                    return const Center(child: Text('Failed to load data'));
+                  },
+                );
+              } else {
+                return _buildForm(sections, lines, defects, models);
+              }
+            } else {
+              return const Center(child: Text('No dropdown data available'));
+            }
+          },
+        ),
+      ),
+    );
+  }
 
   Widget _buildForm(
-      List<Map<String, dynamic>> sections,
-      List<Map<String, dynamic>> lines,
-      List<Map<String, dynamic>> defects,
-      List<Map<String, dynamic>> models) {
+    List<Map<String, dynamic>> sections,
+    List<Map<String, dynamic>> lines,
+    List<Map<String, dynamic>> defects,
+    List<Map<String, dynamic>> models,
+  ) {
     _defectList = defects;
-    final sectionNames =
-        sections.map((e) => e['sectionName'] as String).toList();
-    final lineNames =
-        lines.map((e) => e['lineProductionName'] as String).toList();
+    final sectionNames = sections.map((e) => e['sectionName'] as String).toList();
+    final lineNames = lines.map((e) => e['lineProductionName'] as String).toList();
     final modelNames = models.map((e) => e['modelName'] as String).toList();
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+      padding: const EdgeInsets.all(20),
       child: Form(
         key: _formKey,
         child: Column(
           children: [
-            _buildTextField(
-              _reporterController,
-              'Reporter',
-              readOnly: true,
-            ),
+            _buildTextField(_reporterController, 'Reporter', readOnly: true),
             const SizedBox(height: 12),
             _buildTextField(
               _dateController,
@@ -319,8 +350,7 @@ class _DefectInputFormState extends State<DefectInputForm> {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text('Confirm Cancel'),
-                  content: const Text(
-                      'Your data will not be saved. Are you sure you want to cancel?'),
+                  content: const Text('Your data will not be saved. Are you sure?'),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
@@ -349,73 +379,33 @@ class _DefectInputFormState extends State<DefectInputForm> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: FutureBuilder<Map<String, dynamic>>(
-          future: _dropdownDataFuture,
-          builder: (context, dropdownSnapshot) {
-            if (dropdownSnapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            if (dropdownSnapshot.hasError) {
-              return Center(child: Text('Error: ${dropdownSnapshot.error}'));
-            }
-
-            if (dropdownSnapshot.hasData) {
-              final dropdownData = dropdownSnapshot.data!;
-              final sections =
-                  List<Map<String, dynamic>>.from(dropdownData['sections']);
-              final lines = List<Map<String, dynamic>>.from(
-                  dropdownData['lineProductions']);
-              final defects =
-                  List<Map<String, dynamic>>.from(dropdownData['defects']);
-              final models =
-                  List<Map<String, dynamic>>.from(dropdownData['models']);
-
-              if (_editDataFuture != null) {
-                return FutureBuilder<Map<String, dynamic>>(
-                  future: _editDataFuture,
-                  builder: (context, editSnapshot) {
-                    if (editSnapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    if (editSnapshot.hasError) {
-                      return Center(
-                          child: Text('Error: ${editSnapshot.error}'));
-                    }
-
-                    if (editSnapshot.hasData) {
-                      if (!_isPopulated) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          _populateFields(editSnapshot.data!);
-                          setState(() {
-                            _isPopulated = true;
-                          });
-                        });
-                      }
-
-                      return _buildForm(sections, lines, defects, models);
-                    }
-
-                    return const Center(child: Text('Failed to load data'));
-                  },
-                );
-              } else {
-                return _buildForm(sections, lines, defects, models);
-              }
-            } else {
-              return const Center(child: Text('No dropdown data available'));
-            }
-          },
+  Widget _buildTextField(
+    TextEditingController controller,
+    String label, {
+    TextInputType? inputType,
+    bool readOnly = false,
+    VoidCallback? onTap,
+    String? Function(String?)? validator,
+    int maxLines = 1,
+  }) =>
+      TextFormField(
+        controller: controller,
+        readOnly: readOnly,
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: const TextStyle(fontSize: 14),
+          fillColor: Colors.white,
+          filled: true,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         ),
-      ),
-    );
-  }
+        keyboardType: inputType,
+        validator: validator ??
+            (value) => value == null || value.isEmpty ? 'Required' : null,
+        onTap: onTap,
+        maxLines: maxLines,
+      );
 }
 
 int? _findIdByName(

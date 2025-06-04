@@ -224,8 +224,19 @@
                     text: "Defect report has been saved.",
                     icon: "success",
                     confirmButtonColor: "#28a745"
+                }).then(() => {
+                    document.getElementById("lineProdQty").value = "";
+                    document.getElementById("defectRecord").value = "";
+                    document.getElementById("description").value = "";
+                    document.getElementById("qtyDefect").value = "";
+                    const defectSelect = TomSelect.instances["defectRecord"];
+                    if (defectSelect) {
+                        defectSelect.clear();
+                    }
+                    document.getElementById("defectRecord").focus();
                 });
-            } else {
+            }
+            else {
                 const errorData = await response.json();
                 Swal.fire({
                     title: "Error!",

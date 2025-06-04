@@ -8,9 +8,8 @@ class SummaryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
       height: 80,
-      margin: const EdgeInsets.only(right: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         color: const Color(0xFF0F58A8),
         borderRadius: BorderRadius.circular(10),

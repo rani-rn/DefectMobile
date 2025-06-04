@@ -20,7 +20,6 @@ class DefectReportTable extends StatefulWidget {
 
 class _DefectReportTableState extends State<DefectReportTable> {
   bool _isSortByDate = false;
-  // DateTime? _selectedDate;
 
   void _showActionSheet(BuildContext context, DefectReport report) {
     showModalBottomSheet(
@@ -32,14 +31,19 @@ class _DefectReportTableState extends State<DefectReportTable> {
               ListTile(
                 leading: const Icon(Icons.edit),
                 title: const Text('Edit'),
-                onTap: () {
+                onTap: () async {
                   Navigator.pop(context);
-                  Navigator.push(
+
+                  final updated = await Navigator.push<bool>(
                     context,
                     MaterialPageRoute(
                       builder: (context) => UpdateScreen(report: report),
                     ),
                   );
+
+                  if (updated == true) {
+                    widget.onRefresh();
+                  }
                 },
               ),
               ListTile(
@@ -80,20 +84,6 @@ class _DefectReportTableState extends State<DefectReportTable> {
       }
     }
   }
-
-  // Future<void> _pickDate(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: _selectedDate ?? DateTime.now(),
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2100),
-  //   );
-  //   if (picked != null && picked != _selectedDate) {
-  //     setState(() {
-  //       _selectedDate = picked;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

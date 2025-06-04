@@ -1,0 +1,2 @@
+C:/DefectRecord/defect_report_mobile/android/app/.cxx/RelWithDebInfo/3r661ao6/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/DefectRecord/defect_report_mobile/android/app/.cxx/RelWithDebInfo/3r661ao6/arm64-v8a/CMakeFiles/rebuild_cache.dir

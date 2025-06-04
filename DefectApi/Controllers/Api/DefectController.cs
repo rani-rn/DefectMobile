@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+// using Microsoft.EntityFrameworkCore.Sqlite;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -242,7 +243,7 @@ namespace DefectApi.Controllers.Api
             return Ok(breakdownData);
         }
 
-        [HttpGet("mobile-breakdown")]
+          [HttpGet("mobile-breakdown")]
         public async Task<IActionResult> GetMobileBreakdown([FromQuery] string timePeriod, [FromQuery] string label)
 
         {
@@ -277,26 +278,30 @@ namespace DefectApi.Controllers.Api
                 query = query.Where(d => d.ReportDate.Month == month);
             }
 
-            var result = await query
+            var rawData = await query
+                .Include(d => d.LineProduction)
+                .Include(d => d.Defect)
+                .ToListAsync();
+
+            var result = rawData
                 .GroupBy(d => d.LineProduction.LineProductionName)
                 .Select(g => new
                 {
                     LineProduction = g.Key,
                     TopDefects = g.GroupBy(x => x.Defect.DefectName)
-                                  .Select(dg => new
-                                  {
-                                      Defect = dg.Key,
-                                      Qty = dg.Sum(x => x.DefectQty)
-                                  })
-                                  .OrderByDescending(d => d.Qty)
-                                  .Take(3)
-                                  .ToList()
+                                .Select(dg => new
+                                {
+                                    Defect = dg.Key,
+                                    Qty = dg.Sum(x => x.DefectQty)
+                                })
+                                .OrderByDescending(d => d.Qty)
+                                .Take(3)
+                                .ToList()
                 })
-                .ToListAsync();
+                .ToList();
 
             return Ok(result);
         }
-
 
         [HttpGet("GetTopDefectsAndLines")]
         public async Task<IActionResult> GetTopDefectsAndLines(string timePeriod)

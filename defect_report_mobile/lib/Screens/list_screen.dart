@@ -34,9 +34,13 @@ class _RecordListScreenState extends State<RecordListScreen> {
               decoration: const InputDecoration(
                 labelText: 'Search...',
                 border: OutlineInputBorder(),
+                hintText: 'Search by reporter, model, section, line, defect, or date (yyyy-MM-dd)',
               ),
               onChanged: (value) {
-                setState(() => _searchTerm = value.toLowerCase());
+                setState(() {
+                  _searchTerm = value.toLowerCase();
+                  _currentPage = 0; 
+                });
               },
             ),
             const SizedBox(height: 10),
@@ -46,16 +50,19 @@ class _RecordListScreenState extends State<RecordListScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final filtered = snapshot.data!.where((d) {
-                      final matchSearch = d.reporter
-                              .toLowerCase()
-                              .contains(_searchTerm) ||
-                          d.modelName.toLowerCase().contains(_searchTerm) ||
-                          d.sectionName.toLowerCase().contains(_searchTerm) ||
-                          d.lineProductionName
-                              .toLowerCase()
-                              .contains(_searchTerm) ||
-                          d.defectName.toLowerCase().contains(_searchTerm);
-                      return matchSearch;
+                      final search = _searchTerm;
+
+                      final matchSearch = d.reporter.toLowerCase().contains(search) ||
+                          d.modelName.toLowerCase().contains(search) ||
+                          d.sectionName.toLowerCase().contains(search) ||
+                          d.lineProductionName.toLowerCase().contains(search) ||
+                          d.defectName.toLowerCase().contains(search);
+
+                     final dateString = d.reportDate.substring(0, 10);
+
+                      final matchDate = dateString.contains(search);
+
+                      return matchSearch || matchDate;
                     }).toList();
 
                     filtered.sort((a, b) => b.reportDate.compareTo(a.reportDate));
@@ -88,8 +95,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
                             ),
                             Text("Page ${_currentPage + 1}"),
                             IconButton(
-                              onPressed: (_currentPage + 1) * _rowsPerPage <
-                                      filtered.length
+                              onPressed: (_currentPage + 1) * _rowsPerPage < filtered.length
                                   ? () => setState(() => _currentPage++)
                                   : null,
                               icon: const Icon(Icons.chevron_right),

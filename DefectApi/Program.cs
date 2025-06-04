@@ -3,25 +3,23 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore.Sqlite;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔌 Connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlite(connectionString));
 
-// 🔧 Add MVC
+
 builder.Services.AddControllersWithViews();
 
-// 🌐 Configure custom port (optional)
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.Listen(System.Net.IPAddress.Any, 5145);
 });
 
-// 🔐 Authentication: Cookie + JWT (Hybrid)
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -68,7 +66,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// 🕒 Session support
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromHours(1);
@@ -76,7 +73,6 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// 🔒 Authorization
 builder.Services.AddAuthorization();
 
 builder.Services.AddCors(options =>
@@ -105,7 +101,6 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",

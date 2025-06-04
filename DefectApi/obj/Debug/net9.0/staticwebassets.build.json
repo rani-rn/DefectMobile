@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Piw8F/klZXdqaVGYOwTm8gyTJExrfgtSfEB/LURF2go=",
+  "Hash": "YMjEjl7bDHjYLMITI8kzsrMXmVgdIQRZ3Vg5f4fIQbM=",
   "Source": "DefectApi",
   "BasePath": "_content/DefectApi",
   "Mode": "Default",
@@ -836,6 +836,27 @@
       "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
+      "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\i6z74pzfd0-q9wpiwz2yt.gz",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "css/boxicon.min#[.{fingerprint=q9wpiwz2yt}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\boxicon.min.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "fafssd8c3f",
+      "Integrity": "Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\boxicon.min.css"
+    },
+    {
       "Identity": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\j85l403oz8-nvvlpmu67g.gz",
       "SourceId": "DefectApi",
       "SourceType": "Discovered",
@@ -1611,6 +1632,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\boxicon.css"
+    },
+    {
+      "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\boxicon.min.css",
+      "SourceId": "DefectApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\DefectRecord\\defectapi\\wwwroot\\",
+      "BasePath": "_content/DefectApi",
+      "RelativePath": "css/boxicon.min#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "q9wpiwz2yt",
+      "Integrity": "Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\boxicon.min.css"
     },
     {
       "Identity": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\icon.css",
@@ -3257,6 +3299,304 @@
         }
       ],
       "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.min.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\i6z74pzfd0-q9wpiwz2yt.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000078554595"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12729"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:57:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.min.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\boxicon.min.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "68028"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:57:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.min.css.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\i6z74pzfd0-q9wpiwz2yt.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12729"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:57:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.min.q9wpiwz2yt.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\i6z74pzfd0-q9wpiwz2yt.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000078554595"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12729"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:57:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "q9wpiwz2yt"
+        },
+        {
+          "Name": "label",
+          "Value": "css/boxicon.min.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.min.q9wpiwz2yt.css",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\wwwroot\\css\\boxicon.min.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "68028"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:57:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "q9wpiwz2yt"
+        },
+        {
+          "Name": "label",
+          "Value": "css/boxicon.min.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Yg7qJLDO4djMg5XIDylc8ue2+rliSTwmtJqNQrY6Tck="
+        }
+      ]
+    },
+    {
+      "Route": "css/boxicon.min.q9wpiwz2yt.css.gz",
+      "AssetFile": "C:\\DefectRecord\\defectapi\\obj\\Debug\\net9.0\\compressed\\i6z74pzfd0-q9wpiwz2yt.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "12729"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 02 Jun 2025 00:57:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "q9wpiwz2yt"
+        },
+        {
+          "Name": "label",
+          "Value": "css/boxicon.min.css.gz"
+        },
         {
           "Name": "integrity",
           "Value": "sha256-Z6z+gHTSMtJ9Pb8Q53Kkt3ZNvI/BTqWKHkD75/UoHHo="

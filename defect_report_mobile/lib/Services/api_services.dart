@@ -7,7 +7,7 @@ import 'package:defect_report_mobile/Services/api_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiServices {
-  static final String baseUrl = ApiConfig.baseUrl;
+  static const String baseUrl = ApiConfig.baseUrl;
 
   static Future<String?> login(String email, String password) async {
     final response = await http.post(

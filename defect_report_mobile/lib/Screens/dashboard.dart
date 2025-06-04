@@ -17,7 +17,7 @@ class DashboardPageState extends State<DashboardPage> {
   String selectedPeriod = 'daily';
   late Future<DefectChartResponse> futureData;
   String? selectedLabel;
-  List<BreakdownItem> breakdownData = []; 
+  List<BreakdownItem> breakdownData = [];
 
   @override
   void initState() {
@@ -38,8 +38,8 @@ class DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double itemWidth = (screenWidth - 60) / 2;
+    //double screenWidth = MediaQuery.of(context).size.width;
+    // double itemWidth = (screenWidth - 60) / 2;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Dashboard')),
@@ -84,20 +84,20 @@ class DashboardPageState extends State<DashboardPage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: summaryValues.entries.map((entry) {
-                            return Container(
-                              width: itemWidth,
-                              margin: const EdgeInsets.only(right: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: summaryValues.entries.map((entry) {
+                          return Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
                               child: SummaryBox(
                                 title: entry.key,
                                 value: entry.value,
                               ),
-                            );
-                          }).toList(),
-                        ),
+                            ),
+                          );
+                        }).toList(),
                       ),
                       const SizedBox(height: 16),
                       Container(
