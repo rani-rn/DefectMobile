@@ -6,6 +6,7 @@ A cross-platform application for recording defects, built using ASP.NET Core and
 - Mobile App: For defect data input 
 
 ---
+Access the mobile apk here : defect_report_mobile\build\app\outputs\flutter-apk\app-release.apk
 
 ## ✨ Features
 
